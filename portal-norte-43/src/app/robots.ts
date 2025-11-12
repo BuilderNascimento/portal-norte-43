@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://portal-norte-43.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://portalnorte43.com.br';
 
   return {
     rules: {

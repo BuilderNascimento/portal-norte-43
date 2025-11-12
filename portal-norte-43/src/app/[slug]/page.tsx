@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portal-norte-43.vercel.app";
+        const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portalnorte43.com.br";
   const articleUrl = `${siteUrl}/${slug}`;
   
   // URL absoluta da imagem - garante que seja acessível
@@ -90,7 +90,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
   const content = news.content || news.summary;
 
   // URL do site para compartilhamento
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portal-norte-43.vercel.app";
+        const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portalnorte43.com.br";
   const articleUrl = `${siteUrl}/${slug}`;
 
   // URL absoluta da imagem - garante que seja acessível

@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 import { getAggregatedNews } from '@/lib/news-aggregator';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://portal-norte-43.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://portalnorte43.com.br';
 
   // Busca todas as notícias
   const news = await getAggregatedNews();

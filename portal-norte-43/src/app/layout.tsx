@@ -7,7 +7,10 @@ import { SiteHeaderWithTicker } from "@/components/layout/site-header-with-ticke
 
 const inter = Inter({ subsets: ["latin"] });
 
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://portalnorte43.com.br';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Portal Norte 43",
   description:
     "Notícias automatizadas do Norte Pioneiro com foco em anunciantes e leitores locais.",
@@ -16,6 +19,8 @@ export const metadata: Metadata = {
     description: "Notícias automatizadas do Norte Pioneiro do Paraná",
     type: "website",
     locale: "pt_BR",
+    url: siteUrl,
+    siteName: "Portal Norte 43",
   },
   twitter: {
     card: "summary_large_image",
