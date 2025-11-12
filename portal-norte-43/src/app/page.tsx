@@ -123,7 +123,7 @@ export default async function Home() {
               <h2 className="text-lg font-bold text-slate-900">Publicidade</h2>
             </div>
             <p className="mb-4 text-sm text-slate-600">
-              Alcance leitores de Maringá, Marialva, Mandaguari e toda a região.
+              Alcance leitores de Andirá, Bandeirantes, Cambará e toda a região.
             </p>
             <div className="space-y-4">
               {sidebarAds.map(ad => (
