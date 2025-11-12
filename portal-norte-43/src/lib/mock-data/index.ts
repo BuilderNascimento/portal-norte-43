@@ -38,6 +38,30 @@ const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
   {
+    id: 103,
+    slug: 'brasil-eua-avancam-negociacoes-tarifas-comerciais-chanceler-mauro-vieira-12-11-2025',
+    title: 'Brasil e EUA avançam em negociações sobre tarifas comerciais, diz chanceler Mauro Vieira',
+    summary:
+      'Ministro das Relações Exteriores se reuniu com senador Marco Rubio em Washington para discutir redução de barreiras comerciais. Foco em setores estratégicos como agropecuária e manufaturados.',
+    city: 'Brasil',
+    category: 'Geral',
+    status: 'approved',
+    publishedAt: '2025-11-12T20:00:00-03:00',
+    source: 'Agência Brasil / EBC',
+    image: '/images/news/brasilEUA.png',
+    content: `O ministro das Relações Exteriores do Brasil, Mauro Vieira, se reuniu nesta terça-feira (11) com o senador norte-americano Marco Rubio para discutir avanços nas negociações sobre tarifas e barreiras comerciais entre os dois países.
+
+Segundo o Itamaraty, o encontro aconteceu em Washington (EUA) e teve como foco o fortalecimento das relações econômicas bilaterais e o acesso de produtos brasileiros ao mercado norte-americano.
+
+Vieira destacou que o governo brasileiro busca reduzir entraves tarifários em setores estratégicos, especialmente agropecuária e manufaturados, que são pilares das exportações nacionais.
+
+"Estamos trabalhando para que o comércio entre Brasil e Estados Unidos seja mais equilibrado, com condições justas para ambos os lados", afirmou o chanceler.
+
+Rubio, por sua vez, ressaltou o papel do Brasil como parceiro relevante na região e defendeu maior integração econômica no continente.
+
+As tratativas fazem parte de uma série de encontros diplomáticos que antecedem a Cúpula das Américas, prevista para o início de 2026.`,
+  },
+  {
     id: 101,
     slug: 'motociclista-gravemente-ferido-colisao-onibus-br369-andira-12-11-2025',
     title: 'Motociclista de Andirá é transferido em estado grave para Londrina após colisão com ônibus na BR-369',
