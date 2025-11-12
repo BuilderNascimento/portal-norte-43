@@ -30,9 +30,11 @@ export async function GET(request: Request) {
         );
       }
 
+      console.log('🌍 API: Buscando clima para', latitude, longitude);
       weather = await getWeatherData(latitude, longitude);
     } else {
       // Usa localização padrão (Andirá, PR)
+      console.log('📍 API: Usando localização padrão (Andirá)');
       weather = await getWeatherData();
     }
 
