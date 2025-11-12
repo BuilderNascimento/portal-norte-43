@@ -38,6 +38,45 @@ const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
   {
+    id: 102,
+    slug: 'inmet-alerta-temporal-norte-pioneiro-andira-regiao-zona-risco-12-11-2025',
+    title: 'INMET emite alerta de temporal para o Norte Pioneiro; Andirá e região estão na zona de risco',
+    summary:
+      'Alerta válido até quinta-feira (14) prevê chuvas intensas de até 100mm/dia, ventos de até 100 km/h, possibilidade de granizo e risco de alagamentos. Defesa Civil reforça orientações de segurança para 280+ cidades do Paraná.',
+    city: 'Andirá',
+    category: 'Geral',
+    status: 'approved',
+    publishedAt: '2025-11-12T18:00:00-03:00',
+    source: 'INMET / Defesa Civil',
+    image: '/images/news/chuva.png',
+    content: `O Instituto Nacional de Meteorologia (INMET) emitiu um alerta de temporal válido para Andirá, Londrina, Norte Pioneiro e mais de 280 cidades do Paraná.
+
+O aviso é válido da meia-noite desta quarta-feira (13) até 23h59 de quinta-feira (14) e indica risco de tempestades fortes em diversas regiões do estado.
+
+Entre os principais fenômenos previstos estão:
+
+• Chuvas intensas entre 30 e 60 mm/h, podendo chegar a 100 mm/dia;
+• Ventos fortes de até 100 km/h;
+• Possibilidade de granizo;
+• Risco de alagamentos, quedas de árvores e danos em redes elétricas.
+
+O cenário é causado pela formação de um sistema de baixa pressão entre Argentina e Paraguai, somado ao avanço de uma frente fria pelo oceano, deixando o clima ainda mais instável.
+
+A Defesa Civil reforça as orientações de segurança:
+
+• Evite se abrigar debaixo de árvores;
+• Não estacione veículos perto de postes ou placas;
+• Durante as tempestades, evite usar aparelhos elétricos ligados na tomada;
+• Fique atento aos comunicados oficiais e boletins de atualização.
+
+Telefones de emergência:
+
+• Defesa Civil: 199
+• Corpo de Bombeiros: 193
+
+Atenção redobrada nas próximas horas. Cuidado e prevenção salvam vidas — compartilhe esta informação com familiares e vizinhos.`,
+  },
+  {
     id: 101,
     slug: 'motociclista-gravemente-ferido-colisao-onibus-br369-andira-12-11-2025',
     title: 'Motociclista fica gravemente ferido após colisão com ônibus na BR-369, em Andirá',
