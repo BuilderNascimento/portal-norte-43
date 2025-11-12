@@ -38,6 +38,28 @@ const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
   {
+    id: 101,
+    slug: 'motociclista-gravemente-ferido-colisao-onibus-br369-andira-12-11-2025',
+    title: 'Motociclista de Andirá é transferido em estado grave para Londrina após colisão com ônibus na BR-369',
+    summary:
+      'Vítima de 38 anos foi transferida para o Hospital Universitário de Londrina (HU) na manhã desta quarta-feira. Acidente ocorreu na madrugada de terça-feira na BR-369. Homem segue sob cuidados intensivos.',
+    city: 'Andirá',
+    category: 'Trânsito',
+    status: 'approved',
+    publishedAt: '2025-11-12T19:00:00-03:00',
+    source: 'Informações locais e equipes de resgate',
+    image: '/images/news/garcia.png',
+    content: `O motociclista de aproximadamente 38 anos, que havia ficado gravemente ferido em um acidente envolvendo um ônibus da Viação Garcia na madrugada desta terça-feira (12), em Andirá, precisou ser transferido na manhã de hoje para o Hospital Universitário de Londrina (HU).
+
+De acordo com informações locais, a colisão ocorreu na BR-369, nas proximidades da sede da Defesa Civil da cidade. O impacto foi na lateral do ônibus, causando traumatismo e múltiplas lesões no condutor da moto.
+
+Equipes do SAMU e da Defesa Civil prestaram os primeiros atendimentos ainda durante a madrugada. Inicialmente, a vítima foi encaminhada ao Hospital Municipal de Andirá, mas, devido à gravidade do quadro, foi transferida por uma unidade avançada do SAMU para Londrina.
+
+O homem segue sob cuidados intensivos e o estado de saúde é considerado grave.
+
+As causas do acidente ainda estão sendo apuradas pelas autoridades competentes.`,
+  },
+  {
     id: 102,
     slug: 'inmet-alerta-temporal-norte-pioneiro-andira-regiao-zona-risco-12-11-2025',
     title: 'INMET emite alerta de temporal para o Norte Pioneiro; Andirá e região estão na zona de risco',
@@ -75,26 +97,6 @@ Telefones de emergência:
 • Corpo de Bombeiros: 193
 
 Atenção redobrada nas próximas horas. Cuidado e prevenção salvam vidas — compartilhe esta informação com familiares e vizinhos.`,
-  },
-  {
-    id: 101,
-    slug: 'motociclista-gravemente-ferido-colisao-onibus-br369-andira-12-11-2025',
-    title: 'Motociclista fica gravemente ferido após colisão com ônibus na BR-369, em Andirá',
-    summary:
-      'Vítima de 38 anos se envolveu em acidente com ônibus da Viação Garcia na madrugada desta terça-feira. Impacto foi na lateral do veículo, resultando em traumatismo. Vítima foi levada ao Hospital Municipal e deverá ser transferida para unidade de referência.',
-    city: 'Andirá',
-    category: 'Trânsito',
-    status: 'approved',
-    publishedAt: '2025-11-12T14:30:00-03:00',
-    source: 'Portal Norte 43',
-    image: '/images/news/garcia.png',
-    content: `Um motociclista de aproximadamente 38 anos ficou gravemente ferido após se envolver em um acidente com um ônibus da Viação Garcia na madrugada desta terça-feira (12), em Andirá, no Norte Pioneiro do Paraná.
-
-De acordo com informações locais, a batida ocorreu na BR-369, nas proximidades da sede da Defesa Civil da cidade. O impacto foi na lateral do ônibus, resultando em traumatismo no condutor da moto.
-
-Equipes do SAMU e da Defesa Civil foram acionadas e prestaram os primeiros atendimentos no local. A vítima foi levada ao Hospital Municipal de Andirá e, devido à gravidade dos ferimentos, deverá ser transferida para outra unidade de referência da região.
-
-As causas do acidente ainda estão sendo apuradas.`,
   },
   {
     id: 100,
