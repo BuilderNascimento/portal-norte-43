@@ -220,14 +220,6 @@ export default async function Home() {
             <div className="mt-4">
               <QuickSubmitForm />
             </div>
-            <div className="mt-4 text-center">
-              <Link
-                href="/admin/login"
-                className="text-xs font-medium text-red-600 hover:text-red-700 transition-colors"
-              >
-                Ou acesse o painel completo →
-              </Link>
-            </div>
           </div>
         </aside>
       </div>

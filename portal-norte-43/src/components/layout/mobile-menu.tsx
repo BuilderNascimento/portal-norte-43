@@ -100,16 +100,6 @@ export function MobileMenu() {
                 </div>
               </nav>
 
-              {/* Footer */}
-              <div className="border-t border-slate-200 p-4">
-                <Link
-                  href="/admin/login"
-                  onClick={() => setIsOpen(false)}
-                  className="block w-full rounded-lg bg-red-600 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-red-700"
-                >
-                  Área Admin
-                </Link>
-              </div>
             </div>
           </div>
         </>

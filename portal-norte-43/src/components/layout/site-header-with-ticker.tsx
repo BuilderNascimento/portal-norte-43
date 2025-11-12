@@ -31,7 +31,7 @@ export async function SiteHeaderWithTicker() {
 
       {/* Top bar */}
       <div className="border-b border-slate-100 bg-slate-50">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-3 py-2 text-xs text-slate-600 sm:px-4 lg:px-6">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-center px-3 py-2 text-xs text-slate-600 sm:px-4 lg:px-6">
           <div className="flex items-center gap-4">
             <span className="font-medium">Norte Pioneiro do Paraná</span>
             <span className="hidden text-slate-400 sm:inline">•</span>
@@ -39,9 +39,6 @@ export async function SiteHeaderWithTicker() {
               Última atualização: {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' })}
             </span>
           </div>
-          <Link href="/admin/login" className="font-medium text-slate-700 hover:text-red-600 transition-colors">
-            Área Admin
-          </Link>
         </div>
       </div>
 
