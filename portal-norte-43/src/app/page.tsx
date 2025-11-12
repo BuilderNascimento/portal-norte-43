@@ -6,6 +6,7 @@ import { MobileCTAButton } from "@/components/features/news/mobile-cta-button";
 import { NewsCard } from "@/components/features/news/news-card";
 import { NewsFeed } from "@/components/features/news/news-feed";
 import { QuickSubmitForm } from "@/components/features/news/quick-submit-form";
+import { EmergencyContacts } from "@/components/features/info/emergency-contacts";
 import { NewsletterForm } from "@/components/features/newsletter/newsletter-form";
 import { getAdsByPosition } from "@/lib/mock-data";
 import {
@@ -210,6 +211,18 @@ export default async function Home() {
                 <AdSlot key={ad.id} ad={ad} label="Patrocinado" />
               ))}
             </div>
+          </div>
+
+          {/* Contatos de Emergência */}
+          <div className="rounded-xl border-2 border-red-600 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm dark:border-red-700 dark:from-red-950/30 dark:to-slate-900">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="h-1 w-1 rounded-full bg-red-600" />
+              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">📞 Emergências</h2>
+            </div>
+            <p className="mb-4 text-xs text-slate-600 dark:text-slate-400">
+              Números importantes para situações de emergência.
+            </p>
+            <EmergencyContacts variant="vertical" />
           </div>
 
           {/* Boletim Diário */}
