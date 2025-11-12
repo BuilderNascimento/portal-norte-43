@@ -24,7 +24,7 @@ export interface User {
   password: string;
 }
 
-export type AdPlacement = 'header' | 'sidebar' | 'infeed';
+export type AdPlacement = 'header' | 'sidebar' | 'infeed' | 'top';
 
 export interface AdBanner {
   id: number;
@@ -284,6 +284,13 @@ export const mockAds: AdBanner[] = [
     link: 'https://www.radion43.com.br',
     position: 'infeed',
     label: 'Rádio Portal Norte 43',
+  },
+  {
+    id: 4,
+    image: '/images/ads/clinica-popular.svg',
+    link: 'https://www.clinicapopular.com.br',
+    position: 'top',
+    label: 'Banner Topo',
   },
 ];
 

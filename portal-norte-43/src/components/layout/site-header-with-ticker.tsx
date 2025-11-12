@@ -2,10 +2,13 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 import { NewsTicker } from '@/components/features/news/news-ticker';
+import { MobileMenu } from '@/components/layout/mobile-menu';
+import { getAggregatedNews } from '@/lib/news-aggregator';
 
 const NAV_LINKS = [
   { href: '/', label: 'Notícias' },
   { href: '/anuncie-conosco', label: 'Anuncie Conosco' },
+  { href: '/sobre', label: 'Sobre' },
 ];
 
 const CATEGORIES = [
@@ -16,16 +19,25 @@ const CATEGORIES = [
   { href: '/?category=Esportes', label: 'Esportes' },
 ];
 
-export function SiteHeader() {
+export async function SiteHeaderWithTicker() {
+  // Busca as 5 notícias mais recentes para o ticker
+  const allNews = await getAggregatedNews();
+  const tickerNews = allNews.slice(0, 5);
+
   return (
     <header className="sticky top-0 z-50 border-b-2 border-red-600 bg-white shadow-sm">
+      {/* News Ticker */}
+      {tickerNews.length > 0 && <NewsTicker news={tickerNews} />}
+
       {/* Top bar */}
       <div className="border-b border-slate-100 bg-slate-50">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-3 py-2 text-xs text-slate-600 sm:px-4 lg:px-6">
           <div className="flex items-center gap-4">
             <span className="font-medium">Norte Pioneiro do Paraná</span>
             <span className="hidden text-slate-400 sm:inline">•</span>
-            <span className="hidden text-slate-500 sm:inline">Última atualização: {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' })}</span>
+            <span className="hidden text-slate-500 sm:inline">
+              Última atualização: {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' })}
+            </span>
           </div>
           <Link href="/admin/login" className="font-medium text-slate-700 hover:text-red-600 transition-colors">
             Área Admin
@@ -50,17 +62,20 @@ export function SiteHeader() {
             </div>
           </Link>
 
-          <nav aria-label="Navegação principal" className="hidden items-center gap-8 text-sm font-semibold md:flex">
-            {NAV_LINKS.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-slate-700 transition-colors hover:text-red-600"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="flex items-center gap-4">
+            <nav aria-label="Navegação principal" className="hidden items-center gap-8 text-sm font-semibold md:flex">
+              {NAV_LINKS.map(link => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-slate-700 transition-colors hover:text-red-600"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <MobileMenu />
+          </div>
         </div>
 
         {/* Categories bar */}

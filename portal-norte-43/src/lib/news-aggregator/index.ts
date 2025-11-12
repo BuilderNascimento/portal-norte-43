@@ -80,3 +80,27 @@ export async function getNewsBySlug(slug: string) {
   }
 }
 
+/**
+ * Busca notícias relacionadas (mesma categoria ou cidade, excluindo a atual)
+ */
+export async function getRelatedNews(currentSlug: string, category?: string, city?: string, limit: number = 3) {
+  try {
+    const allNews = await getAggregatedNews();
+    
+    // Filtra notícias relacionadas (mesma categoria ou cidade, excluindo a atual)
+    const related = allNews
+      .filter(news => {
+        if (news.slug === currentSlug) return false;
+        if (category && news.category === category) return true;
+        if (city && news.city === city) return true;
+        return false;
+      })
+      .slice(0, limit);
+    
+    return related;
+  } catch (error) {
+    console.error('Erro ao buscar notícias relacionadas:', error);
+    return [];
+  }
+}
+

@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AdSlot } from "@/components/features/news/ad-slot";
+import { MobileCTAButton } from "@/components/features/news/mobile-cta-button";
 import { NewsCard } from "@/components/features/news/news-card";
 import { NewsFeed } from "@/components/features/news/news-feed";
+import { QuickSubmitForm } from "@/components/features/news/quick-submit-form";
 import { getAdsByPosition } from "@/lib/mock-data";
 import {
   getAggregatedCategories,
@@ -28,9 +30,45 @@ export default async function Home() {
 
   const sidebarAds = getAdsByPosition("sidebar");
   const infeedAds = getAdsByPosition("infeed");
+  const topAds = getAdsByPosition("top");
+
+  // Organizar notícias por categoria para seções
+  const newsByCategory = remainingNews.reduce((acc, news) => {
+    if (!acc[news.category]) {
+      acc[news.category] = [];
+    }
+    acc[news.category].push(news);
+    return acc;
+  }, {} as Record<string, typeof remainingNews>);
+
+  const categoryOrder = ['Policial', 'Trânsito', 'Política', 'Economia', 'Esportes', 'Geral'];
 
   return (
     <div className="space-y-6 sm:space-y-8">
+      {/* Banner Topo */}
+      {topAds.length > 0 && (
+        <div className="mx-auto max-w-5xl">
+          {topAds.map(ad => (
+            <a
+              key={ad.id}
+              href={ad.link}
+              target="_blank"
+              rel="noreferrer"
+              className="block rounded-xl border border-dashed border-slate-300 bg-white p-2 shadow-sm transition hover:shadow-md"
+            >
+              <div className="relative h-24 w-full overflow-hidden rounded-lg bg-slate-100 sm:h-32">
+                <Image
+                  src={ad.image}
+                  alt={ad.label}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 728px"
+                />
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
       {/* Featured Section - Destaque Principal */}
       {featuredNews.length > 0 && (
         <section className="grid gap-4 sm:gap-6 lg:grid-cols-3">
@@ -104,12 +142,56 @@ export default async function Home() {
       {/* Main Content Grid */}
       <div className="grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
         <section className="flex flex-col gap-6 sm:gap-8 min-w-0">
-          <div className="flex items-center justify-between border-b-2 border-red-600 pb-2 sm:pb-3">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Últimas Notícias</h2>
-            <span className="text-xs sm:text-sm font-medium text-slate-600">{remainingNews.length} matérias</span>
-          </div>
+          {/* Seções por Categoria */}
+          {categoryOrder.map(category => {
+            const categoryNews = newsByCategory[category] || [];
+            if (categoryNews.length === 0) return null;
 
-          <NewsFeed news={remainingNews} cities={cities} categories={categories} infeedAds={infeedAds} />
+            const categoryIcons: Record<string, string> = {
+              'Policial': '🚓',
+              'Trânsito': '🚗',
+              'Política': '🏛️',
+              'Economia': '💰',
+              'Esportes': '⚽',
+              'Geral': '📰',
+            };
+
+            return (
+              <div key={category} className="space-y-4">
+                <div className="flex items-center gap-3 border-b-2 border-red-600 pb-2">
+                  <span className="text-2xl">{categoryIcons[category] || '📰'}</span>
+                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900">{category}</h2>
+                  <span className="text-xs sm:text-sm font-medium text-slate-500">
+                    {categoryNews.length} {categoryNews.length === 1 ? 'matéria' : 'matérias'}
+                  </span>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {categoryNews.slice(0, 6).map(item => (
+                    <NewsCard key={item.id} news={item} />
+                  ))}
+                </div>
+                {categoryNews.length > 6 && (
+                  <div className="text-center">
+                    <Link
+                      href={`/?category=${category}`}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:text-red-700 transition-colors"
+                    >
+                      Ver todas as notícias de {category} →
+                    </Link>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {/* Seção Últimas Notícias (todas) */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between border-b-2 border-red-600 pb-2 sm:pb-3">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Todas as Notícias</h2>
+              <span className="text-xs sm:text-sm font-medium text-slate-600">{remainingNews.length} matérias</span>
+            </div>
+            <NewsFeed news={remainingNews} cities={cities} categories={categories} infeedAds={infeedAds} />
+          </div>
         </section>
 
         <aside className="hidden lg:flex flex-col gap-6">
@@ -130,20 +212,28 @@ export default async function Home() {
           </div>
 
           {/* CTA Colaboração */}
-          <div className="rounded-xl border-2 border-red-100 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm">
-            <h2 className="text-lg font-bold text-slate-900">Envie sua notícia</h2>
+          <div id="enviar-noticia" className="rounded-xl border-2 border-red-100 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm">
+            <h2 className="text-lg font-bold text-slate-900">📸 Envie sua notícia</h2>
             <p className="mt-2 text-sm text-slate-600">
-              Correspondentes e colaboradores podem registrar ocorrências diretamente no painel.
+              Envie flagrantes, fotos e informações — participe do Portal Norte 43!
             </p>
-            <Link
-              href="/admin/login"
-              className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-red-700 hover:shadow-lg"
-            >
-              Acessar painel
-            </Link>
+            <div className="mt-4">
+              <QuickSubmitForm />
+            </div>
+            <div className="mt-4 text-center">
+              <Link
+                href="/admin/login"
+                className="text-xs font-medium text-red-600 hover:text-red-700 transition-colors"
+              >
+                Ou acesse o painel completo →
+              </Link>
+            </div>
           </div>
         </aside>
       </div>
+
+      {/* Mobile CTA Button Fixo */}
+      <MobileCTAButton />
     </div>
   );
 }

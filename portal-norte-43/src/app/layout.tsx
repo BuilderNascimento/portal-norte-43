@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
+import { SiteHeaderWithTicker } from "@/components/layout/site-header-with-ticker";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${inter.className} bg-white antialiased`}>
         <div className="flex min-h-screen flex-col">
-          <SiteHeader />
+          <SiteHeaderWithTicker />
           <main className="flex-1 bg-slate-50">
             <div className="mx-auto w-full max-w-7xl px-3 py-6 sm:px-4 sm:py-8 lg:px-6">
               {children}

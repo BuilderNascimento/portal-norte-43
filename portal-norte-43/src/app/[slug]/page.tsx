@@ -4,8 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { AdSlot } from "@/components/features/news/ad-slot";
+import { NewsCard } from "@/components/features/news/news-card";
 import { getAdsByPosition } from "@/lib/mock-data";
-import { getNewsBySlug } from "@/lib/news-aggregator";
+import { getNewsBySlug, getRelatedNews } from "@/lib/news-aggregator";
 import { formatDateTimeBR } from "@/lib/utils/date";
 
 // ISR: Revalida a cada 2 minutos
@@ -83,6 +84,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
   }
 
   const sidebarAds = getAdsByPosition("sidebar");
+  const relatedNews = await getRelatedNews(slug, news.category, news.city, 3);
 
   // Se não tiver conteúdo completo, usa o resumo
   const content = news.content || news.summary;
@@ -91,10 +93,50 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portal-norte-43.vercel.app";
   const articleUrl = `${siteUrl}/${slug}`;
 
+  // URL absoluta da imagem - garante que seja acessível
+  let imageUrl = news.image.startsWith("http")
+    ? news.image
+    : `${siteUrl}${news.image}`;
+  imageUrl = imageUrl.replace(/\s/g, "%20"); // Encode spaces for URLs
+
   return (
-    <div className="mx-auto w-full max-w-4xl">
+    <>
+      {/* Schema.org JSON-LD para SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'NewsArticle',
+            headline: news.title,
+            description: news.summary,
+            image: imageUrl,
+            datePublished: news.publishedAt,
+            dateModified: news.publishedAt,
+            author: {
+              '@type': 'Organization',
+              name: news.source,
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Portal Norte 43',
+              logo: {
+                '@type': 'ImageObject',
+                url: `${siteUrl}/logo.png`,
+              },
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': articleUrl,
+            },
+            articleSection: news.category,
+          }),
+        }}
+      />
+
+      <div className="mx-auto w-full max-w-4xl">
         {/* Breadcrumb */}
-      <nav className="mb-4 sm:mb-6 text-xs sm:text-sm text-slate-600 overflow-x-auto">
+        <nav className="mb-4 sm:mb-6 text-xs sm:text-sm text-slate-600 overflow-x-auto">
         <Link href="/" className="hover:text-red-600 transition-colors">
           Início
         </Link>
@@ -124,8 +166,15 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
               {news.title}
             </h1>
 
-            <div className="flex items-center gap-2 text-sm text-slate-600">
-              <span>Fonte: {news.source}</span>
+            {/* Subtítulo */}
+            <h2 className="text-lg font-medium leading-relaxed text-slate-600 sm:text-xl">
+              {news.summary}
+            </h2>
+
+            <div className="flex flex-wrap items-center gap-3 text-sm text-slate-600">
+              <span>Fonte: <strong>{news.source}</strong></span>
+              <span className="text-slate-300">•</span>
+              <span>Por: <strong>Redação Portal Norte 43</strong></span>
             </div>
           </header>
 
@@ -143,10 +192,22 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
 
           {/* Conteúdo */}
           <div className="prose prose-slate max-w-none">
-            <div className="text-lg leading-relaxed text-slate-700 whitespace-pre-line">
+            <div className="text-lg leading-relaxed text-slate-700 whitespace-pre-line text-justify">
               {content}
             </div>
           </div>
+
+          {/* Leia Também */}
+          {relatedNews.length > 0 && (
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
+              <h3 className="mb-4 text-lg font-bold text-slate-900">Leia também</h3>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {relatedNews.map(item => (
+                  <NewsCard key={item.id} news={item} variant="compact" />
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Compartilhar */}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 sm:p-6">
@@ -187,6 +248,17 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
                 </svg>
                 WhatsApp
               </a>
+              <a
+                href={`https://t.me/share/url?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(news.title)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-lg bg-blue-500 px-3 py-2 text-xs sm:text-sm font-medium text-white transition hover:bg-blue-600"
+              >
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                </svg>
+                Telegram
+              </a>
             </div>
           </div>
 
@@ -217,6 +289,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
         </aside>
       </div>
     </div>
+    </>
   );
 }
 

@@ -12,7 +12,7 @@ export function SiteFooter() {
       { label: "Esportes", href: "/?category=Esportes" },
     ],
     sobre: [
-      { label: "Quem Somos", href: "/sobre" },
+      { label: "Sobre", href: "/sobre" },
       { label: "Anuncie Conosco", href: "/anuncie-conosco" },
       { label: "Contato", href: "mailto:contato@portaln43.com" },
       { label: "Política de Privacidade", href: "/privacidade" },
