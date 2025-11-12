@@ -34,7 +34,15 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
   const articleUrl = `${siteUrl}/${slug}`;
   
   // Normaliza a URL da imagem para garantir que seja absoluta e acessível
-  const imageUrl = normalizeImageUrl(news.image, siteUrl);
+  let imageUrl = normalizeImageUrl(news.image, siteUrl);
+  
+  // Garante que a URL seja absoluta e válida
+  if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+    imageUrl = `${siteUrl}${imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`}`;
+  }
+  
+  // Remove espaços e caracteres problemáticos
+  imageUrl = imageUrl.replace(/\s/g, '%20').replace(/[<>"']/g, '');
 
   return {
     title: `${news.title} | Portal Norte 43`,
@@ -51,7 +59,6 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
           width: 1200,
           height: 630,
           alt: news.title,
-          type: 'image/jpeg',
         },
       ],
       locale: "pt_BR",
