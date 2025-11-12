@@ -6,6 +6,7 @@ import { MobileCTAButton } from "@/components/features/news/mobile-cta-button";
 import { NewsCard } from "@/components/features/news/news-card";
 import { NewsFeed } from "@/components/features/news/news-feed";
 import { QuickSubmitForm } from "@/components/features/news/quick-submit-form";
+import { NewsletterForm } from "@/components/features/newsletter/newsletter-form";
 import { getAdsByPosition } from "@/lib/mock-data";
 import {
   getAggregatedCategories,
@@ -211,10 +212,22 @@ export default async function Home() {
             </div>
           </div>
 
+          {/* Boletim Diário */}
+          <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="h-1 w-1 rounded-full bg-red-600" />
+              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Boletim Diário</h2>
+            </div>
+            <p className="mb-4 text-sm text-slate-600 dark:text-slate-400">
+              Receba um resumo diário das principais notícias do Norte Pioneiro.
+            </p>
+            <NewsletterForm />
+          </div>
+
           {/* CTA Colaboração */}
-          <div id="enviar-noticia" className="rounded-xl border-2 border-red-100 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm">
-            <h2 className="text-lg font-bold text-slate-900">📸 Envie sua notícia</h2>
-            <p className="mt-2 text-sm text-slate-600">
+          <div id="enviar-noticia" className="rounded-xl border-2 border-red-100 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm dark:border-red-900/30 dark:from-red-950/20 dark:to-slate-900">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">📸 Envie sua notícia</h2>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
               Envie flagrantes, fotos e informações — participe do Portal Norte 43!
             </p>
             <div className="mt-4">

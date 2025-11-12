@@ -28,7 +28,7 @@ export function NewsTicker({ news }: NewsTickerProps) {
   const currentNews = news[currentIndex];
 
   return (
-    <div className="flex items-center gap-3 overflow-hidden bg-red-600 px-4 py-2 text-white">
+    <div className="flex items-center gap-3 overflow-hidden bg-red-600 dark:bg-red-700 px-4 py-2 text-white">
       <div className="flex items-center gap-2 flex-shrink-0">
         <div className="h-2 w-2 animate-pulse rounded-full bg-white" />
         <span className="text-xs font-bold uppercase tracking-wide">Últimas</span>
