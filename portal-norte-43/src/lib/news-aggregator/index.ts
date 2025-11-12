@@ -60,7 +60,7 @@ export function getAggregatedCities() {
  * Obtém categorias disponíveis (mockadas + RSS)
  */
 export function getAggregatedCategories() {
-  const mockCategories = ['Política', 'Trânsito', 'Policial', 'Economia', 'Esportes', 'Geral', 'Cidade', 'COP30'];
+  const mockCategories = ['Política', 'Trânsito', 'Policial', 'Economia', 'Esportes', 'Geral', 'Cidade', 'COP30', 'Meio Ambiente'];
   const rssCategories = ['Nacional', 'Governo', 'Educação', 'Saúde', 'Infraestrutura', 'Cidades', 'Trânsito'];
   
   return Array.from(new Set([...mockCategories, ...rssCategories])).sort();

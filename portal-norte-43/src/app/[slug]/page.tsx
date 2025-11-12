@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { AdSlot } from "@/components/features/news/ad-slot";
+import { ArticleContent } from "@/components/features/news/article-content";
 import { NewsCard } from "@/components/features/news/news-card";
 import { getAdsByPosition } from "@/lib/mock-data";
 import { getNewsBySlug, getRelatedNews } from "@/lib/news-aggregator";
@@ -204,9 +205,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
 
           {/* Conteúdo */}
           <div className="prose prose-slate max-w-none">
-            <div className="text-lg leading-relaxed text-slate-700 whitespace-pre-line text-justify">
-              {content}
-            </div>
+            <ArticleContent content={content} />
           </div>
 
           {/* Leia Também */}

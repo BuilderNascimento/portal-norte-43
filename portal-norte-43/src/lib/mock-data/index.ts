@@ -38,6 +38,38 @@ const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
   {
+    id: 105,
+    slug: 'pmpr-flagra-desmatamento-loteamento-irregular-alto-padrao-area-preservacao-curitiba-12-11-2025',
+    title: 'PMPR flagra desmatamento e loteamento irregular de alto padrão em área de preservação em Curitiba',
+    summary:
+      'Operação do 13º Batalhão da PM em parceria com a Prefeitura de Curitiba flagrou máquina realizando desmatamento e aterro em área de mata preservada no bairro Ganchinho. Três pessoas foram conduzidas e multas somam R$ 1,5 milhão.',
+    city: 'Curitiba',
+    category: 'Meio Ambiente',
+    status: 'approved',
+    publishedAt: '2025-11-12T22:00:00-03:00',
+    source: 'Centro de Comunicação Social da Polícia Militar do Paraná (PMPR)',
+    image: '/images/news/escavadeirapmpr2.png',
+    content: `A Polícia Militar do Paraná (PMPR), por meio do 13º Batalhão da PM, em parceria com a Prefeitura de Curitiba, realizou nesta quarta-feira (12) uma operação para combater loteamentos irregulares no bairro Ganchinho, região sul da capital.
+
+Durante a fiscalização, as equipes flagraram uma máquina realizando desmatamento e aterro em uma área de mata preservada pertencente à região de proteção do Rio Iguaçu, integrante da Reserva Hídrica de Curitiba.
+
+![Operação da PMPR flagra desmatamento em área de preservação](/images/news/escavadeirapmpr1.png)
+
+De acordo com o tenente Everton Taborda, do 13º BPM, a ação resultou na apreensão do maquinário e na condução de três pessoas à Polícia Civil do Paraná — dois proprietários e o operador. Foram emitidos autos de infração no valor de R$ 500 mil para cada um dos envolvidos, somando R$ 1,5 milhão em multas.
+
+O tenente destacou que o local vem sendo ocupado por proprietários de imóveis de alto padrão, que adquirem terrenos para construir chácaras de lazer em áreas de manancial.
+
+"Não são moradias simples. São imóveis de alto padrão, e os compradores estão desmatando áreas de manancial, aterrando cursos d'água e degradando o meio ambiente", afirmou Taborda.
+
+Na véspera da operação, uma equipe da PM já havia flagrado um caminhão despejando entulhos de forma irregular na mesma região.
+
+A corporação informou que novas fiscalizações serão realizadas para conter as ocupações ilegais.
+
+A supressão vegetal e o parcelamento irregular do solo são crimes ambientais previstos em lei.
+
+A PMPR reforça que denúncias podem ser feitas de forma anônima pelo Disque-Denúncia 181 ou, em caso de flagrante, pelo telefone 190.`,
+  },
+  {
     id: 104,
     slug: 'barqueata-reune-mais-200-embarcacoes-belem-justica-climatica-social-12-11-2025',
     title: 'Barqueata reúne mais de 200 embarcações em Belém por justiça climática e social',
