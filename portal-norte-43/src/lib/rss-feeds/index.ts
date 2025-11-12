@@ -1,5 +1,6 @@
 import Parser from 'rss-parser';
 import type { NewsItem } from '@/lib/mock-data';
+import { toISOStringBR } from '@/lib/utils/date';
 
 const parser = new Parser({
   timeout: 10000,
@@ -171,8 +172,8 @@ export async function fetchRSSFeed(feedSource: RSSFeedSource): Promise<NewsItem[
           category: feedSource.category,
           status: 'approved' as const,
           publishedAt: item.pubDate 
-            ? new Date(item.pubDate).toISOString()
-            : new Date().toISOString(),
+            ? toISOStringBR(new Date(item.pubDate))
+            : toISOStringBR(),
           source: feedSource.name,
           image: extractImage(item),
           content: cleanContent || undefined, // Conteúdo completo

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/features/news/ad-slot";
 import { getAdsByPosition } from "@/lib/mock-data";
 import { getNewsBySlug } from "@/lib/news-aggregator";
+import { formatDateTimeBR } from "@/lib/utils/date";
 
 // ISR: Revalida a cada 2 minutos
 export const revalidate = 120;
@@ -114,13 +115,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
               <span className="inline-flex items-center rounded-full bg-red-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
                 {news.category}
               </span>
-              <span>{new Date(news.publishedAt).toLocaleDateString("pt-BR", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}</span>
+              <span>{formatDateTimeBR(news.publishedAt)}</span>
               <span className="text-slate-300">•</span>
               <span className="font-semibold text-slate-700">{news.city}</span>
             </div>

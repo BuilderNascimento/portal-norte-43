@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import type { NewsItem } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
+import { formatDateShortBR, formatDateOnlyBR } from "@/lib/utils/date";
 
 interface NewsCardProps {
   news: NewsItem;
@@ -38,10 +39,7 @@ export function NewsCard({ news, className, withBorder = true, variant = "defaul
               {news.title}
             </h3>
             <span className="mt-auto text-xs text-slate-500">
-              {new Date(news.publishedAt).toLocaleDateString("pt-BR", {
-                day: "numeric",
-                month: "short",
-              })} • {news.city}
+              {formatDateShortBR(news.publishedAt)} • {news.city}
             </span>
           </div>
         </article>
@@ -73,11 +71,7 @@ export function NewsCard({ news, className, withBorder = true, variant = "defaul
 
         <div className="flex flex-1 flex-col gap-3 p-5">
           <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-            <span>{new Date(news.publishedAt).toLocaleDateString("pt-BR", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}</span>
+            <span>{formatDateOnlyBR(news.publishedAt)}</span>
             <span className="text-slate-300">•</span>
             <span className="font-semibold text-slate-700">{news.city}</span>
           </div>

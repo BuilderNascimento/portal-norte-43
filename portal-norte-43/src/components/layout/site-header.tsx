@@ -24,7 +24,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-4">
             <span className="font-medium">Norte Pioneiro do Paraná</span>
             <span className="hidden text-slate-400 sm:inline">•</span>
-            <span className="hidden text-slate-500 sm:inline">Última atualização: {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
+            <span className="hidden text-slate-500 sm:inline">Última atualização: {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' })}</span>
           </div>
           <Link href="/admin/login" className="font-medium text-slate-700 hover:text-red-600 transition-colors">
             Área Admin

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { newsFilterSchema } from "@/lib/mock-data";
 import { getAggregatedNews } from "@/lib/news-aggregator";
+import { toISOStringBR } from "@/lib/utils/date";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
     {
       count: data.length,
       items: data,
-      updatedAt: new Date().toISOString(),
+      updatedAt: toISOStringBR(),
     },
     {
       headers: {

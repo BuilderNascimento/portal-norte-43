@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import type { NewsItem } from "@/lib/mock-data";
+import { formatDateTimeBR } from "@/lib/utils/date";
 
 interface AdminReviewTableProps {
   items: NewsItem[];
@@ -39,7 +40,7 @@ export function AdminReviewTable({ items }: AdminReviewTableProps) {
               <td className="hidden px-4 py-4 md:table-cell">{item.city}</td>
               <td className="hidden px-4 py-4 md:table-cell">{item.category}</td>
               <td className="hidden px-4 py-4 text-xs text-slate-500 lg:table-cell">
-                {new Date(item.publishedAt).toLocaleString("pt-BR")}
+                {formatDateTimeBR(item.publishedAt)}
               </td>
               <td className="px-4 py-4">
                 <div className="flex flex-col items-end gap-2 sm:flex-row sm:gap-3 sm:justify-end">

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { fetchAllRSSFeeds } from "@/lib/rss-feeds";
+import { toISOStringBR } from "@/lib/utils/date";
 
 export async function GET() {
   try {
@@ -10,7 +11,7 @@ export async function GET() {
       {
         count: news.length,
         items: news,
-        updatedAt: new Date().toISOString(),
+        updatedAt: toISOStringBR(),
       },
       {
         headers: {

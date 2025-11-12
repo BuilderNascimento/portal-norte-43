@@ -10,6 +10,7 @@ import {
   getAggregatedCities,
   getAggregatedNews,
 } from "@/lib/news-aggregator";
+import { formatDateOnlyBR, formatDateShortBR } from "@/lib/utils/date";
 
 // ISR: Revalida a cada 2 minutos (120 segundos)
 export const revalidate = 120;
@@ -53,11 +54,7 @@ export default async function Home() {
                     </span>
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                       <span className="text-xs font-medium text-white/90">
-                        {new Date(item.publishedAt).toLocaleDateString("pt-BR", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })} • {item.city}
+                        {formatDateOnlyBR(item.publishedAt)} • {item.city}
                       </span>
                       <h1 className="mt-2 text-2xl font-bold leading-tight md:text-3xl lg:text-4xl">
                         {item.title}
@@ -94,10 +91,7 @@ export default async function Home() {
                       {item.title}
                     </h3>
                     <span className="mt-auto text-xs text-slate-500">
-                      {new Date(item.publishedAt).toLocaleDateString("pt-BR", {
-                        day: "numeric",
-                        month: "short",
-                      })}
+                      {formatDateShortBR(item.publishedAt)}
                     </span>
                   </div>
                 </article>
