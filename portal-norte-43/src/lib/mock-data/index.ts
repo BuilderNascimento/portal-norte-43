@@ -38,6 +38,28 @@ const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
   {
+    id: 106,
+    slug: 'prf-apreende-carga-produtos-paraguai-destino-belo-horizonte-br262-12-11-2025',
+    title: 'PRF apreende carga de produtos do Paraguai com destino a Belo Horizonte na BR-262',
+    summary:
+      'Polícia Rodoviária Federal apreendeu mercadorias de origem paraguaia transportadas de forma irregular na BR-262, em Juatuba (MG). Carga incluía receptores de TV, isqueiros, chaveiros e eletrônicos sem nota fiscal. Motorista responderá por descaminho.',
+    city: 'Juatuba',
+    category: 'Combate ao Crime',
+    status: 'approved',
+    publishedAt: '2025-11-12T10:30:00-03:00',
+    source: 'Polícia Rodoviária Federal (PRF)',
+    image: '/images/news/prf12.jpeg',
+    content: `A Polícia Rodoviária Federal (PRF) apreendeu, na manhã desta quarta-feira (12), diversas mercadorias de origem paraguaia transportadas de forma irregular na BR-262, em Juatuba (MG).
+
+A abordagem ocorreu por volta das 7h10, quando uma equipe da PRF realizava ronda e identificou um veículo com a lanterna traseira quebrada. Ao realizar a fiscalização, os agentes encontraram vários volumes cobertos por um pano preto no interior do carro.
+
+O condutor declarou que transportava receptores de sinal de TV, isqueiros, chaveiros e eletrônicos, todos sem nota fiscal e sem o devido desembaraço aduaneiro. Segundo ele, a carga seria entregue a um homem em Belo Horizonte (MG), que seria o destinatário final dos produtos.
+
+O veículo foi recolhido e lacrado no pátio da PRF, onde permanecerá à disposição da Receita Federal para contagem e verificação da carga.
+
+O motorista foi liberado no local, mas deverá responder pelo crime de descaminho, previsto no artigo 334 do Código Penal.`,
+  },
+  {
     id: 105,
     slug: 'pmpr-flagra-desmatamento-loteamento-irregular-alto-padrao-area-preservacao-curitiba-12-11-2025',
     title: 'PMPR flagra desmatamento e loteamento irregular de alto padrão em área de preservação em Curitiba',
