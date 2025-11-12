@@ -57,7 +57,7 @@ export async function SiteHeaderWithTicker() {
           {/* Logo Centralizado (mais destaque) */}
           <Link href="/" className="flex flex-col items-center group flex-1 lg:flex-none">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 transition-colors group-hover:text-red-600">
-              Portal Norte <span className="text-red-600">43</span>
+              Portal Norte <span className="text-red-600">43</span> Jonatas
             </h1>
             <span className="text-xs sm:text-sm font-medium text-slate-500 uppercase tracking-wider mt-1">
               Notícias do Norte Pioneiro
