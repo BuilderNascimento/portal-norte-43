@@ -59,7 +59,7 @@ Como resultado, as marcas foram desclassificadas e o recolhimento imediato dos p
 
 📋 Confira a lista de marcas desclassificadas:
 
-![Lista de marcas de azeite desclassificadas](/images/news/lista12.png)
+![Lista de marcas de azeite desclassificadas](/images/news/listanova12.png)
 
 O Ministério reforça que a venda desses produtos é uma infração grave e que os estabelecimentos que mantiverem os itens à venda poderão ser responsabilizados.
 
