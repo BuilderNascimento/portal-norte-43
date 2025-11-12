@@ -47,34 +47,15 @@ export default async function Home() {
 
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* Banner Principal - Anuncie Aqui */}
-      <div className="mx-auto max-w-5xl">
-        <a
-          href="/anuncie-conosco"
-          className="block rounded-xl border-2 border-dashed border-red-300 bg-gradient-to-br from-red-50 to-white p-3 shadow-md transition-all hover:border-red-500 hover:shadow-lg sm:p-4"
-        >
-          <div className="relative h-24 w-full overflow-hidden rounded-lg bg-white sm:h-32">
-            <Image
-              src="/images/news/ANUNCIE AQUI.png"
-              alt="Anuncie Conosco - Portal Norte 43"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, 728px"
-              priority
-            />
-          </div>
-        </a>
-      </div>
-
-      {/* Banner Topo (outros anúncios) */}
+      {/* Banner Topo */}
       {topAds.length > 0 && (
         <div className="mx-auto max-w-5xl">
           {topAds.map(ad => (
             <a
               key={ad.id}
               href={ad.link}
-              target="_blank"
-              rel="noreferrer"
+              target={ad.link.startsWith('http') ? '_blank' : undefined}
+              rel={ad.link.startsWith('http') ? 'noreferrer' : undefined}
               className="block rounded-xl border border-dashed border-slate-300 bg-white p-2 shadow-sm transition hover:shadow-md"
             >
               <div className="relative h-24 w-full overflow-hidden rounded-lg bg-slate-100 sm:h-32">
@@ -84,6 +65,7 @@ export default async function Home() {
                   fill
                   className="object-contain"
                   sizes="(max-width: 768px) 100vw, 728px"
+                  priority
                 />
               </div>
             </a>

@@ -159,10 +159,10 @@ export const mockAds: AdBanner[] = [
   },
   {
     id: 4,
-    image: '/images/ads/clinica-popular.svg',
-    link: 'https://www.clinicapopular.com.br',
+    image: '/images/news/ANUNCIE AQUI.png',
+    link: '/anuncie-conosco',
     position: 'top',
-    label: 'Banner Topo',
+    label: 'Anuncie Conosco',
   },
 ];
 
