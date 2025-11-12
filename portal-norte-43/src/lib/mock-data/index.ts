@@ -38,6 +38,38 @@ const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
   {
+    id: 107,
+    slug: 'ministerio-agricultura-alerta-azeites-oliva-fraudados-improprios-consumo-12-11-2025',
+    title: 'Ministério da Agricultura alerta para azeites de oliva fraudados e impróprios para consumo',
+    summary:
+      'Mapa emitiu alerta de risco sobre azeites de oliva adulterados comercializados no país. Fiscalizações detectaram mistura com outros óleos vegetais. Marcas foram desclassificadas e recolhimento imediato foi determinado.',
+    city: 'Brasil',
+    category: 'Agricultura e Consumo',
+    status: 'approved',
+    publishedAt: '2025-11-12T23:00:00-03:00',
+    source: 'Ministério da Agricultura e Pecuária (Mapa)',
+    image: '/images/news/lista12capa.png',
+    content: `O Ministério da Agricultura e Pecuária (Mapa) emitiu um alerta de risco ao consumidor sobre azeites de oliva adulterados e impróprios para o consumo humano que estão sendo comercializados em diferentes regiões do país.
+
+As fiscalizações foram conduzidas pelo Departamento de Inspeção de Produtos de Origem Vegetal, da Secretaria de Defesa Agropecuária, e tiveram como foco identificar fraudes e garantir a segurança alimentar.
+
+De acordo com o Mapa, as amostras analisadas pelos Laboratórios Federais de Defesa Agropecuária (LFDA) detectaram a mistura de azeite com outros óleos vegetais, o que caracteriza fraude e descumprimento da legislação brasileira.
+
+Como resultado, as marcas foram desclassificadas e o recolhimento imediato dos produtos foi determinado.
+
+📋 Confira a lista de marcas desclassificadas:
+
+![Lista de marcas de azeite desclassificadas](/images/news/lista 12.jpeg)
+
+O Ministério reforça que a venda desses produtos é uma infração grave e que os estabelecimentos que mantiverem os itens à venda poderão ser responsabilizados.
+
+Aos consumidores, a recomendação é interromper imediatamente o uso dos azeites citados e solicitar substituição junto ao fornecedor, conforme previsto no Código de Defesa do Consumidor.
+
+Denúncias podem ser registradas de forma online pelo canal oficial Fala.BR.
+
+O Mapa alerta ainda para que o consumidor verifique atentamente os rótulos, uma vez que produtos fraudulentos podem utilizar nomes semelhantes a marcas conhecidas de azeite de oliva.`,
+  },
+  {
     id: 106,
     slug: 'prf-apreende-carga-produtos-paraguai-destino-belo-horizonte-br262-12-11-2025',
     title: 'PRF apreende carga de produtos do Paraguai com destino a Belo Horizonte na BR-262',
