@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { AdSlot } from "@/components/features/news/ad-slot";
 import { MobileCTAButton } from "@/components/features/news/mobile-cta-button";
 import { NewsCard } from "@/components/features/news/news-card";
 import { NewsFeed } from "@/components/features/news/news-feed";
@@ -45,8 +44,7 @@ export default async function Home({ searchParams }: HomeProps) {
   const secondaryNews = news.slice(1, 4);
   const remainingNews = news.slice(4);
 
-  const sidebarAds = getAdsByPosition("sidebar");
-  const infeedAds = getAdsByPosition("infeed");
+  // Apenas banner do topo - removendo outros anúncios por enquanto
   const topAds = getAdsByPosition("top");
 
   // Organizar notícias por categoria para seções
@@ -243,29 +241,13 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="space-y-6">
             <div className="flex items-center justify-between border-b-2 border-red-600 pb-3">
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900">Todas as Notícias</h2>
-              <span className="text-sm font-semibold text-slate-600">{remainingNews.length} matérias</span>
+              <span className="text-sm font-semibold text-slate-600">{news.length} matérias</span>
             </div>
-            <NewsFeed news={remainingNews} cities={cities} categories={categories} infeedAds={infeedAds} />
+            <NewsFeed news={news} cities={cities} categories={categories} />
           </div>
         </section>
 
         <aside className="hidden lg:flex flex-col gap-6">
-          {/* Publicidade */}
-          <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="h-1 w-1 rounded-full bg-red-600" />
-              <h2 className="text-lg font-bold text-slate-900">Publicidade</h2>
-            </div>
-            <p className="mb-4 text-sm text-slate-600">
-              Alcance leitores de Andirá, Bandeirantes, Cambará e toda a região.
-            </p>
-            <div className="space-y-4">
-              {sidebarAds.map(ad => (
-                <AdSlot key={ad.id} ad={ad} label="Patrocinado" />
-              ))}
-            </div>
-          </div>
-
           {/* Contatos de Emergência */}
           <div className="rounded-xl border-2 border-red-600 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm">
             <div className="mb-4 flex items-center gap-2">

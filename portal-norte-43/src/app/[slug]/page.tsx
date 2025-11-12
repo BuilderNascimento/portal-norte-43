@@ -3,10 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { AdSlot } from "@/components/features/news/ad-slot";
 import { ArticleContent } from "@/components/features/news/article-content";
 import { NewsCard } from "@/components/features/news/news-card";
-import { getAdsByPosition } from "@/lib/mock-data";
 import { getNewsBySlug, getRelatedNews } from "@/lib/news-aggregator";
 import { formatDateTimeBR } from "@/lib/utils/date";
 import { normalizeImageUrl } from "@/lib/utils/og-image";
@@ -99,7 +97,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
     notFound();
   }
 
-  const sidebarAds = getAdsByPosition("sidebar");
+  // Anúncios removidos temporariamente - apenas banner do topo
   const relatedNews = await getRelatedNews(slug, news.category, news.city, 3);
 
   // Se não tiver conteúdo completo, usa o resumo
@@ -284,20 +282,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
           </div>
         </article>
 
-        {/* Sidebar */}
-        <aside className="hidden lg:flex flex-col gap-6">
-          <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="h-1 w-1 rounded-full bg-red-600" />
-              <h2 className="text-lg font-bold text-slate-900">Publicidade</h2>
-            </div>
-            <div className="space-y-4">
-              {sidebarAds.map(ad => (
-                <AdSlot key={ad.id} ad={ad} label="Patrocinado" />
-              ))}
-            </div>
-          </div>
-        </aside>
+        {/* Sidebar removida temporariamente - apenas banner do topo */}
       </div>
     </div>
     </>
