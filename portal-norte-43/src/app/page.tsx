@@ -49,22 +49,22 @@ export default async function Home() {
     <div className="space-y-6 sm:space-y-8">
       {/* Banner Topo */}
       {topAds.length > 0 && (
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto w-full max-w-5xl">
           {topAds.map(ad => (
             <a
               key={ad.id}
               href={ad.link}
               target={ad.link.startsWith('http') ? '_blank' : undefined}
               rel={ad.link.startsWith('http') ? 'noreferrer' : undefined}
-              className="block rounded-xl border border-dashed border-slate-300 bg-white p-2 shadow-sm transition hover:shadow-md"
+              className="block w-full rounded-xl border border-dashed border-slate-300 bg-white p-0 shadow-sm transition hover:shadow-md"
             >
-              <div className="relative h-24 w-full overflow-hidden rounded-lg bg-slate-100 sm:h-32">
+              <div className="relative h-24 w-full overflow-hidden rounded-lg sm:h-32">
                 <Image
                   src={ad.image}
                   alt={ad.label}
                   fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 728px"
+                  className="object-cover"
+                  sizes="100vw"
                   priority
                 />
               </div>
