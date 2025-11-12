@@ -1,8 +1,8 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "framework": "nextjs",
-  "regions": ["gru1"]
+  "crons": [
+    {
+      "path": "/api/automation/process-feeds?key=YOUR_API_KEY_HERE",
+      "schedule": "*/30 * * * *"
+    }
+  ]
 }
-

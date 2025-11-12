@@ -1,16 +1,18 @@
 import type { NewsItem } from '@/lib/mock-data';
 import { getPublishedNews } from '@/lib/mock-data';
 import { fetchAllRSSFeeds } from '@/lib/rss-feeds';
+import { loadAutomatedNews } from '@/lib/automation/news-storage';
 
 /**
- * Combina notícias mockadas com notícias dos feeds RSS
+ * Combina notícias mockadas com notícias dos feeds RSS e notícias automatizadas
  */
 export async function getAggregatedNews(filters?: { city?: string; category?: string }) {
   try {
-    // Busca notícias mockadas e RSS em paralelo
-    const [mockNews, rssNews] = await Promise.all([
+    // Busca notícias mockadas, RSS e automatizadas em paralelo
+    const [mockNews, rssNews, automatedNews] = await Promise.all([
       getPublishedNews(filters),
-      fetchAllRSSFeeds(30), // Aumentado para 30 itens RSS (mais feeds = mais notícias)
+      fetchAllRSSFeeds(30), // 30 itens RSS
+      loadAutomatedNews(), // Notícias já processadas e armazenadas
     ]);
 
     // Calcula a data de 10 dias atrás (timezone de São Paulo - UTC-3)
@@ -19,15 +21,20 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
     tenDaysAgo.setDate(now.getDate() - 10);
     tenDaysAgo.setHours(0, 0, 0, 0); // Início do dia
 
-    // Combina e filtra notícias com menos de 10 dias
-    const allNews: NewsItem[] = [...mockNews, ...rssNews]
-      .filter(news => {
-        const newsDate = new Date(news.publishedAt);
-        return newsDate >= tenDaysAgo;
-      })
-      .sort(
-        (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-      );
+    // Combina todas as fontes e filtra notícias com menos de 10 dias
+    // Remove duplicatas baseado no slug
+    const allNewsMap = new Map<string, NewsItem>();
+    
+    [...mockNews, ...rssNews, ...automatedNews].forEach(news => {
+      const newsDate = new Date(news.publishedAt);
+      if (newsDate >= tenDaysAgo && !allNewsMap.has(news.slug)) {
+        allNewsMap.set(news.slug, news);
+      }
+    });
+
+    const allNews: NewsItem[] = Array.from(allNewsMap.values()).sort(
+      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
 
     // Aplica filtros se necessário
     let filteredNews = allNews;
