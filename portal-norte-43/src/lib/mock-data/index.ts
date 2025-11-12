@@ -37,6 +37,19 @@ const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
   {
+    id: 100,
+    slug: 'homem-sofre-descarga-eletrica-11-mil-volts-andira-11-11-2025',
+    title: 'Homem sofre descarga elétrica de 11 mil volts e cai de escada em Andirá',
+    summary:
+      'Vítima de 52 anos ficou gravemente ferida após choque elétrico na BR-369. Equipes do SAMU e Defesa Civil atenderam no local. Homem foi transferido para Bandeirantes com queimaduras de alta intensidade e traumatismo craniano.',
+    city: 'Andirá',
+    category: 'Geral',
+    status: 'approved',
+    publishedAt: '2025-11-11T14:30:00-03:00',
+    source: 'Portal Norte 43',
+    image: '/images/news/descarga-eletrica-andira.jpg',
+  },
+  {
     id: 1,
     slug: 'maringa-alerta-tempestade-11-11-2025',
     title: 'Maringá entra em alerta de tempestade com rajadas de até 100 km/h',
