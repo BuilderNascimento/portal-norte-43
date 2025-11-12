@@ -1,9 +1,10 @@
 import Parser from 'rss-parser';
 import type { NewsItem } from '@/lib/mock-data';
 import { toISOStringBR } from '@/lib/utils/date';
+import { getCachedFeed, setCachedFeed } from './cache';
 
 const parser = new Parser({
-  timeout: 10000,
+  timeout: 5000, // Reduzido de 10s para 5s
   headers: {
     'User-Agent': 'Portal Norte 43 RSS Reader',
   },
@@ -197,16 +198,27 @@ function generateSlug(title: string, pubDate?: string): string {
 
 /**
  * Busca e processa um feed RSS
+ * Usa cache para evitar buscar o mesmo feed múltiplas vezes
  */
 export async function fetchRSSFeed(feedSource: RSSFeedSource): Promise<NewsItem[]> {
   try {
+    // Limpa cache expirado antes de verificar
+    const { cleanExpiredCache } = await import('./cache');
+    cleanExpiredCache();
+    
+    // Verifica cache primeiro
+    const cached = getCachedFeed(feedSource.url);
+    if (cached) {
+      return cached;
+    }
+    
     const feed = await parser.parseURL(feedSource.url);
     
     if (!feed.items || feed.items.length === 0) {
       return [];
     }
 
-    return feed.items
+    const newsItems = feed.items
       .slice(0, 10) // Limita a 10 itens por feed
       .map((item: any, index) => {
         const title = item.title || 'Sem título';
@@ -233,6 +245,11 @@ export async function fetchRSSFeed(feedSource: RSSFeedSource): Promise<NewsItem[
           content: cleanContent || undefined, // Conteúdo completo
         };
       });
+    
+    // Armazena no cache
+    setCachedFeed(feedSource.url, newsItems);
+    
+    return newsItems;
   } catch (error: any) {
     // Log mais detalhado do erro
     const errorMessage = error?.message || 'Erro desconhecido';

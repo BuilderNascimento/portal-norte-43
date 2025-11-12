@@ -68,6 +68,7 @@ export function getAggregatedCategories() {
 
 /**
  * Busca uma notícia pelo slug (mockadas + RSS)
+ * Otimizado: usa cache de RSS e limita busca
  */
 export async function getNewsBySlug(slug: string) {
   try {
@@ -79,9 +80,10 @@ export async function getNewsBySlug(slug: string) {
       return mockNews;
     }
 
-    // Se não encontrou, busca nos feeds RSS
+    // Se não encontrou, busca nos feeds RSS (com cache, então é rápido)
+    // Limita a 50 itens ao invés de 100 para melhor performance
     const { fetchAllRSSFeeds } = await import('@/lib/rss-feeds');
-    const rssNews = await fetchAllRSSFeeds(100); // Busca mais itens para encontrar
+    const rssNews = await fetchAllRSSFeeds(50);
     const rssItem = rssNews.find(news => news.slug === slug);
     
     return rssItem || null;

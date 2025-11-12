@@ -9,8 +9,8 @@ import { getNewsBySlug, getRelatedNews } from "@/lib/news-aggregator";
 import { formatDateTimeBR } from "@/lib/utils/date";
 import { normalizeImageUrl } from "@/lib/utils/og-image";
 
-// ISR: Revalida a cada 2 minutos
-export const revalidate = 120;
+// ISR: Revalida a cada 5 minutos (300 segundos) - melhor performance
+export const revalidate = 300;
 
 interface NewsArticlePageProps {
   params: Promise<{

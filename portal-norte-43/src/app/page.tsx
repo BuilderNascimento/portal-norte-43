@@ -15,8 +15,8 @@ import {
 } from "@/lib/news-aggregator";
 import { formatDateOnlyBR, formatDateShortBR } from "@/lib/utils/date";
 
-// ISR: Revalida a cada 2 minutos (120 segundos)
-export const revalidate = 120;
+// ISR: Revalida a cada 5 minutos (300 segundos) - melhor performance
+export const revalidate = 300;
 
 interface HomeProps {
   searchParams: Promise<{ category?: string; city?: string }>;
@@ -172,6 +172,7 @@ export default async function Home({ searchParams }: HomeProps) {
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-110"
                       sizes="144px"
+                      loading="lazy"
                     />
                   </div>
                   <div className="flex flex-1 flex-col gap-2">

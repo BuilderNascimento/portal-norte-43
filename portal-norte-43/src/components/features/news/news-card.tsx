@@ -29,6 +29,7 @@ export function NewsCard({ news, className, withBorder = true, variant = "defaul
               fill
               className="object-cover transition-transform group-hover:scale-105"
               sizes="112px"
+              loading="lazy"
             />
           </div>
           <div className="flex flex-1 flex-col gap-1.5">
@@ -63,6 +64,7 @@ export function NewsCard({ news, className, withBorder = true, variant = "defaul
             fill
             className="object-cover transition-transform group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading="lazy"
           />
           <span className="absolute left-2 top-2 sm:left-4 sm:top-4 inline-flex items-center rounded-full bg-red-600 px-2 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-lg sm:px-3">
             {news.category}
