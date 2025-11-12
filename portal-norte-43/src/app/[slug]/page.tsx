@@ -92,7 +92,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
 
   return (
     <div className="mx-auto max-w-4xl">
-      {/* Breadcrumb */}
+        {/* Breadcrumb */}
       <nav className="mb-6 text-sm text-slate-600">
         <Link href="/" className="hover:text-red-600 transition-colors">
           Início
