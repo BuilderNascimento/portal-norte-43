@@ -13,6 +13,18 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**.vercel.app',
       },
+      {
+        protocol: 'https',
+        hostname: '**.ebc.com.br',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.gov.br',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.mec.gov.br',
+      },
     ],
   },
 

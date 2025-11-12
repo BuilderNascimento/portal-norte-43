@@ -4,18 +4,18 @@ import Link from "next/link";
 import { AdSlot } from "@/components/features/news/ad-slot";
 import { NewsCard } from "@/components/features/news/news-card";
 import { NewsFeed } from "@/components/features/news/news-feed";
+import { getAdsByPosition } from "@/lib/mock-data";
 import {
-  getAdsByPosition,
-  getAvailableCategories,
-  getAvailableCities,
-  getPublishedNews,
-} from "@/lib/mock-data";
+  getAggregatedCategories,
+  getAggregatedCities,
+  getAggregatedNews,
+} from "@/lib/news-aggregator";
 
 export default async function Home() {
   const [news, cities, categories] = await Promise.all([
-    getPublishedNews(),
-    Promise.resolve(getAvailableCities()),
-    Promise.resolve(getAvailableCategories()),
+    getAggregatedNews(),
+    Promise.resolve(getAggregatedCities()),
+    Promise.resolve(getAggregatedCategories()),
   ]);
 
   const featuredNews = news.slice(0, 1);

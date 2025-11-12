@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { getPublishedNews, newsFilterSchema } from "@/lib/mock-data";
+import { newsFilterSchema } from "@/lib/mock-data";
+import { getAggregatedNews } from "@/lib/news-aggregator";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -16,7 +17,7 @@ export async function GET(request: Request) {
     );
   }
 
-  const data = await getPublishedNews(filters.data);
+  const data = await getAggregatedNews(filters.data);
 
   return NextResponse.json(
     {
@@ -26,7 +27,7 @@ export async function GET(request: Request) {
     },
     {
       headers: {
-        "Cache-Control": "public, s-maxage=60",
+        "Cache-Control": "public, s-maxage=300", // Cache de 5 minutos
       },
     },
   );
