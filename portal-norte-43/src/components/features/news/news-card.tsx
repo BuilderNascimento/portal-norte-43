@@ -64,24 +64,24 @@ export function NewsCard({ news, className, withBorder = true, variant = "defaul
             className="object-cover transition-transform group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <span className="absolute left-4 top-4 inline-flex items-center rounded-full bg-red-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-lg">
+          <span className="absolute left-2 top-2 sm:left-4 sm:top-4 inline-flex items-center rounded-full bg-red-600 px-2 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-lg sm:px-3">
             {news.category}
           </span>
         </div>
 
-        <div className="flex flex-1 flex-col gap-3 p-5">
-          <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-            <span>{formatDateOnlyBR(news.publishedAt)}</span>
-            <span className="text-slate-300">•</span>
+        <div className="flex flex-1 flex-col gap-2 sm:gap-3 p-4 sm:p-5">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-500">
+            <span className="break-words">{formatDateOnlyBR(news.publishedAt)}</span>
+            <span className="text-slate-300 hidden sm:inline">•</span>
             <span className="font-semibold text-slate-700">{news.city}</span>
           </div>
-          <h3 className="text-lg font-bold leading-snug text-slate-900 group-hover:text-red-600 transition-colors">
+          <h3 className="text-base sm:text-lg font-bold leading-snug text-slate-900 group-hover:text-red-600 transition-colors">
             {news.title}
           </h3>
           <p className="line-clamp-3 text-sm leading-relaxed text-slate-600">{news.summary}</p>
         </div>
 
-        <div className="flex items-center justify-between border-t border-slate-100 bg-slate-50 px-5 py-3 text-xs">
+        <div className="flex items-center justify-between border-t border-slate-100 bg-slate-50 px-4 sm:px-5 py-2 sm:py-3 text-xs">
           <span className="font-medium text-slate-600">{news.source}</span>
           <span className="text-slate-400">Ler mais →</span>
         </div>

@@ -47,18 +47,18 @@ export function FiltersBar({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm",
+        "flex flex-wrap items-center gap-2 sm:gap-3 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 shadow-sm",
         className,
       )}
     >
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1.5 sm:gap-2 flex-1 sm:flex-none min-w-0">
         <label htmlFor="city" className="text-xs font-semibold uppercase text-slate-500">
           Cidade
         </label>
         <select
           id="city"
           {...register("city")}
-          className="min-w-[160px] rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-slate-900 focus:outline-none"
+          className="w-full sm:min-w-[160px] rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-slate-900 focus:outline-none"
         >
           <option value="">Todas</option>
           {cities.map(city => (
@@ -69,14 +69,14 @@ export function FiltersBar({
         </select>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1.5 sm:gap-2 flex-1 sm:flex-none min-w-0">
         <label htmlFor="category" className="text-xs font-semibold uppercase text-slate-500">
           Categoria
         </label>
         <select
           id="category"
           {...register("category")}
-          className="min-w-[160px] rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-slate-900 focus:outline-none"
+          className="w-full sm:min-w-[160px] rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm focus:border-slate-900 focus:outline-none"
         >
           <option value="">Todas</option>
           {categories.map(category => (
@@ -90,7 +90,7 @@ export function FiltersBar({
       <button
         type="button"
         onClick={() => reset()}
-        className="ml-auto inline-flex items-center rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-900 hover:text-slate-900"
+        className="w-full sm:w-auto sm:ml-auto inline-flex items-center justify-center rounded-lg border border-slate-200 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-slate-600 transition hover:border-slate-900 hover:text-slate-900"
       >
         Limpar filtros
       </button>

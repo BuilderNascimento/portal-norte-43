@@ -35,7 +35,7 @@ export function NewsFeed({ news, cities, categories, infeedAds = [] }: NewsFeedP
   }, [news, selectedCategory, selectedCity]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 sm:gap-6">
       <FiltersBar
         cities={cities}
         categories={categories}
@@ -45,14 +45,14 @@ export function NewsFeed({ news, cities, categories, infeedAds = [] }: NewsFeedP
       <NewsList items={filteredNews} />
 
       {infeedAds.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
           {infeedAds.map(ad => (
             <a
               key={ad.id}
               href={ad.link}
               target="_blank"
               rel="noreferrer"
-              className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-center shadow-sm transition hover:border-slate-400 hover:shadow-md"
+              className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-4 sm:p-6 text-center shadow-sm transition hover:border-slate-400 hover:shadow-md"
             >
               <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                 Patrocinado

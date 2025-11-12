@@ -20,7 +20,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b-2 border-red-600 bg-white shadow-sm">
       {/* Top bar */}
       <div className="border-b border-slate-100 bg-slate-50">
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-2 text-xs text-slate-600 sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-3 py-2 text-xs text-slate-600 sm:px-4 lg:px-6">
           <div className="flex items-center gap-4">
             <span className="font-medium">Norte Pioneiro do Paraná</span>
             <span className="hidden text-slate-400 sm:inline">•</span>
@@ -33,8 +33,8 @@ export function SiteHeader() {
       </div>
 
       {/* Main header */}
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-4">
+      <div className="mx-auto w-full max-w-7xl px-3 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between py-3 sm:py-4">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-red-600 to-red-700 text-white shadow-lg transition-transform group-hover:scale-105">
               <span className="text-xl font-bold">PN</span>
@@ -64,7 +64,7 @@ export function SiteHeader() {
 
         {/* Categories bar */}
         <div className="border-t border-slate-100">
-          <nav aria-label="Categorias" className="flex items-center gap-1 overflow-x-auto py-3 scrollbar-hide">
+          <nav aria-label="Categorias" className="flex items-center gap-1 overflow-x-auto py-2 sm:py-3 px-3 sm:px-0 scrollbar-hide">
             {CATEGORIES.map(cat => (
               <Link
                 key={cat.href}
