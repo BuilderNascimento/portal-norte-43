@@ -159,9 +159,9 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
         <span className="text-slate-900 font-medium">{news.title}</span>
       </nav>
 
-      <div className="grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="grid gap-6 sm:gap-8">
         {/* Artigo Principal */}
-        <article className="space-y-4 sm:space-y-6 min-w-0">
+        <article className="space-y-4 sm:space-y-6 min-w-0 max-w-4xl mx-auto">
           {/* Cabeçalho */}
           <header className="space-y-3 sm:space-y-4">
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-slate-600">
