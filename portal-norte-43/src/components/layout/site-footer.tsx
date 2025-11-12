@@ -32,8 +32,8 @@ export function SiteFooter() {
     <footer className="border-t-2 border-red-600 bg-slate-900 text-white">
       <div className="mx-auto w-full max-w-7xl px-3 py-8 sm:px-4 sm:py-12 lg:px-6">
         {/* Contatos de Emergência */}
-        <div className="mb-8 rounded-xl border-2 border-red-600 bg-gradient-to-br from-red-50 to-white p-6 dark:border-red-700 dark:from-red-950/30 dark:to-slate-900">
-          <h3 className="mb-4 text-center text-lg font-bold text-slate-900 dark:text-slate-100">
+        <div className="mb-8 rounded-xl border-2 border-red-600 bg-gradient-to-br from-red-50 to-white p-6">
+          <h3 className="mb-4 text-center text-lg font-bold text-slate-900">
             📞 Números de Emergência
           </h3>
           <EmergencyContacts variant="horizontal" />

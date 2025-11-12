@@ -72,7 +72,7 @@ export function EmergencyContacts({ variant = 'horizontal', className }: Emergen
   if (variant === 'vertical') {
     return (
       <div className={`space-y-3 ${className || ''}`}>
-        <h3 className="text-sm font-bold uppercase tracking-wide text-slate-700 dark:text-slate-300">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-slate-700">
           Emergências
         </h3>
         {EMERGENCY_CONTACTS.map(contact => (

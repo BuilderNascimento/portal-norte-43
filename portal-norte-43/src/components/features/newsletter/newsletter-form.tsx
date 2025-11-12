@@ -40,35 +40,35 @@ export function NewsletterForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">
-        <label htmlFor="newsletter-email" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+        <label htmlFor="newsletter-email" className="text-sm font-semibold text-slate-700">
           E-mail
         </label>
         <input
           id="newsletter-email"
           type="email"
           {...register('email')}
-          className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm focus:border-red-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+          className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm focus:border-red-600 focus:outline-none"
           placeholder="seu@email.com"
         />
-        {errors.email && <p className="text-xs text-red-600 dark:text-red-400">{errors.email.message}</p>}
+        {errors.email && <p className="text-xs text-red-600">{errors.email.message}</p>}
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="newsletter-whatsapp" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+        <label htmlFor="newsletter-whatsapp" className="text-sm font-semibold text-slate-700">
           WhatsApp (opcional)
         </label>
         <input
           id="newsletter-whatsapp"
           type="tel"
           {...register('whatsapp')}
-          className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm focus:border-red-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+          className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm focus:border-red-600 focus:outline-none"
           placeholder="(43) 99999-9999"
         />
-        {errors.whatsapp && <p className="text-xs text-red-600 dark:text-red-400">{errors.whatsapp.message}</p>}
+        {errors.whatsapp && <p className="text-xs text-red-600">{errors.whatsapp.message}</p>}
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+        <label className="text-sm font-semibold text-slate-700">
           Como prefere receber?
         </label>
         <div className="space-y-2">
@@ -79,7 +79,7 @@ export function NewsletterForm() {
               {...register('preference')}
               className="h-4 w-4 text-red-600 focus:ring-red-600"
             />
-            <span className="text-sm text-slate-600 dark:text-slate-400">Apenas e-mail</span>
+            <span className="text-sm text-slate-600">Apenas e-mail</span>
           </label>
           <label className="flex items-center gap-2">
             <input
@@ -88,7 +88,7 @@ export function NewsletterForm() {
               {...register('preference')}
               className="h-4 w-4 text-red-600 focus:ring-red-600"
             />
-            <span className="text-sm text-slate-600 dark:text-slate-400">Apenas WhatsApp</span>
+            <span className="text-sm text-slate-600">Apenas WhatsApp</span>
           </label>
           <label className="flex items-center gap-2">
             <input
@@ -97,7 +97,7 @@ export function NewsletterForm() {
               {...register('preference')}
               className="h-4 w-4 text-red-600 focus:ring-red-600"
             />
-            <span className="text-sm text-slate-600 dark:text-slate-400">E-mail e WhatsApp</span>
+            <span className="text-sm text-slate-600">E-mail e WhatsApp</span>
           </label>
         </div>
       </div>
@@ -111,12 +111,12 @@ export function NewsletterForm() {
       </button>
 
       {status === 'success' && (
-        <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700 dark:border-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">
+        <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
           ✓ Cadastro realizado! Você receberá o boletim diário em breve.
         </div>
       )}
 
-      <p className="text-xs text-slate-500 dark:text-slate-400">
+      <p className="text-xs text-slate-500">
         Receba um resumo diário das principais notícias do Norte Pioneiro diretamente no seu e-mail ou WhatsApp.
       </p>
     </form>

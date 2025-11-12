@@ -214,33 +214,33 @@ export default async function Home() {
           </div>
 
           {/* Contatos de Emergência */}
-          <div className="rounded-xl border-2 border-red-600 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm dark:border-red-700 dark:from-red-950/30 dark:to-slate-900">
+          <div className="rounded-xl border-2 border-red-600 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm">
             <div className="mb-4 flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-red-600" />
-              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">📞 Emergências</h2>
+              <h2 className="text-lg font-bold text-slate-900">📞 Emergências</h2>
             </div>
-            <p className="mb-4 text-xs text-slate-600 dark:text-slate-400">
+            <p className="mb-4 text-xs text-slate-600">
               Números importantes para situações de emergência.
             </p>
             <EmergencyContacts variant="vertical" />
           </div>
 
           {/* Boletim Diário */}
-          <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+          <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
             <div className="mb-4 flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-red-600" />
-              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Boletim Diário</h2>
+              <h2 className="text-lg font-bold text-slate-900">Boletim Diário</h2>
             </div>
-            <p className="mb-4 text-sm text-slate-600 dark:text-slate-400">
+            <p className="mb-4 text-sm text-slate-600">
               Receba um resumo diário das principais notícias do Norte Pioneiro.
             </p>
             <NewsletterForm />
           </div>
 
           {/* CTA Colaboração */}
-          <div id="enviar-noticia" className="rounded-xl border-2 border-red-100 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm dark:border-red-900/30 dark:from-red-950/20 dark:to-slate-900">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">📸 Envie sua notícia</h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+          <div id="enviar-noticia" className="rounded-xl border-2 border-red-100 bg-gradient-to-br from-red-50 to-white p-4 sm:p-6 shadow-sm">
+            <h2 className="text-lg font-bold text-slate-900">📸 Envie sua notícia</h2>
+            <p className="mt-2 text-sm text-slate-600">
               Envie flagrantes, fotos e informações — participe do Portal Norte 43!
             </p>
             <div className="mt-4">

@@ -44,17 +44,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="pt-BR">
       <head>
         {/* Meta tags básicas para melhor compatibilidade */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#dc2626" />
         <link rel="canonical" href={siteUrl} />
       </head>
-      <body className={`${inter.className} bg-white dark:bg-slate-900 antialiased`}>
+      <body className={`${inter.className} bg-white antialiased`}>
         <div className="flex min-h-screen flex-col">
           <SiteHeaderWithTicker />
-          <main className="flex-1 bg-slate-50 dark:bg-slate-900">
+          <main className="flex-1 bg-slate-50">
             <div className="mx-auto w-full max-w-7xl px-3 py-6 sm:px-4 sm:py-8 lg:px-6">
               {children}
             </div>

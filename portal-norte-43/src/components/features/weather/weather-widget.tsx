@@ -131,8 +131,8 @@ export function WeatherWidget() {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-        <div className="h-3 w-3 animate-pulse rounded-full bg-slate-300 dark:bg-slate-600" />
+      <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="h-3 w-3 animate-pulse rounded-full bg-slate-300" />
         <span>Carregando...</span>
       </div>
     );
@@ -144,7 +144,7 @@ export function WeatherWidget() {
       return (
         <button
           onClick={requestLocation}
-          className="flex items-center gap-1 text-xs text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition-colors"
+          className="flex items-center gap-1 text-xs text-slate-500 hover:text-red-600 transition-colors"
           title="Clique para usar sua localização"
         >
           <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ export function WeatherWidget() {
   }
 
   return (
-    <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+    <div className="flex items-center gap-2 text-xs text-slate-600">
       {weather.icon ? (
         <img
           src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
@@ -172,9 +172,9 @@ export function WeatherWidget() {
         </svg>
       )}
       <span className="font-medium">{weather.temperature}°C</span>
-      <span className="text-slate-400 dark:text-slate-500">•</span>
+      <span className="text-slate-400">•</span>
       <span className="hidden sm:inline">{weather.condition}</span>
-      <span className="text-slate-400 dark:text-slate-500 hidden sm:inline">•</span>
+      <span className="text-slate-400 hidden sm:inline">•</span>
       <span className="hidden md:inline font-semibold">{weather.city}</span>
     </div>
   );
