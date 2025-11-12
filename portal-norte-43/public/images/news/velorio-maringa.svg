@@ -1,0 +1,7 @@
+<svg width='800' height='450' viewBox='0 0 800 450' xmlns='http://www.w3.org/2000/svg'>
+  <rect width='800' height='450' fill='#6B7280'/>
+  <text x='50%' y='45%' dominant-baseline='middle' text-anchor='middle'
+        font-size='44' font-family='Inter, Arial, sans-serif' fill='white'>Homenagem</text>
+  <text x='50%' y='60%' dominant-baseline='middle' text-anchor='middle'
+        font-size='24' font-family='Inter, Arial, sans-serif' fill='#E5E7EB'>Comunidade de Maringá</text>
+</svg>
