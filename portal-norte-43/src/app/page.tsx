@@ -47,7 +47,26 @@ export default async function Home() {
 
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* Banner Topo */}
+      {/* Banner Principal - Anuncie Aqui */}
+      <div className="mx-auto max-w-5xl">
+        <a
+          href="/anuncie-conosco"
+          className="block rounded-xl border-2 border-dashed border-red-300 bg-gradient-to-br from-red-50 to-white p-3 shadow-md transition-all hover:border-red-500 hover:shadow-lg sm:p-4"
+        >
+          <div className="relative h-24 w-full overflow-hidden rounded-lg bg-white sm:h-32">
+            <Image
+              src="/images/news/ANUNCIE AQUI.png"
+              alt="Anuncie Conosco - Portal Norte 43"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 728px"
+              priority
+            />
+          </div>
+        </a>
+      </div>
+
+      {/* Banner Topo (outros anúncios) */}
       {topAds.length > 0 && (
         <div className="mx-auto max-w-5xl">
           {topAds.map(ad => (
