@@ -69,7 +69,10 @@ Acesse [http://localhost:3000](http://localhost:3000) para ver o site.
    SESSION_SECRET=seu-secret-aleatorio-min-32-caracteres
    ADMIN_API_KEY=sua-api-key-segura-min-16-caracteres
    AUTH_SECRET=seu-auth-secret-aleatorio
+   OPENWEATHER_API_KEY=sua-chave-openweathermap (opcional - para widget de clima)
    ```
+   
+   **📖 Veja [WEATHER_API_SETUP.md](./docs/WEATHER_API_SETUP.md) para configurar a API de clima.**
 
 4. **Deploy**
    - Clique em "Deploy"
@@ -132,6 +135,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 SESSION_SECRET=seu-secret-aleatorio
 ADMIN_API_KEY=sua-api-key
 AUTH_SECRET=seu-auth-secret
+OPENWEATHER_API_KEY=sua-chave-openweathermap (opcional)
 ```
 
 **⚠️ IMPORTANTE**: Nunca commite arquivos `.env.local` no Git!

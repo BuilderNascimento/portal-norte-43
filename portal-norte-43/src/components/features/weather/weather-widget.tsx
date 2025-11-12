@@ -6,6 +6,9 @@ interface WeatherData {
   temperature: number;
   condition: string;
   city: string;
+  icon?: string;
+  humidity?: number;
+  windSpeed?: number;
 }
 
 export function WeatherWidget() {
@@ -13,24 +16,42 @@ export function WeatherWidget() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Por enquanto, mostra dados mockados
-    // Futuramente pode integrar com API de clima (OpenWeatherMap, etc)
-    const mockWeather: WeatherData = {
-      temperature: 28,
-      condition: 'Ensolarado',
-      city: 'Andirá',
-    };
+    async function fetchWeather() {
+      try {
+        // Busca dados da API
+        const response = await fetch('/api/weather');
+        
+        if (response.ok) {
+          const data = await response.json();
+          setWeather(data);
+        } else {
+          // Fallback para dados mockados
+          setWeather({
+            temperature: 28,
+            condition: 'Ensolarado',
+            city: 'Andirá',
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao carregar clima:', error);
+        // Fallback para dados mockados
+        setWeather({
+          temperature: 28,
+          condition: 'Ensolarado',
+          city: 'Andirá',
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
 
-    setTimeout(() => {
-      setWeather(mockWeather);
-      setLoading(false);
-    }, 500);
+    fetchWeather();
   }, []);
 
   if (loading) {
     return (
-      <div className="flex items-center gap-2 text-xs text-slate-500">
-        <div className="h-3 w-3 animate-pulse rounded-full bg-slate-300" />
+      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <div className="h-3 w-3 animate-pulse rounded-full bg-slate-300 dark:bg-slate-600" />
         <span>Carregando...</span>
       </div>
     );
@@ -40,15 +61,22 @@ export function WeatherWidget() {
 
   return (
     <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-      </svg>
+      {weather.icon ? (
+        <img
+          src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+          alt={weather.condition}
+          className="h-5 w-5"
+        />
+      ) : (
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+        </svg>
+      )}
       <span className="font-medium">{weather.temperature}°C</span>
       <span className="text-slate-400 dark:text-slate-500">•</span>
-      <span>{weather.condition}</span>
-      <span className="text-slate-400 dark:text-slate-500">•</span>
-      <span>{weather.city}</span>
+      <span className="hidden sm:inline">{weather.condition}</span>
+      <span className="text-slate-400 dark:text-slate-500 hidden sm:inline">•</span>
+      <span className="hidden md:inline">{weather.city}</span>
     </div>
   );
 }
-
