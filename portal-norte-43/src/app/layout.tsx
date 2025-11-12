@@ -45,6 +45,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        {/* Meta tags básicas para melhor compatibilidade */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#dc2626" />
+        <link rel="canonical" href={siteUrl} />
+      </head>
       <body className={`${inter.className} bg-white dark:bg-slate-900 antialiased`}>
         <div className="flex min-h-screen flex-col">
           <SiteHeaderWithTicker />

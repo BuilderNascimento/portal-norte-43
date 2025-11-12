@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
           width: 1200,
           height: 630,
           alt: news.title,
-          type: 'image/jpeg', // Tipo padrão para melhor compatibilidade
+          type: 'image/jpeg',
         },
       ],
       locale: "pt_BR",
@@ -65,16 +65,20 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
       title: news.title,
       description: news.summary,
       images: [imageUrl],
-      creator: "@portalnorte43", // Adicione seu Twitter se tiver
     },
     alternates: {
       canonical: articleUrl,
     },
-    // Meta tags adicionais para melhor compatibilidade
+    // Meta tags adicionais para garantir compatibilidade total (Telegram, WhatsApp, etc)
     other: {
       'og:image:secure_url': imageUrl,
       'og:image:width': '1200',
       'og:image:height': '630',
+      'og:image:alt': news.title,
+      'article:published_time': news.publishedAt,
+      'article:author': news.source,
+      'article:section': news.category,
+      'twitter:image:src': imageUrl,
     },
   };
 }
