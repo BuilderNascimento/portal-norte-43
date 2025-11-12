@@ -2,7 +2,7 @@ import { AdvertiseForm } from "@/components/features/marketing/advertise-form";
 
 export const metadata = {
   title: 'Anuncie Conosco | Portal Norte 43',
-  description: 'Fale com milhares de leitores do Norte Pioneiro. Planos acessíveis para divulgar seu comércio local.',
+  description: 'Fale com milhares de leitores do Norte Pioneiro. Entre em contato e receba uma proposta personalizada.',
 };
 
 export default function AdvertisePage() {
@@ -14,7 +14,7 @@ export default function AdvertisePage() {
           Anuncie no Portal Norte 43
         </h1>
         <p className="mx-auto max-w-2xl text-lg text-slate-600">
-          Fale com milhares de leitores do Norte Pioneiro. Planos acessíveis para divulgar seu comércio local.
+          Fale com milhares de leitores do Norte Pioneiro. Entre em contato e receba uma proposta personalizada para seu negócio.
         </p>
         <div className="mx-auto h-1 w-20 rounded-full bg-red-600" />
       </div>
@@ -36,7 +36,7 @@ export default function AdvertisePage() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-red-600">✓</span>
-                <span>Planos acessíveis para pequenos e médios comerciantes</span>
+                <span>Propostas personalizadas conforme seu orçamento e necessidade</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-red-600">✓</span>
@@ -45,39 +45,31 @@ export default function AdvertisePage() {
             </ul>
           </div>
 
-          {/* Tabela de Planos */}
+          {/* Opções de Publicidade */}
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="mb-6 text-xl font-bold text-slate-900">Nossos Planos</h2>
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="border-b-2 border-slate-200">
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Plano</th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Posição</th>
-                    <th className="px-4 py-3 text-right text-sm font-semibold text-slate-700">Investimento</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-4 text-sm font-medium text-slate-900">Banner Lateral</td>
-                    <td className="px-4 py-4 text-sm text-slate-600">Sidebar (lateral direita)</td>
-                    <td className="px-4 py-4 text-right text-sm font-bold text-red-600">R$ 50/mês</td>
-                  </tr>
-                  <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-4 text-sm font-medium text-slate-900">Banner Topo</td>
-                    <td className="px-4 py-4 text-sm text-slate-600">Topo da página (728x90)</td>
-                    <td className="px-4 py-4 text-right text-sm font-bold text-red-600">R$ 100/mês</td>
-                  </tr>
-                  <tr className="bg-yellow-50 hover:bg-yellow-100">
-                    <td className="px-4 py-4 text-sm font-medium text-slate-900">Destaque Principal</td>
-                    <td className="px-4 py-4 text-sm text-slate-600">Manchete principal + sidebar</td>
-                    <td className="px-4 py-4 text-right text-sm font-bold text-red-600">R$ 200/mês</td>
-                  </tr>
-                </tbody>
-              </table>
+            <h2 className="mb-6 text-xl font-bold text-slate-900">Opções de Publicidade</h2>
+            <div className="space-y-4">
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                <h3 className="mb-2 font-semibold text-slate-900">Banner Lateral</h3>
+                <p className="text-sm text-slate-600">
+                  Posicionamento estratégico na sidebar direita do site, visível em todas as páginas.
+                </p>
+              </div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                <h3 className="mb-2 font-semibold text-slate-900">Banner Topo</h3>
+                <p className="text-sm text-slate-600">
+                  Destaque no topo da página principal (728x90px), primeira coisa que o leitor vê.
+                </p>
+              </div>
+              <div className="rounded-lg border-2 border-yellow-300 bg-yellow-50 p-4">
+                <h3 className="mb-2 font-semibold text-slate-900">Destaque Principal</h3>
+                <p className="text-sm text-slate-600">
+                  Máxima visibilidade com posicionamento premium na manchete principal e sidebar.
+                </p>
+              </div>
             </div>
-            <p className="mt-4 text-xs text-slate-500">
-              * Valores podem variar conforme período e posicionamento. Entre em contato para planos personalizados.
+            <p className="mt-6 text-sm text-slate-600">
+              <strong>Entre em contato</strong> através do formulário ao lado e nossa equipe apresentará uma proposta personalizada com valores e condições especiais para o seu negócio.
             </p>
           </div>
         </section>
@@ -87,7 +79,7 @@ export default function AdvertisePage() {
           <div className="rounded-xl border-2 border-red-100 bg-gradient-to-br from-red-50 to-white p-6 shadow-lg">
             <h2 className="mb-2 text-xl font-bold text-slate-900">Entre em contato</h2>
             <p className="mb-6 text-sm text-slate-600">
-              Preencha o formulário e nossa equipe retornará em até 24h com uma proposta personalizada.
+              Preencha o formulário e nossa equipe entrará em contato em até 24h para apresentar uma proposta personalizada com valores e condições especiais.
             </p>
             <AdvertiseForm />
           </div>
