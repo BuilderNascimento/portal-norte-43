@@ -1,0 +1,41 @@
+name: 🤖 Process News Bot
+
+on:
+  schedule:
+    # Executa a cada 30 minutos
+    - cron: '*/30 * * * *'
+  # Permite execução manual no GitHub
+  workflow_dispatch:
+
+jobs:
+  process-news:
+    runs-on: ubuntu-latest
+    name: Processar Feeds RSS
+    
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v4
+      
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: 📦 Instalar dependências
+        run: npm ci
+      
+      - name: 🤖 Executar bot de processamento
+        env:
+          API_URL: ${{ secrets.API_URL || 'https://portalnorte43.com.br' }}
+          AUTOMATION_API_KEY: ${{ secrets.AUTOMATION_API_KEY || 'portal-norte-43-auto-2025' }}
+        run: npm run bot:process
+      
+      - name: ✅ Verificar status
+        if: always()
+        env:
+          API_URL: ${{ secrets.API_URL || 'https://portalnorte43.com.br' }}
+        run: |
+          echo "📊 Verificando status..."
+          curl -s "$API_URL/api/automation/status" | jq '.'
+
