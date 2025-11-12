@@ -19,12 +19,27 @@ import { formatDateOnlyBR, formatDateShortBR } from "@/lib/utils/date";
 // ISR: Revalida a cada 2 minutos (120 segundos)
 export const revalidate = 120;
 
-export default async function Home() {
+interface HomeProps {
+  searchParams: Promise<{ category?: string; city?: string }>;
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const params = await searchParams;
+  const filters = {
+    category: params.category || undefined,
+    city: params.city || undefined,
+  };
+
   const [news, cities, categories] = await Promise.all([
-    getAggregatedNews(),
+    getAggregatedNews(filters),
     Promise.resolve(getAggregatedCities()),
     Promise.resolve(getAggregatedCategories()),
   ]);
+
+  // Se há filtro ativo, mostra mensagem se não houver notícias
+  const hasActiveFilter = filters.category || filters.city;
+  const filteredCategoryName = filters.category || '';
+  const filteredCityName = filters.city || '';
 
   const featuredNews = news.slice(0, 1);
   const secondaryNews = news.slice(1, 4);
@@ -47,6 +62,29 @@ export default async function Home() {
 
   return (
     <div className="space-y-6 sm:space-y-8">
+      {/* Mensagem quando há filtro mas não há notícias */}
+      {hasActiveFilter && news.length === 0 && (
+        <div className="rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-16 text-center">
+          <div className="mx-auto max-w-md">
+            <div className="mb-4 text-6xl">📰</div>
+            <h2 className="mb-2 text-2xl font-bold text-slate-900">
+              Nenhuma notícia encontrada
+            </h2>
+            <p className="mb-6 text-slate-600">
+              {filteredCategoryName && `Não há notícias na categoria "${filteredCategoryName}"`}
+              {filteredCityName && `Não há notícias da cidade "${filteredCityName}"`}
+              {filteredCategoryName && filteredCityName && `Não há notícias de "${filteredCategoryName}" em "${filteredCityName}"`}
+            </p>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-6 py-3 text-sm font-bold text-white transition-all hover:bg-red-700 hover:shadow-lg"
+            >
+              Ver todas as notícias →
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* Banner Topo */}
       {topAds.length > 0 && (
         <div className="mx-auto w-full max-w-5xl">

@@ -158,6 +158,13 @@ export function WeatherWidget() {
     return null;
   }
 
+  // Limpa o nome da cidade se for muito genérico ou incorreto
+  const displayCity = weather.city && 
+    !weather.city.includes('Sítio') && 
+    !weather.city.includes('Sua localização') 
+    ? weather.city 
+    : 'Andirá';
+
   return (
     <div className="flex items-center gap-2 text-xs text-slate-600">
       {weather.icon ? (
@@ -174,8 +181,12 @@ export function WeatherWidget() {
       <span className="font-medium">{weather.temperature}°C</span>
       <span className="text-slate-400">•</span>
       <span className="hidden sm:inline">{weather.condition}</span>
-      <span className="text-slate-400 hidden sm:inline">•</span>
-      <span className="hidden md:inline font-semibold">{weather.city}</span>
+      {displayCity && displayCity !== weather.condition && (
+        <>
+          <span className="text-slate-400 hidden md:inline">•</span>
+          <span className="hidden md:inline font-semibold">{displayCity}</span>
+        </>
+      )}
     </div>
   );
 }
