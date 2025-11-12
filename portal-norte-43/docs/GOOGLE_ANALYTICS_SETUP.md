@@ -23,14 +23,16 @@
 
 ## Passo 3: Adicionar ao Projeto
 
-1. Copie o ID de Medição (exemplo: `G-ABC123XYZ`)
+1. Copie o ID de Medição que você recebeu (exemplo: `G-NEBFPK44Y4`)
 2. No Vercel, vá em **Settings** → **Environment Variables**
 3. Adicione uma nova variável:
    - **Name**: `NEXT_PUBLIC_GA_ID`
-   - **Value**: `G-ABC123XYZ` (seu ID real)
+   - **Value**: `G-NEBFPK44Y4` (seu ID real - substitua pelo que você recebeu)
    - **Environment**: Production, Preview, Development
 4. Clique em **Save**
 5. Faça um novo deploy (ou aguarde o próximo deploy automático)
+
+**Nota**: O código que o Google fornece (com `<script>` tags) já está implementado de forma otimizada no site usando `@next/third-parties/google`. Você só precisa adicionar a variável de ambiente com seu ID.
 
 ## Passo 4: Verificar Instalação
 
