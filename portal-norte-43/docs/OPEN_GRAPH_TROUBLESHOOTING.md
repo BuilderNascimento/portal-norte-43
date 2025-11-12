@@ -56,11 +56,15 @@ Use estas ferramentas para testar:
 
 **Sintoma**: A imagem antiga aparece mesmo após corrigir.
 
-**Solução**:
-1. Use o [Facebook Debugger](https://developers.facebook.com/tools/debug/)
-2. Cole a URL da página
-3. Clique em "Scrape Again" para limpar o cache
-4. Aguarde alguns minutos e teste novamente
+**Solução** (NÃO precisa de conta no Facebook):
+1. Acesse: https://developers.facebook.com/tools/debug/ (é público, sem login)
+2. Cole a URL da página no campo "Enter URL to scrape"
+3. Clique em "Debug" ou "Scrape Again" para limpar o cache
+4. Aguarde 2-5 minutos e teste novamente
+
+**Alternativa sem Facebook Debugger**:
+- Adicione um parâmetro único à URL: `?v=1234567890`
+- Isso força o WhatsApp/Facebook a buscar como se fosse novo
 
 ### Problema 4: Formato de imagem não suportado
 
