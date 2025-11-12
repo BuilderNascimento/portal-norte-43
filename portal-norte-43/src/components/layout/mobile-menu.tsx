@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { SearchButton } from '@/components/features/ui/search-button';
 
 const NAV_LINKS = [
   { href: '/', label: 'Notícias' },
@@ -64,6 +65,11 @@ export function MobileMenu() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
+              </div>
+
+              {/* Busca Mobile */}
+              <div className="border-b border-slate-200 p-4 sm:hidden">
+                <SearchButton />
               </div>
 
               {/* Navigation */}

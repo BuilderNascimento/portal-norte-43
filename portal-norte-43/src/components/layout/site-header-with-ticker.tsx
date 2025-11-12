@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { NewsTicker } from '@/components/features/news/news-ticker';
 import { ThemeToggle } from '@/components/features/ui/theme-toggle';
+import { SearchButton } from '@/components/features/ui/search-button';
 import { WeatherWidget } from '@/components/features/weather/weather-widget';
 import { MobileMenu } from '@/components/layout/mobile-menu';
 import { getAggregatedNews } from '@/lib/news-aggregator';
@@ -51,23 +52,26 @@ export async function SiteHeaderWithTicker() {
 
       {/* Main header */}
       <div className="mx-auto w-full max-w-7xl px-3 sm:px-4 lg:px-6">
-        <div className="flex items-center justify-between py-3 sm:py-4">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-red-600 to-red-700 text-white shadow-lg transition-transform group-hover:scale-105">
-              <span className="text-xl font-bold">PN</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-bold leading-tight text-slate-900 dark:text-slate-100">
-                Portal Norte <span className="text-red-600">43</span>
-              </span>
-              <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                Notícias do Norte Pioneiro
-              </span>
-            </div>
+        <div className="flex items-center justify-between py-4 sm:py-6">
+          {/* Menu Mobile (esquerda) */}
+          <div className="flex items-center lg:hidden">
+            <MobileMenu />
+          </div>
+
+          {/* Logo Centralizado (mais destaque) */}
+          <Link href="/" className="flex flex-col items-center group flex-1 lg:flex-none">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 dark:text-slate-100 transition-colors group-hover:text-red-600">
+              Portal Norte <span className="text-red-600">43</span>
+            </h1>
+            <span className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-1">
+              Notícias do Norte Pioneiro
+            </span>
           </Link>
 
-          <div className="flex items-center gap-4">
-            <nav aria-label="Navegação principal" className="hidden items-center gap-8 text-sm font-semibold md:flex">
+          {/* Menu Desktop e Ações (direita) */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            {/* Menu Desktop */}
+            <nav aria-label="Navegação principal" className="hidden items-center gap-6 text-sm font-semibold lg:flex">
               {NAV_LINKS.map(link => (
                 <Link
                   key={link.href}
@@ -78,7 +82,14 @@ export async function SiteHeaderWithTicker() {
                 </Link>
               ))}
             </nav>
-            <MobileMenu />
+
+            {/* Busca */}
+            <div className="hidden sm:block">
+              <SearchButton />
+            </div>
+
+            {/* Tema */}
+            <ThemeToggle />
           </div>
         </div>
 

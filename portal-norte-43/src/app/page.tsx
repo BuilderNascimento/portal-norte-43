@@ -73,33 +73,33 @@ export default async function Home() {
       )}
       {/* Featured Section - Destaque Principal */}
       {featuredNews.length > 0 && (
-        <section className="grid gap-4 sm:gap-6 lg:grid-cols-3">
+        <section className="grid gap-6 sm:gap-8 lg:grid-cols-3">
           {/* Notícia Principal */}
           <div className="lg:col-span-2">
             {featuredNews.map(item => (
               <Link key={item.id} href={`/${item.slug}`} className="group block">
-                <article className="relative overflow-hidden rounded-xl bg-white shadow-lg transition-shadow hover:shadow-xl">
-                  <div className="relative aspect-video w-full bg-slate-200">
+                <article className="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all hover:shadow-2xl">
+                  <div className="relative aspect-[16/9] w-full bg-slate-200">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
-                      className="object-cover transition-transform group-hover:scale-105"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
                       priority
                       sizes="(max-width: 1024px) 100vw, 66vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <span className="absolute left-2 top-2 sm:left-4 sm:top-4 inline-flex items-center rounded-full bg-red-600 px-2 py-1 text-xs font-bold uppercase tracking-wide text-white sm:px-3">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                    <span className="absolute left-4 top-4 inline-flex items-center rounded-full bg-red-600 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-lg">
                       {item.category}
                     </span>
-                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 text-white">
-                      <span className="text-xs font-medium text-white/90">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white">
+                      <span className="text-sm font-medium text-white/90">
                         {formatDateOnlyBR(item.publishedAt)} • {item.city}
                       </span>
-                      <h1 className="mt-2 text-xl font-bold leading-tight sm:text-2xl md:text-3xl lg:text-4xl">
+                      <h1 className="mt-3 text-2xl font-black leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
                         {item.title}
                       </h1>
-                      <p className="mt-2 sm:mt-3 line-clamp-2 text-xs text-white/90 sm:text-sm md:text-base">
+                      <p className="mt-4 line-clamp-2 text-base text-white/95 sm:text-lg">
                         {item.summary}
                       </p>
                     </div>
@@ -110,27 +110,27 @@ export default async function Home() {
           </div>
 
           {/* Notícias Secundárias */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 sm:gap-5">
             {secondaryNews.map(item => (
               <Link key={item.id} href={`/${item.slug}`} className="group">
-                <article className="flex gap-3 sm:gap-4 rounded-lg border border-slate-200 bg-white p-3 sm:p-4 shadow-sm transition-shadow hover:shadow-md">
-                  <div className="relative h-20 w-24 sm:h-24 sm:w-32 flex-shrink-0 overflow-hidden rounded-lg bg-slate-200">
+                <article className="flex gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-red-200 hover:shadow-lg">
+                  <div className="relative h-24 w-32 sm:h-28 sm:w-36 flex-shrink-0 overflow-hidden rounded-lg bg-slate-200">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
-                      className="object-cover transition-transform group-hover:scale-105"
-                      sizes="128px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      sizes="144px"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col gap-1">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-red-600">
+                  <div className="flex flex-1 flex-col gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wide text-red-600">
                       {item.category}
                     </span>
-                    <h3 className="line-clamp-2 text-sm font-bold leading-snug text-slate-900 group-hover:text-red-600 transition-colors">
+                    <h3 className="line-clamp-3 text-sm font-bold leading-snug text-slate-900 group-hover:text-red-600 transition-colors">
                       {item.title}
                     </h3>
-                    <span className="mt-auto text-xs text-slate-500">
+                    <span className="mt-auto text-xs font-medium text-slate-500">
                       {formatDateShortBR(item.publishedAt)}
                     </span>
                   </div>
@@ -159,24 +159,24 @@ export default async function Home() {
             };
 
             return (
-              <div key={category} className="space-y-4">
-                <div className="flex items-center gap-3 border-b-2 border-red-600 pb-2">
-                  <span className="text-2xl">{categoryIcons[category] || '📰'}</span>
-                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900">{category}</h2>
-                  <span className="text-xs sm:text-sm font-medium text-slate-500">
+              <div key={category} className="space-y-6">
+                <div className="flex items-center gap-3 border-b-2 border-red-600 pb-3">
+                  <span className="text-3xl">{categoryIcons[category] || '📰'}</span>
+                  <h2 className="text-2xl sm:text-3xl font-black text-slate-900">{category}</h2>
+                  <span className="ml-auto text-sm font-semibold text-slate-500">
                     {categoryNews.length} {categoryNews.length === 1 ? 'matéria' : 'matérias'}
                   </span>
                 </div>
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {categoryNews.slice(0, 6).map(item => (
                     <NewsCard key={item.id} news={item} />
                   ))}
                 </div>
                 {categoryNews.length > 6 && (
-                  <div className="text-center">
+                  <div className="text-center pt-2">
                     <Link
                       href={`/?category=${category}`}
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:text-red-700 transition-colors"
+                      className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-6 py-3 text-sm font-bold text-white transition-all hover:bg-red-700 hover:shadow-lg"
                     >
                       Ver todas as notícias de {category} →
                     </Link>
@@ -187,10 +187,10 @@ export default async function Home() {
           })}
 
           {/* Seção Últimas Notícias (todas) */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b-2 border-red-600 pb-2 sm:pb-3">
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Todas as Notícias</h2>
-              <span className="text-xs sm:text-sm font-medium text-slate-600">{remainingNews.length} matérias</span>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b-2 border-red-600 pb-3">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900">Todas as Notícias</h2>
+              <span className="text-sm font-semibold text-slate-600">{remainingNews.length} matérias</span>
             </div>
             <NewsFeed news={remainingNews} cities={cities} categories={categories} infeedAds={infeedAds} />
           </div>
