@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeaderWithTicker } from "@/components/layout/site-header-with-ticker";
+import { GoogleAnalyticsComponent } from "@/components/features/analytics/google-analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -61,6 +62,7 @@ export default function RootLayout({
           </main>
           <SiteFooter />
         </div>
+        <GoogleAnalyticsComponent />
       </body>
     </html>
   );
