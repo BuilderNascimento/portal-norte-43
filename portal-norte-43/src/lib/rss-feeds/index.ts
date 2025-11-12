@@ -158,6 +158,10 @@ export async function fetchRSSFeed(feedSource: RSSFeedSource): Promise<NewsItem[
         const content = item.contentSnippet || item.content || item.description || '';
         const summary = stripHtml(content).substring(0, 200) || 'Sem descrição disponível.';
         
+        // Conteúdo completo (se disponível)
+        const fullContent = item.content || item.contentSnippet || item.description || '';
+        const cleanContent = stripHtml(fullContent);
+
         return {
           id: Date.now() + index + Math.random(), // ID único
           slug: generateSlug(title, item.pubDate),
@@ -171,6 +175,7 @@ export async function fetchRSSFeed(feedSource: RSSFeedSource): Promise<NewsItem[
             : new Date().toISOString(),
           source: feedSource.name,
           image: extractImage(item),
+          content: cleanContent || undefined, // Conteúdo completo
         };
       });
   } catch (error: any) {

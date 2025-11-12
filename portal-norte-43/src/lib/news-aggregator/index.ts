@@ -55,3 +55,28 @@ export function getAggregatedCategories() {
   return Array.from(new Set([...mockCategories, ...rssCategories])).sort();
 }
 
+/**
+ * Busca uma notícia pelo slug (mockadas + RSS)
+ */
+export async function getNewsBySlug(slug: string) {
+  try {
+    // Busca primeiro nas mockadas
+    const { getNewsBySlug: getMockNewsBySlug } = await import('@/lib/mock-data');
+    const mockNews = await getMockNewsBySlug(slug);
+    
+    if (mockNews) {
+      return mockNews;
+    }
+
+    // Se não encontrou, busca nos feeds RSS
+    const { fetchAllRSSFeeds } = await import('@/lib/rss-feeds');
+    const rssNews = await fetchAllRSSFeeds(100); // Busca mais itens para encontrar
+    const rssItem = rssNews.find(news => news.slug === slug);
+    
+    return rssItem || null;
+  } catch (error) {
+    console.error('Erro ao buscar notícia por slug:', error);
+    return null;
+  }
+}
+
