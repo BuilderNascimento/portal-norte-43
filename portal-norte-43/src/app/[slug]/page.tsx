@@ -30,14 +30,18 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
   const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portal-norte-43.vercel.app";
   const articleUrl = `${siteUrl}/${slug}`;
   
-  // URL absoluta da imagem
-  const imageUrl = news.image.startsWith("http")
+  // URL absoluta da imagem - garante que seja acessível
+  let imageUrl = news.image.startsWith("http")
     ? news.image
     : `${siteUrl}${news.image}`;
+
+  // Remove espaços da URL da imagem (importante para WhatsApp)
+  imageUrl = imageUrl.replace(/\s/g, "%20");
 
   return {
     title: `${news.title} | Portal Norte 43`,
     description: news.summary,
+    metadataBase: new URL(siteUrl),
     openGraph: {
       title: news.title,
       description: news.summary,
