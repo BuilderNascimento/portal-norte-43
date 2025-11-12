@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,6 +16,59 @@ interface NewsArticlePageProps {
   }>;
 }
 
+// Função para gerar metadados dinâmicos (Open Graph, Twitter Cards)
+export async function generateMetadata({ params }: NewsArticlePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const news = await getNewsBySlug(slug);
+
+  if (!news) {
+    return {
+      title: "Notícia não encontrada | Portal Norte 43",
+    };
+  }
+
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portal-norte-43.vercel.app";
+  const articleUrl = `${siteUrl}/${slug}`;
+  
+  // URL absoluta da imagem
+  const imageUrl = news.image.startsWith("http")
+    ? news.image
+    : `${siteUrl}${news.image}`;
+
+  return {
+    title: `${news.title} | Portal Norte 43`,
+    description: news.summary,
+    openGraph: {
+      title: news.title,
+      description: news.summary,
+      url: articleUrl,
+      siteName: "Portal Norte 43",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: news.title,
+        },
+      ],
+      locale: "pt_BR",
+      type: "article",
+      publishedTime: news.publishedAt,
+      authors: [news.source],
+      section: news.category,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: news.title,
+      description: news.summary,
+      images: [imageUrl],
+    },
+    alternates: {
+      canonical: articleUrl,
+    },
+  };
+}
+
 export default async function NewsArticlePage({ params }: NewsArticlePageProps) {
   const { slug } = await params;
   const news = await getNewsBySlug(slug);
@@ -27,6 +81,10 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
 
   // Se não tiver conteúdo completo, usa o resumo
   const content = news.content || news.summary;
+
+  // URL do site para compartilhamento
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portal-norte-43.vercel.app";
+  const articleUrl = `${siteUrl}/${slug}`;
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -98,7 +156,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
             </h3>
             <div className="flex gap-4">
               <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://portal-norte-43.vercel.app/${slug}`)}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
@@ -109,7 +167,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
                 Facebook
               </a>
               <a
-                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://portal-norte-43.vercel.app/${slug}`)}&text=${encodeURIComponent(news.title)}`}
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(news.title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-600"
@@ -120,7 +178,7 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
                 Twitter
               </a>
               <a
-                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${news.title} - https://portal-norte-43.vercel.app/${slug}`)}`}
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${news.title} - ${articleUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-700"

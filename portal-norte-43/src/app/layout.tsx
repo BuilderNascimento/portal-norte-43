@@ -11,6 +11,17 @@ export const metadata: Metadata = {
   title: "Portal Norte 43",
   description:
     "Notícias automatizadas do Norte Pioneiro com foco em anunciantes e leitores locais.",
+  openGraph: {
+    title: "Portal Norte 43",
+    description: "Notícias automatizadas do Norte Pioneiro do Paraná",
+    type: "website",
+    locale: "pt_BR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portal Norte 43",
+    description: "Notícias automatizadas do Norte Pioneiro do Paraná",
+  },
 };
 
 export default function RootLayout({
