@@ -54,15 +54,9 @@ export default function AboutPage() {
       {/* Equipe */}
       <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="mb-6 text-2xl font-bold text-slate-900">Nossa Equipe</h2>
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-slate-900">Antonio</h3>
-            <p className="text-slate-600">Fundador e Editor</p>
-          </div>
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-slate-900">Diego</h3>
-            <p className="text-slate-600">Fundador e Editor</p>
-          </div>
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-slate-900">EQUIPE PORTAL NORTE43</h3>
+          <p className="mt-2 text-slate-600">Fundadores e Editores</p>
         </div>
       </div>
 
