@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface WeatherData {
   temperature: number;
@@ -15,36 +15,59 @@ export function WeatherWidget() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
+  const [locationRequested, setLocationRequested] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Tenta obter localização do usuário
-    if (typeof window !== 'undefined' && navigator.geolocation) {
-      console.log('Solicitando localização do usuário...');
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          console.log('✅ Localização obtida:', lat, lon);
-          setLocation({ lat, lon });
-        },
-        (error) => {
-          console.warn('⚠️ Localização não disponível:', error.code, error.message);
-          // Continua sem localização (usará padrão Andirá)
-          setLocation(null);
-        },
-        {
-          enableHighAccuracy: false,
-          timeout: 10000,
-          maximumAge: 0, // Sempre busca localização atual (sem cache)
-        },
-      );
-    } else {
-      console.log('Geolocalização não suportada ou não disponível');
-      setLocation(null);
+  const requestLocation = useCallback(() => {
+    if (typeof window === 'undefined' || !navigator.geolocation) {
+      console.log('Geolocalização não suportada');
+      setLocationError('Geolocalização não suportada pelo navegador');
+      setLocationRequested(true);
+      return;
     }
+
+    console.log('🌍 Solicitando localização do usuário...');
+    setLocationRequested(true);
+    setLocationError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        console.log('✅ Localização obtida:', lat, lon);
+        setLocation({ lat, lon });
+        setLocationError(null);
+      },
+      (error) => {
+        console.warn('⚠️ Localização não disponível:', error.code, error.message);
+        let errorMsg = 'Localização não disponível';
+        if (error.code === 1) {
+          errorMsg = 'Permissão negada';
+        } else if (error.code === 2) {
+          errorMsg = 'Localização indisponível';
+        } else if (error.code === 3) {
+          errorMsg = 'Timeout';
+        }
+        setLocationError(errorMsg);
+        setLocation(null);
+      },
+      {
+        enableHighAccuracy: false,
+        timeout: 15000,
+        maximumAge: 0,
+      },
+    );
   }, []);
 
   useEffect(() => {
+    // Tenta obter localização automaticamente na primeira vez
+    requestLocation();
+  }, [requestLocation]);
+
+  useEffect(() => {
+    // Só busca clima quando a solicitação de localização foi concluída
+    if (!locationRequested) return;
+
     let cancelled = false;
 
     async function fetchWeather() {
@@ -70,11 +93,11 @@ export function WeatherWidget() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Dados do clima recebidos:', data);
+          console.log('✅ Dados do clima recebidos:', data);
           setWeather(data);
         } else {
           const errorData = await response.json().catch(() => ({}));
-          console.error('Erro na resposta:', response.status, errorData);
+          console.error('❌ Erro na resposta:', response.status, errorData);
           // Fallback para dados mockados
           setWeather({
             temperature: 28,
@@ -84,7 +107,7 @@ export function WeatherWidget() {
         }
       } catch (error) {
         if (cancelled) return;
-        console.error('Erro ao carregar clima:', error);
+        console.error('❌ Erro ao carregar clima:', error);
         // Fallback para dados mockados
         setWeather({
           temperature: 28,
@@ -98,13 +121,13 @@ export function WeatherWidget() {
       }
     }
 
-    // Aguarda um pouco para obter localização, ou busca imediatamente se já tiver
-    const timer = setTimeout(fetchWeather, location !== null ? 0 : 2000);
+    // Aguarda um pouco para garantir que a localização foi processada
+    const timer = setTimeout(fetchWeather, 500);
     return () => {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [location]);
+  }, [location, locationRequested]);
 
   if (loading) {
     return (
@@ -115,7 +138,25 @@ export function WeatherWidget() {
     );
   }
 
-  if (!weather) return null;
+  if (!weather) {
+    // Se houve erro de localização, mostra botão para tentar novamente
+    if (locationError && locationError !== 'Localização não disponível') {
+      return (
+        <button
+          onClick={requestLocation}
+          className="flex items-center gap-1 text-xs text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition-colors"
+          title="Clique para usar sua localização"
+        >
+          <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span className="hidden sm:inline">Usar localização</span>
+        </button>
+      );
+    }
+    return null;
+  }
 
   return (
     <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
@@ -134,7 +175,7 @@ export function WeatherWidget() {
       <span className="text-slate-400 dark:text-slate-500">•</span>
       <span className="hidden sm:inline">{weather.condition}</span>
       <span className="text-slate-400 dark:text-slate-500 hidden sm:inline">•</span>
-      <span className="hidden md:inline">{weather.city}</span>
+      <span className="hidden md:inline font-semibold">{weather.city}</span>
     </div>
   );
 }
