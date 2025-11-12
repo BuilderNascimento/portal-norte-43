@@ -47,7 +47,7 @@ export const mockNews: NewsItem[] = [
     status: 'approved',
     publishedAt: '2025-11-11T14:30:00-03:00',
     source: 'Portal Norte 43',
-    image: '/images/news/descarga-eletrica-andira.svg',
+    image: '/images/news/descarga-eletrica-andira.png',
   },
   {
     id: 1,
