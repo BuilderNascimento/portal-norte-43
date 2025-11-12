@@ -21,6 +21,7 @@ export function WeatherWidget() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          console.log('Localização obtida:', position.coords.latitude, position.coords.longitude);
           setLocation({
             lat: position.coords.latitude,
             lon: position.coords.longitude,
@@ -29,32 +30,48 @@ export function WeatherWidget() {
         (error) => {
           console.log('Localização não disponível:', error.message);
           // Continua sem localização (usará padrão Andirá)
+          setLocation(null);
         },
         {
           enableHighAccuracy: false,
-          timeout: 5000,
-          maximumAge: 300000, // Cache de 5 minutos
+          timeout: 10000, // Aumentado para 10 segundos
+          maximumAge: 0, // Sempre busca localização atual
         },
       );
+    } else {
+      console.log('Geolocalização não suportada pelo navegador');
+      setLocation(null);
     }
   }, []);
 
   useEffect(() => {
+    let cancelled = false;
+
     async function fetchWeather() {
       try {
         // Monta URL com coordenadas se disponíveis
         let url = '/api/weather';
         if (location) {
-          url += `?lat=${location.lat}&lon=${location.lon}`;
+          url += `?lat=${location.lat}&lon=${location.lon}&t=${Date.now()}`; // Adiciona timestamp para evitar cache
+          console.log('Buscando clima para:', location.lat, location.lon);
+        } else {
+          console.log('Usando localização padrão (Andirá)');
         }
 
         // Busca dados da API
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          cache: 'no-store', // Não usar cache do navegador
+        });
+
+        if (cancelled) return;
 
         if (response.ok) {
           const data = await response.json();
+          console.log('Dados do clima recebidos:', data);
           setWeather(data);
         } else {
+          const errorData = await response.json().catch(() => ({}));
+          console.error('Erro na resposta:', response.status, errorData);
           // Fallback para dados mockados
           setWeather({
             temperature: 28,
@@ -63,6 +80,7 @@ export function WeatherWidget() {
           });
         }
       } catch (error) {
+        if (cancelled) return;
         console.error('Erro ao carregar clima:', error);
         // Fallback para dados mockados
         setWeather({
@@ -71,13 +89,18 @@ export function WeatherWidget() {
           city: location ? 'Sua localização' : 'Andirá',
         });
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     }
 
     // Aguarda um pouco para obter localização, ou busca imediatamente se já tiver
-    const timer = setTimeout(fetchWeather, location ? 0 : 1000);
-    return () => clearTimeout(timer);
+    const timer = setTimeout(fetchWeather, location !== null ? 0 : 2000);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [location]);
 
   if (loading) {

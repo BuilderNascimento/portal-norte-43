@@ -43,9 +43,14 @@ export async function GET(request: Request) {
       );
     }
 
+    // Cache diferente baseado nas coordenadas
+    const cacheControl = lat && lon 
+      ? 'public, s-maxage=600, stale-while-revalidate=300' // Cache mais curto para localizações dinâmicas
+      : 'public, s-maxage=600'; // Cache padrão para Andirá
+
     return NextResponse.json(weather, {
       headers: {
-        'Cache-Control': 'public, s-maxage=600', // 10 minutos
+        'Cache-Control': cacheControl,
       },
     });
   } catch (error) {

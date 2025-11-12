@@ -14,7 +14,8 @@ interface WeatherData {
 }
 
 const CACHE_DURATION = 10 * 60 * 1000; // 10 minutos
-let cachedData: { data: WeatherData; timestamp: number } | null = null;
+// Cache por localização (coordenadas)
+const cacheMap = new Map<string, { data: WeatherData; timestamp: number }>();
 
 /**
  * Busca dados do clima usando OpenWeatherMap
@@ -37,12 +38,12 @@ export async function getWeatherData(
   const finalCity = cityName ?? defaultCity;
 
   // Verifica cache primeiro (usando coordenadas como chave)
-  const cacheKey = `${finalLat},${finalLon}`;
-  if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
-    // Verifica se é a mesma localização
-    if (cachedData.data.city === finalCity || (!lat && !lon)) {
-      return cachedData.data;
-    }
+  const cacheKey = `${finalLat.toFixed(2)},${finalLon.toFixed(2)}`;
+  const cached = cacheMap.get(cacheKey);
+  
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    console.log('Usando cache para:', cacheKey, cached.data.city);
+    return cached.data;
   }
 
   const apiKey = process.env.OPENWEATHER_API_KEY;
@@ -75,11 +76,22 @@ export async function getWeatherData(
       windSpeed: data.wind?.speed ? Math.round(data.wind.speed * 3.6) : undefined, // Converte m/s para km/h
     };
 
-    // Atualiza cache
-    cachedData = {
+    // Atualiza cache com a chave de coordenadas
+    cacheMap.set(cacheKey, {
       data: weatherData,
       timestamp: Date.now(),
-    };
+    });
+    
+    // Limpa cache antigo (mantém apenas os últimos 5)
+    if (cacheMap.size > 5) {
+      const entries = Array.from(cacheMap.entries());
+      const oldestEntry = entries.sort((a, b) => a[1].timestamp - b[1].timestamp)[0];
+      if (oldestEntry) {
+        cacheMap.delete(oldestEntry[0]);
+      }
+    }
+    
+    console.log('Cache atualizado para:', cacheKey, weatherData.city);
 
     return weatherData;
   } catch (error) {
