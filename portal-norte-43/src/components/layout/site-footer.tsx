@@ -28,8 +28,8 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t-2 border-red-600 bg-slate-900 text-white">
-      <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto w-full max-w-7xl px-3 py-8 sm:px-4 sm:py-12 lg:px-6">
+        <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo e Descrição */}
           <div className="lg:col-span-1">
             <div className="mb-4 flex items-center gap-3">
