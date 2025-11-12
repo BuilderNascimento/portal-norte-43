@@ -13,10 +13,21 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
       fetchAllRSSFeeds(30), // Aumentado para 30 itens RSS (mais feeds = mais notícias)
     ]);
 
-    // Combina e ordena por data (mais recentes primeiro)
-    const allNews: NewsItem[] = [...mockNews, ...rssNews].sort(
-      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
+    // Calcula a data de 10 dias atrás (timezone de São Paulo - UTC-3)
+    const now = new Date();
+    const tenDaysAgo = new Date(now);
+    tenDaysAgo.setDate(now.getDate() - 10);
+    tenDaysAgo.setHours(0, 0, 0, 0); // Início do dia
+
+    // Combina e filtra notícias com menos de 10 dias
+    const allNews: NewsItem[] = [...mockNews, ...rssNews]
+      .filter(news => {
+        const newsDate = new Date(news.publishedAt);
+        return newsDate >= tenDaysAgo;
+      })
+      .sort(
+        (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+      );
 
     // Aplica filtros se necessário
     let filteredNews = allNews;
@@ -82,12 +93,14 @@ export async function getNewsBySlug(slug: string) {
 
 /**
  * Busca notícias relacionadas (mesma categoria ou cidade, excluindo a atual)
+ * Já aplica o filtro de 10 dias através de getAggregatedNews
  */
 export async function getRelatedNews(currentSlug: string, category?: string, city?: string, limit: number = 3) {
   try {
     const allNews = await getAggregatedNews();
     
     // Filtra notícias relacionadas (mesma categoria ou cidade, excluindo a atual)
+    // getAggregatedNews já filtra notícias com mais de 10 dias
     const related = allNews
       .filter(news => {
         if (news.slug === currentSlug) return false;
