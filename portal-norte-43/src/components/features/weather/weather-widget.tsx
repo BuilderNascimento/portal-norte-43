@@ -18,28 +18,28 @@ export function WeatherWidget() {
 
   useEffect(() => {
     // Tenta obter localização do usuário
-    if (navigator.geolocation) {
+    if (typeof window !== 'undefined' && navigator.geolocation) {
+      console.log('Solicitando localização do usuário...');
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log('Localização obtida:', position.coords.latitude, position.coords.longitude);
-          setLocation({
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-          });
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          console.log('✅ Localização obtida:', lat, lon);
+          setLocation({ lat, lon });
         },
         (error) => {
-          console.log('Localização não disponível:', error.message);
+          console.warn('⚠️ Localização não disponível:', error.code, error.message);
           // Continua sem localização (usará padrão Andirá)
           setLocation(null);
         },
         {
           enableHighAccuracy: false,
-          timeout: 10000, // Aumentado para 10 segundos
-          maximumAge: 0, // Sempre busca localização atual
+          timeout: 10000,
+          maximumAge: 0, // Sempre busca localização atual (sem cache)
         },
       );
     } else {
-      console.log('Geolocalização não suportada pelo navegador');
+      console.log('Geolocalização não suportada ou não disponível');
       setLocation(null);
     }
   }, []);
@@ -52,10 +52,13 @@ export function WeatherWidget() {
         // Monta URL com coordenadas se disponíveis
         let url = '/api/weather';
         if (location) {
-          url += `?lat=${location.lat}&lon=${location.lon}&t=${Date.now()}`; // Adiciona timestamp para evitar cache
-          console.log('Buscando clima para:', location.lat, location.lon);
+          // Arredonda coordenadas para evitar cache desnecessário
+          const lat = Number(location.lat.toFixed(4));
+          const lon = Number(location.lon.toFixed(4));
+          url += `?lat=${lat}&lon=${lon}&_=${Date.now()}`; // Timestamp para evitar cache do navegador
+          console.log('🌍 Buscando clima para coordenadas:', lat, lon);
         } else {
-          console.log('Usando localização padrão (Andirá)');
+          console.log('📍 Usando localização padrão (Andirá, PR)');
         }
 
         // Busca dados da API
