@@ -58,12 +58,13 @@ export default async function Home() {
               rel={ad.link.startsWith('http') ? 'noreferrer' : undefined}
               className="block w-full rounded-xl border border-dashed border-slate-300 bg-white p-0 shadow-sm transition hover:shadow-md"
             >
-              <div className="relative h-24 w-full overflow-hidden rounded-lg sm:h-32">
+              <div className="relative h-auto w-full overflow-hidden rounded-lg">
                 <Image
                   src={ad.image}
                   alt={ad.label}
-                  fill
-                  className="object-cover"
+                  width={728}
+                  height={128}
+                  className="h-auto w-full object-contain sm:object-cover"
                   sizes="100vw"
                   priority
                 />
