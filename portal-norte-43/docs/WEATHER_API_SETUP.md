@@ -98,13 +98,17 @@ Se a API não estiver disponível ou retornar erro:
 - O site continua funcionando normalmente
 - Não há impacto na experiência do usuário
 
-### Coordenadas
+### Localização
 
-O sistema busca dados para **Andirá, PR**:
+O sistema detecta automaticamente a localização do usuário:
+- ✅ **Se o usuário permitir localização**: Mostra clima da cidade atual
+- ✅ **Se não permitir ou não disponível**: Mostra clima de Andirá, PR (padrão)
+
+**Coordenadas padrão (Andirá, PR)**:
 - Latitude: -23.0525
 - Longitude: -50.2264
 
-Para mudar a cidade, edite `src/lib/weather/index.ts`.
+O navegador pedirá permissão para acessar a localização na primeira vez.
 
 ## 📊 Monitoramento
 

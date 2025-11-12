@@ -17,27 +17,44 @@ const CACHE_DURATION = 10 * 60 * 1000; // 10 minutos
 let cachedData: { data: WeatherData; timestamp: number } | null = null;
 
 /**
- * Busca dados do clima de Andirá/PR usando OpenWeatherMap
+ * Busca dados do clima usando OpenWeatherMap
+ * @param lat Latitude (opcional, padrão: Andirá, PR)
+ * @param lon Longitude (opcional, padrão: Andirá, PR)
+ * @param cityName Nome da cidade (opcional, para exibição)
  */
-export async function getWeatherData(): Promise<WeatherData | null> {
-  // Verifica cache primeiro
+export async function getWeatherData(
+  lat?: number,
+  lon?: number,
+  cityName?: string,
+): Promise<WeatherData | null> {
+  // Coordenadas padrão: Andirá, PR
+  const defaultLat = -23.0525;
+  const defaultLon = -50.2264;
+  const defaultCity = 'Andirá';
+
+  const finalLat = lat ?? defaultLat;
+  const finalLon = lon ?? defaultLon;
+  const finalCity = cityName ?? defaultCity;
+
+  // Verifica cache primeiro (usando coordenadas como chave)
+  const cacheKey = `${finalLat},${finalLon}`;
   if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
-    return cachedData.data;
+    // Verifica se é a mesma localização
+    if (cachedData.data.city === finalCity || (!lat && !lon)) {
+      return cachedData.data;
+    }
   }
 
   const apiKey = process.env.OPENWEATHER_API_KEY;
   
   if (!apiKey) {
     console.warn('OPENWEATHER_API_KEY não configurada. Usando dados mockados.');
-    return getMockWeatherData();
+    return getMockWeatherData(finalCity);
   }
 
   try {
-    // Coordenadas de Andirá, PR
-    const lat = -23.0525;
-    const lon = -50.2264;
     
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=pt_br`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${finalLat}&lon=${finalLon}&appid=${apiKey}&units=metric&lang=pt_br`;
     
     const response = await fetch(url, {
       next: { revalidate: 600 }, // Cache de 10 minutos no Next.js
@@ -52,7 +69,7 @@ export async function getWeatherData(): Promise<WeatherData | null> {
     const weatherData: WeatherData = {
       temperature: Math.round(data.main.temp),
       condition: translateCondition(data.weather[0].description),
-      city: 'Andirá',
+      city: data.name || finalCity, // Usa o nome retornado pela API ou o fornecido
       icon: data.weather[0].icon,
       humidity: data.main.humidity,
       windSpeed: data.wind?.speed ? Math.round(data.wind.speed * 3.6) : undefined, // Converte m/s para km/h
@@ -68,7 +85,7 @@ export async function getWeatherData(): Promise<WeatherData | null> {
   } catch (error) {
     console.error('Erro ao buscar dados do clima:', error);
     // Retorna dados mockados em caso de erro
-    return getMockWeatherData();
+    return getMockWeatherData(finalCity);
   }
 }
 
@@ -98,11 +115,11 @@ function translateCondition(condition: string): string {
 /**
  * Retorna dados mockados quando a API não está disponível
  */
-function getMockWeatherData(): WeatherData {
+function getMockWeatherData(city: string = 'Andirá'): WeatherData {
   return {
     temperature: 28,
     condition: 'Ensolarado',
-    city: 'Andirá',
+    city: city,
   };
 }
 

@@ -14,13 +14,43 @@ interface WeatherData {
 export function WeatherWidget() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
+
+  useEffect(() => {
+    // Tenta obter localização do usuário
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.log('Localização não disponível:', error.message);
+          // Continua sem localização (usará padrão Andirá)
+        },
+        {
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: 300000, // Cache de 5 minutos
+        },
+      );
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchWeather() {
       try {
+        // Monta URL com coordenadas se disponíveis
+        let url = '/api/weather';
+        if (location) {
+          url += `?lat=${location.lat}&lon=${location.lon}`;
+        }
+
         // Busca dados da API
-        const response = await fetch('/api/weather');
-        
+        const response = await fetch(url);
+
         if (response.ok) {
           const data = await response.json();
           setWeather(data);
@@ -29,7 +59,7 @@ export function WeatherWidget() {
           setWeather({
             temperature: 28,
             condition: 'Ensolarado',
-            city: 'Andirá',
+            city: location ? 'Sua localização' : 'Andirá',
           });
         }
       } catch (error) {
@@ -38,15 +68,17 @@ export function WeatherWidget() {
         setWeather({
           temperature: 28,
           condition: 'Ensolarado',
-          city: 'Andirá',
+          city: location ? 'Sua localização' : 'Andirá',
         });
       } finally {
         setLoading(false);
       }
     }
 
-    fetchWeather();
-  }, []);
+    // Aguarda um pouco para obter localização, ou busca imediatamente se já tiver
+    const timer = setTimeout(fetchWeather, location ? 0 : 1000);
+    return () => clearTimeout(timer);
+  }, [location]);
 
   if (loading) {
     return (
