@@ -24,6 +24,7 @@ export interface RSSFeedSource {
 }
 
 export const RSS_FEEDS: RSSFeedSource[] = [
+  // Agência Brasil (EBC)
   {
     name: 'Agência Brasil',
     url: 'https://agenciabrasil.ebc.com.br/rss.xml',
@@ -34,10 +35,63 @@ export const RSS_FEEDS: RSSFeedSource[] = [
     url: 'https://agenciabrasil.ebc.com.br/ultimas-noticias/rss',
     category: 'Nacional',
   },
+  
+  // Gov.br - Portal do Governo
   {
     name: 'Gov.br Notícias',
     url: 'https://www.gov.br/pt-br/noticias/@@rss.xml',
     category: 'Governo',
+  },
+  {
+    name: 'Gov.br - Educação',
+    url: 'https://www.gov.br/mec/pt-br/noticias/@@rss.xml',
+    category: 'Educação',
+  },
+  {
+    name: 'Gov.br - Saúde',
+    url: 'https://www.gov.br/saude/pt-br/noticias/@@rss.xml',
+    category: 'Saúde',
+  },
+  {
+    name: 'Gov.br - Infraestrutura',
+    url: 'https://www.gov.br/infraestrutura/pt-br/noticias/@@rss.xml',
+    category: 'Infraestrutura',
+  },
+  {
+    name: 'Gov.br - Cidades',
+    url: 'https://www.gov.br/cidades/pt-br/noticias/@@rss.xml',
+    category: 'Cidades',
+  },
+  
+  // INMET - Meteorologia
+  {
+    name: 'INMET - Alertas',
+    url: 'https://portal.inmet.gov.br/rss/avisos',
+    category: 'Geral',
+  },
+  
+  // Defesa Civil
+  {
+    name: 'Defesa Civil Nacional',
+    url: 'https://www.gov.br/defesacivil/pt-br/noticias/@@rss.xml',
+    category: 'Geral',
+  },
+  
+  // Outros órgãos governamentais
+  {
+    name: 'ANP - Agência Nacional do Petróleo',
+    url: 'https://www.gov.br/anp/pt-br/centrais-de-conteudo/noticias/@@rss.xml',
+    category: 'Economia',
+  },
+  {
+    name: 'ANTAQ - Agência Nacional de Transportes Aquaviários',
+    url: 'https://www.gov.br/antaq/pt-br/noticias/@@rss.xml',
+    category: 'Economia',
+  },
+  {
+    name: 'ANTT - Agência Nacional de Transportes Terrestres',
+    url: 'https://www.gov.br/antt/pt-br/noticias/@@rss.xml',
+    category: 'Trânsito',
   },
 ];
 
@@ -193,18 +247,33 @@ export async function fetchRSSFeed(feedSource: RSSFeedSource): Promise<NewsItem[
 
 /**
  * Busca notícias de todos os feeds RSS configurados
+ * Usa Promise.allSettled para não falhar se algum feed der erro
  */
 export async function fetchAllRSSFeeds(limit: number = 20): Promise<NewsItem[]> {
   try {
-    const allFeeds = await Promise.all(
+    // Usa allSettled para continuar mesmo se alguns feeds falharem
+    const feedResults = await Promise.allSettled(
       RSS_FEEDS.map(feed => fetchRSSFeed(feed))
     );
+
+    // Filtra apenas os resultados bem-sucedidos
+    const allFeeds = feedResults
+      .filter((result): result is PromiseFulfilledResult<NewsItem[]> => 
+        result.status === 'fulfilled'
+      )
+      .map(result => result.value);
 
     // Combina todos os feeds e ordena por data
     const allNews = allFeeds
       .flat()
       .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
       .slice(0, limit);
+
+    // Log de feeds que falharam (para debug)
+    const failedFeeds = feedResults.filter(result => result.status === 'rejected');
+    if (failedFeeds.length > 0) {
+      console.warn(`${failedFeeds.length} feed(s) RSS falharam, mas o sistema continua funcionando.`);
+    }
 
     return allNews;
   } catch (error) {

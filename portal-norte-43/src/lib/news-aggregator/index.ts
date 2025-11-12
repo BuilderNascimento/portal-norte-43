@@ -10,7 +10,7 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
     // Busca notícias mockadas e RSS em paralelo
     const [mockNews, rssNews] = await Promise.all([
       getPublishedNews(filters),
-      fetchAllRSSFeeds(15), // Limita RSS a 15 itens
+      fetchAllRSSFeeds(30), // Aumentado para 30 itens RSS (mais feeds = mais notícias)
     ]);
 
     // Combina e ordena por data (mais recentes primeiro)
@@ -50,7 +50,7 @@ export function getAggregatedCities() {
  */
 export function getAggregatedCategories() {
   const mockCategories = ['Política', 'Trânsito', 'Policial', 'Economia', 'Esportes', 'Geral', 'Cidade'];
-  const rssCategories = ['Nacional', 'Governo', 'Educação'];
+  const rssCategories = ['Nacional', 'Governo', 'Educação', 'Saúde', 'Infraestrutura', 'Cidades', 'Trânsito'];
   
   return Array.from(new Set([...mockCategories, ...rssCategories])).sort();
 }
