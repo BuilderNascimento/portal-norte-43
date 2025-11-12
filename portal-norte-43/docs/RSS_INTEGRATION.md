@@ -6,28 +6,39 @@ O Portal Norte 43 agora integra automaticamente notícias de fontes oficiais bra
 
 ## Fontes Configuradas
 
-Atualmente, o sistema busca notícias de:
+O sistema busca automaticamente notícias de **13 feeds RSS governamentais**:
 
-1. **Agência Brasil (EBC)**
-   - URL: `https://agenciabrasil.ebc.com.br/rss.xml`
-   - Categoria: Nacional
-   - Limite: 10 notícias por feed
+### Agência Brasil (EBC)
+1. **Agência Brasil** - `https://agenciabrasil.ebc.com.br/rss.xml` (Nacional)
+2. **Agência Brasil - Últimas** - `https://agenciabrasil.ebc.com.br/ultimas-noticias/rss` (Nacional)
 
-2. **Agência Brasil - Últimas Notícias**
-   - URL: `https://agenciabrasil.ebc.com.br/ultimas-noticias/rss`
-   - Categoria: Nacional
-   - Limite: 10 notícias por feed
+### Portal Gov.br
+3. **Gov.br Notícias** - `https://www.gov.br/pt-br/noticias/@@rss.xml` (Governo)
+4. **Gov.br - Educação (MEC)** - `https://www.gov.br/mec/pt-br/noticias/@@rss.xml` (Educação)
+5. **Gov.br - Saúde** - `https://www.gov.br/saude/pt-br/noticias/@@rss.xml` (Saúde)
+6. **Gov.br - Infraestrutura** - `https://www.gov.br/infraestrutura/pt-br/noticias/@@rss.xml` (Infraestrutura)
+7. **Gov.br - Cidades** - `https://www.gov.br/cidades/pt-br/noticias/@@rss.xml` (Cidades)
 
-3. **Gov.br Notícias**
-   - URL: `https://www.gov.br/pt-br/noticias/@@rss.xml`
-   - Categoria: Governo
-   - Limite: 10 notícias por feed
+### Meteorologia e Emergências
+8. **INMET - Alertas** - `https://portal.inmet.gov.br/rss/avisos` (Geral)
+9. **Defesa Civil Nacional** - `https://www.gov.br/defesacivil/pt-br/noticias/@@rss.xml` (Geral)
+
+### Agências Reguladoras
+10. **ANP - Agência Nacional do Petróleo** - `https://www.gov.br/anp/pt-br/centrais-de-conteudo/noticias/@@rss.xml` (Economia)
+11. **ANTAQ - Transportes Aquaviários** - `https://www.gov.br/antaq/pt-br/noticias/@@rss.xml` (Economia)
+12. **ANTT - Transportes Terrestres** - `https://www.gov.br/antt/pt-br/noticias/@@rss.xml` (Trânsito)
+
+**Limite**: 10 notícias por feed, até 30 notícias RSS no total
 
 ## Como Funciona
 
-### 1. Busca de Feeds
+### 1. Busca de Feeds (Automática)
 
-O sistema busca notícias de todos os feeds RSS configurados em paralelo usando `Promise.all()` para otimizar performance.
+O sistema busca notícias de todos os feeds RSS configurados **automaticamente** em paralelo usando `Promise.allSettled()`:
+- ✅ **Não precisa copiar/colar** - tudo é automático
+- ✅ **Atualiza a cada 2 minutos** (ISR)
+- ✅ **Resiliente** - se um feed falhar, os outros continuam funcionando
+- ✅ **Sem intervenção manual** - zero manutenção
 
 ### 2. Processamento
 
