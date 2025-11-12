@@ -46,9 +46,9 @@ export const mockNews: NewsItem[] = [
     city: 'Andirá',
     category: 'Geral',
     status: 'approved',
-    publishedAt: '2025-11-11T14:30:00-03:00',
+    publishedAt: '2025-11-12T10:00:00-03:00',
     source: 'Portal Norte 43',
-    image: '/images/news/descarga-eletrica-andira.png',
+    image: '/images/news/descarga-eletrica-andira nova.png',
     content: `Um homem de aproximadamente 52 anos ficou gravemente ferido após sofrer uma descarga elétrica de cerca de 11 mil volts na manhã de segunda-feira (11), em Andirá, no Norte Pioneiro do Paraná.
 
 De acordo com informações apuradas, o acidente ocorreu nas margens da BR-369, quilômetro 39, próximo ao aterro sanitário da cidade. A vítima realizava um trabalho em altura quando, após o choque, caiu de uma escada de cerca de seis metros.
