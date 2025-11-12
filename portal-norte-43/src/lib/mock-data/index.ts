@@ -38,6 +38,26 @@ const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
   {
+    id: 104,
+    slug: 'barqueata-reune-mais-200-embarcacoes-belem-justica-climatica-social-12-11-2025',
+    title: 'Barqueata reúne mais de 200 embarcações em Belém por justiça climática e social',
+    summary:
+      'Evento na Baía do Guajará contou com participação de povos indígenas, quilombolas, pescadores e agricultores. Ação faz parte da Cúpula dos Povos paralela à COP30 e marcou o fim da Caravana da Resposta.',
+    city: 'Belém',
+    category: 'COP30',
+    status: 'approved',
+    publishedAt: '2025-11-12T21:00:00-03:00',
+    source: 'Agência Brasil / EBC',
+    image: '/images/news/barqueta.png',
+    content: `Uma barqueata com a participação de povos indígenas, quilombolas, pescadores e agricultores percorreu a Baía do Guajará, em Belém (PA), na manhã desta quarta (12), com o objetivo de reforçar demandas por justiça climática e social. O evento, parte da Cúpula dos Povos paralela à COP30, contou com mais de 200 embarcações e cerca de 5 mil pessoas, segundo os organizadores.
+
+O percurso também marcou o fim da "Caravana da Resposta", que saiu de Sinop (MT) no dia 8 de novembro. No trajeto, os participantes visitaram o chamado "corredor da soja" e denunciaram os impactos do agronegócio, das hidrovias e de grandes obras de infraestrutura sobre os territórios tradicionais.
+
+Durante o ato, representantes dos povos tradicionais pontuaram a importância da soberania sobre terra, água e cultura. "A resposta somos nós", afirmou o líder indígena Bepmoroi Metuktire, membro da articulação do Instituto Raoni.
+
+Além disso, pescadores artesanais relataram a mudança de hábitos por causa das secas, da invasão de madeireiros e da perda de espécies de peixes. Comunidades agrícolas e mulheres ressaltaram o avanço da monocultura e os efeitos na alimentação e no modo de vida.`,
+  },
+  {
     id: 103,
     slug: 'brasil-eua-avancam-negociacoes-tarifas-comerciais-chanceler-mauro-vieira-12-11-2025',
     title: 'Brasil e EUA avançam em negociações sobre tarifas comerciais, diz chanceler Mauro Vieira',
