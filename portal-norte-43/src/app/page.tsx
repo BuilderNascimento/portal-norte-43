@@ -79,30 +79,39 @@ export default async function Home() {
           <div className="lg:col-span-2">
             {featuredNews.map(item => (
               <Link key={item.id} href={`/${item.slug}`} className="group block">
-                <article className="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all hover:shadow-2xl">
-                  <div className="relative aspect-[16/9] w-full bg-slate-200">
+                <article className="flex flex-col overflow-hidden rounded-xl bg-white shadow-lg transition-all hover:shadow-2xl sm:flex-row">
+                  {/* Imagem */}
+                  <div className="relative h-64 w-full bg-slate-200 sm:h-auto sm:w-2/5">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-110"
                       priority
-                      sizes="(max-width: 1024px) 100vw, 66vw"
+                      sizes="(max-width: 640px) 100vw, 40vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                    <span className="absolute left-4 top-4 inline-flex items-center rounded-full bg-red-600 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-lg">
+                    <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-red-600 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-lg sm:left-4 sm:top-4 sm:px-3">
                       {item.category}
                     </span>
-                    <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white">
-                      <span className="text-sm font-medium text-white/90">
-                        {formatDateOnlyBR(item.publishedAt)} • {item.city}
-                      </span>
-                      <h1 className="mt-3 text-2xl font-black leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
+                  </div>
+                  
+                  {/* Conteúdo de Texto */}
+                  <div className="flex flex-1 flex-col justify-between bg-white p-4 sm:p-6">
+                    <div>
+                      <div className="mb-2 flex items-center gap-2 text-xs font-medium text-slate-600 sm:text-sm">
+                        <span>{formatDateOnlyBR(item.publishedAt)}</span>
+                        <span className="text-slate-300">•</span>
+                        <span className="font-semibold text-slate-700">{item.city}</span>
+                      </div>
+                      <h1 className="mb-3 text-xl font-black leading-tight text-slate-900 group-hover:text-red-600 transition-colors sm:text-2xl md:text-3xl">
                         {item.title}
                       </h1>
-                      <p className="mt-4 line-clamp-2 text-base text-white/95 sm:text-lg">
+                      <p className="line-clamp-3 text-sm leading-relaxed text-slate-600 sm:text-base">
                         {item.summary}
                       </p>
+                    </div>
+                    <div className="mt-4 text-xs font-medium text-slate-500 sm:text-sm">
+                      <span className="text-red-600">Ler mais →</span>
                     </div>
                   </div>
                 </article>
