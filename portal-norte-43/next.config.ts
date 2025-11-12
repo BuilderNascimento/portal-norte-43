@@ -25,7 +25,21 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**.mec.gov.br',
       },
+      {
+        protocol: 'https',
+        hostname: 'portalnorte43.com.br',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.portalnorte43.com.br',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.inmet.gov.br',
+      },
     ],
+    // Permite imagens não otimizadas para OG (necessário para alguns casos)
+    unoptimized: false,
   },
 
   // Headers de segurança (complementam o middleware)

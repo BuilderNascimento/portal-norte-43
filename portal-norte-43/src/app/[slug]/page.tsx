@@ -8,6 +8,7 @@ import { NewsCard } from "@/components/features/news/news-card";
 import { getAdsByPosition } from "@/lib/mock-data";
 import { getNewsBySlug, getRelatedNews } from "@/lib/news-aggregator";
 import { formatDateTimeBR } from "@/lib/utils/date";
+import { normalizeImageUrl } from "@/lib/utils/og-image";
 
 // ISR: Revalida a cada 2 minutos
 export const revalidate = 120;
@@ -29,16 +30,11 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
     };
   }
 
-        const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portalnorte43.com.br";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portalnorte43.com.br";
   const articleUrl = `${siteUrl}/${slug}`;
   
-  // URL absoluta da imagem - garante que seja acessível
-  let imageUrl = news.image.startsWith("http")
-    ? news.image
-    : `${siteUrl}${news.image}`;
-
-  // Remove espaços da URL da imagem (importante para WhatsApp)
-  imageUrl = imageUrl.replace(/\s/g, "%20");
+  // Normaliza a URL da imagem para garantir que seja absoluta e acessível
+  const imageUrl = normalizeImageUrl(news.image, siteUrl);
 
   return {
     title: `${news.title} | Portal Norte 43`,
@@ -55,6 +51,7 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
           width: 1200,
           height: 630,
           alt: news.title,
+          type: 'image/jpeg', // Tipo padrão para melhor compatibilidade
         },
       ],
       locale: "pt_BR",
@@ -68,9 +65,16 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
       title: news.title,
       description: news.summary,
       images: [imageUrl],
+      creator: "@portalnorte43", // Adicione seu Twitter se tiver
     },
     alternates: {
       canonical: articleUrl,
+    },
+    // Meta tags adicionais para melhor compatibilidade
+    other: {
+      'og:image:secure_url': imageUrl,
+      'og:image:width': '1200',
+      'og:image:height': '630',
     },
   };
 }
@@ -90,14 +94,11 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
   const content = news.content || news.summary;
 
   // URL do site para compartilhamento
-        const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portalnorte43.com.br";
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://portalnorte43.com.br";
   const articleUrl = `${siteUrl}/${slug}`;
 
-  // URL absoluta da imagem - garante que seja acessível
-  let imageUrl = news.image.startsWith("http")
-    ? news.image
-    : `${siteUrl}${news.image}`;
-  imageUrl = imageUrl.replace(/\s/g, "%20"); // Encode spaces for URLs
+  // Normaliza a URL da imagem para garantir que seja absoluta e acessível
+  const imageUrl = normalizeImageUrl(news.image, siteUrl);
 
   return (
     <>

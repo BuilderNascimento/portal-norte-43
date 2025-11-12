@@ -21,11 +21,20 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     url: siteUrl,
     siteName: "Portal Norte 43",
+    images: [
+      {
+        url: `${siteUrl}/images/og-default.jpg`, // Imagem padrão para homepage
+        width: 1200,
+        height: 630,
+        alt: "Portal Norte 43",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Portal Norte 43",
     description: "Notícias automatizadas do Norte Pioneiro do Paraná",
+    images: [`${siteUrl}/images/og-default.jpg`],
   },
 };
 
