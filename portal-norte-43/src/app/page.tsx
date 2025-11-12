@@ -71,9 +71,13 @@ export default async function Home({ searchParams }: HomeProps) {
               Nenhuma notícia encontrada
             </h2>
             <p className="mb-6 text-slate-600">
-              {filteredCategoryName && `Não há notícias na categoria "${filteredCategoryName}"`}
-              {filteredCityName && `Não há notícias da cidade "${filteredCityName}"`}
-              {filteredCategoryName && filteredCityName && `Não há notícias de "${filteredCategoryName}" em "${filteredCityName}"`}
+              {filteredCategoryName && filteredCityName
+                ? `Não há notícias de "${filteredCategoryName}" em "${filteredCityName}"`
+                : filteredCategoryName
+                  ? `Não há notícias na categoria "${filteredCategoryName}"`
+                  : filteredCityName
+                    ? `Não há notícias da cidade "${filteredCityName}"`
+                    : 'Não há notícias disponíveis no momento.'}
             </p>
             <Link
               href="/"
