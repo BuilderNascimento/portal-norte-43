@@ -42,7 +42,7 @@ const nextConfig: NextConfig = {
     unoptimized: false,
   },
 
-  // Headers de segurança (complementam o middleware)
+  // Headers de segurança (complementam o proxy)
   async headers() {
     return [
       {
