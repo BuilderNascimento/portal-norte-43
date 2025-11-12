@@ -6,6 +6,14 @@ const parser = new Parser({
   headers: {
     'User-Agent': 'Portal Norte 43 RSS Reader',
   },
+  customFields: {
+    item: [
+      ['media:content', 'media:content', { keepArray: true }],
+      ['media:thumbnail', 'media:thumbnail', { keepArray: true }],
+      ['itunes:image', 'itunes:image'],
+      ['enclosure', 'enclosure', { keepArray: true }],
+    ],
+  },
 });
 
 export interface RSSFeedSource {
@@ -50,19 +58,72 @@ function stripHtml(html: string): string {
 /**
  * Extrai imagem do conteúdo HTML ou retorna placeholder
  */
-function extractImage(content: string | undefined, enclosure?: any): string {
-  if (enclosure?.url && enclosure?.type?.startsWith('image/')) {
-    return enclosure.url;
+function extractImage(item: any): string {
+  // 1. Verifica enclosure (RSS padrão)
+  if (item.enclosure?.url && item.enclosure?.type?.startsWith('image/')) {
+    return item.enclosure.url;
   }
 
+  // 2. Verifica media:content (RSS 2.0 com namespaces)
+  if (item['media:content']?.$?.url) {
+    return item['media:content'].$.url;
+  }
+  if (item['media:thumbnail']?.$?.url) {
+    return item['media:thumbnail'].$.url;
+  }
+
+  // 3. Verifica itunes:image
+  if (item['itunes:image']?.$.href) {
+    return item['itunes:image'].$.href;
+  }
+
+  // 4. Verifica image do feed item
+  if (item.image?.url) {
+    return item.image.url;
+  }
+
+  // 5. Extrai de HTML content (múltiplos padrões)
+  const content = item.content || item.contentSnippet || item.description || '';
+  
   if (content) {
-    const imgMatch = content.match(/<img[^>]+src="([^"]+)"/i);
+    // Padrão 1: <img src="...">
+    let imgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/i);
     if (imgMatch && imgMatch[1]) {
       return imgMatch[1];
     }
+
+    // Padrão 2: <img src=...> (sem aspas)
+    imgMatch = content.match(/<img[^>]+src=([^\s>]+)/i);
+    if (imgMatch && imgMatch[1]) {
+      return imgMatch[1].replace(/["']/g, '');
+    }
+
+    // Padrão 3: background-image: url(...)
+    const bgMatch = content.match(/background-image:\s*url\(["']?([^"')]+)["']?\)/i);
+    if (bgMatch && bgMatch[1]) {
+      return bgMatch[1];
+    }
+
+    // Padrão 4: URLs de imagens comuns em feeds brasileiros
+    const urlMatch = content.match(/(https?:\/\/[^\s<>"']+\.(jpg|jpeg|png|gif|webp|svg))/i);
+    if (urlMatch && urlMatch[1]) {
+      return urlMatch[1];
+    }
   }
 
-  // Placeholder baseado na categoria
+  // 6. Verifica link do item (alguns feeds colocam imagem no link)
+  if (item.link) {
+    // Tenta construir URL de imagem baseada no link
+    try {
+      const url = new URL(item.link);
+      // Alguns sites têm estrutura previsível para imagens
+      // Mas vamos pular isso por enquanto
+    } catch {
+      // URL inválida
+    }
+  }
+
+  // Placeholder padrão
   return '/images/news/tempestade-maringa.svg';
 }
 
@@ -92,7 +153,7 @@ export async function fetchRSSFeed(feedSource: RSSFeedSource): Promise<NewsItem[
 
     return feed.items
       .slice(0, 10) // Limita a 10 itens por feed
-      .map((item, index) => {
+      .map((item: any, index) => {
         const title = item.title || 'Sem título';
         const content = item.contentSnippet || item.content || item.description || '';
         const summary = stripHtml(content).substring(0, 200) || 'Sem descrição disponível.';
@@ -109,7 +170,7 @@ export async function fetchRSSFeed(feedSource: RSSFeedSource): Promise<NewsItem[
             ? new Date(item.pubDate).toISOString()
             : new Date().toISOString(),
           source: feedSource.name,
-          image: extractImage(item.content || item.description, item.enclosure),
+          image: extractImage(item),
         };
       });
   } catch (error: any) {

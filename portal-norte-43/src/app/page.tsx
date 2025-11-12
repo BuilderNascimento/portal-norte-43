@@ -11,6 +11,9 @@ import {
   getAggregatedNews,
 } from "@/lib/news-aggregator";
 
+// ISR: Revalida a cada 2 minutos (120 segundos)
+export const revalidate = 120;
+
 export default async function Home() {
   const [news, cities, categories] = await Promise.all([
     getAggregatedNews(),

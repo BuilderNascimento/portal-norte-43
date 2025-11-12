@@ -27,7 +27,7 @@ export async function GET(request: Request) {
     },
     {
       headers: {
-        "Cache-Control": "public, s-maxage=300", // Cache de 5 minutos
+        "Cache-Control": "public, s-maxage=120", // Cache de 2 minutos
       },
     },
   );
