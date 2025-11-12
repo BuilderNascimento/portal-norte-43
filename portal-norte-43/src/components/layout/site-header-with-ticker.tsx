@@ -14,6 +14,7 @@ const NAV_LINKS = [
 ];
 
 const CATEGORIES = [
+  { href: '/?category=Geral', label: 'Geral' },
   { href: '/?category=Política', label: 'Política' },
   { href: '/?category=Trânsito', label: 'Trânsito' },
   { href: '/?category=Policial', label: 'Policial' },
