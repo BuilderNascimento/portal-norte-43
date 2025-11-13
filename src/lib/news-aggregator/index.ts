@@ -15,6 +15,8 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
       loadAutomatedNews(), // Notícias já processadas e armazenadas
     ]);
 
+    console.log(`[NewsAggregator] Mock: ${mockNews.length}, RSS: ${rssNews.length}, Automated: ${automatedNews.length}`);
+
     // Calcula a data de 10 dias atrás (timezone de São Paulo - UTC-3)
     const now = new Date();
     const tenDaysAgo = new Date(now);
@@ -27,10 +29,19 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
     
     [...mockNews, ...rssNews, ...automatedNews].forEach(news => {
       const newsDate = new Date(news.publishedAt);
-      if (newsDate >= tenDaysAgo && !allNewsMap.has(news.slug)) {
+      const isRecent = newsDate >= tenDaysAgo;
+      const isDuplicate = allNewsMap.has(news.slug);
+      
+      if (isRecent && !isDuplicate) {
         allNewsMap.set(news.slug, news);
+      } else if (!isRecent) {
+        console.log(`[NewsAggregator] Notícia filtrada (muito antiga): ${news.title} - ${news.publishedAt}`);
+      } else if (isDuplicate) {
+        console.log(`[NewsAggregator] Notícia duplicada ignorada: ${news.title} (slug: ${news.slug})`);
       }
     });
+    
+    console.log(`[NewsAggregator] Total após filtros: ${allNewsMap.size} notícias`);
 
     const allNews: NewsItem[] = Array.from(allNewsMap.values()).sort(
       (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
