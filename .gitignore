@@ -41,4 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 # dados automatizados (temporário até n8n)
-/data
+/data/*
+!data/automated-news.json
