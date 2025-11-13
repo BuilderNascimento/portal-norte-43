@@ -1,0 +1,9 @@
+<svg width='800' height='450' viewBox='0 0 800 450' xmlns='http://www.w3.org/2000/svg'>
+  <rect width='800' height='450' fill='#DC2626'/>
+  <circle cx='650' cy='110' r='90' fill='rgba(255,255,255,0.12)'/>
+  <rect x='80' y='150' width='640' height='160' rx='20' fill='rgba(255,255,255,0.18)'/>
+  <text x='50%' y='47%' dominant-baseline='middle' text-anchor='middle'
+        font-size='46' font-family='Inter, Arial, sans-serif' fill='white'>Ocorrência de Trânsito</text>
+  <text x='50%' y='64%' dominant-baseline='middle' text-anchor='middle'
+        font-size='24' font-family='Inter, Arial, sans-serif' fill='#FEE2E2'>Maringá • Avenida Colombo</text>
+</svg>

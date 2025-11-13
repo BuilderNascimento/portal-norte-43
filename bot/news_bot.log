@@ -1,0 +1,393 @@
+2025-11-13 08:58:36,461 - INFO - ======================================================================
+2025-11-13 08:58:36,461 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 08:58:36,462 - INFO - ======================================================================
+2025-11-13 08:58:36,462 - INFO - ⏰ Iniciado em: 13/11/2025 08:58:36
+2025-11-13 08:58:36,462 - INFO - 
+2025-11-13 08:58:36,462 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 08:58:36,462 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 08:58:37,829 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 08:58:39,079 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 08:58:39,769 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 08:58:39,769 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 08:58:40,453 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 08:58:40,453 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 08:58:41,811 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 08:58:41,811 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 08:58:42,514 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 08:58:42,515 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 08:59:30,124 - WARNING - ⚠️  Erro ao parsear feed INMET - Alertas: <unknown>:26:2: mismatched tag
+2025-11-13 08:59:30,124 - INFO - 📡 Buscando feed: Defesa Civil Nacional
+2025-11-13 08:59:30,815 - WARNING - ⚠️  Erro ao parsear feed Defesa Civil Nacional: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 08:59:30,815 - INFO - 📡 Buscando feed: ANP - Agência Nacional do Petróleo
+2025-11-13 08:59:31,502 - WARNING - ⚠️  Erro ao parsear feed ANP - Agência Nacional do Petróleo: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 08:59:31,502 - INFO - 📡 Buscando feed: ANTT - Transportes Terrestres
+2025-11-13 08:59:32,190 - WARNING - ⚠️  Erro ao parsear feed ANTT - Transportes Terrestres: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 08:59:32,190 - INFO - ✅ Total de notícias encontradas: 6
+2025-11-13 08:59:32,190 - INFO - 
+📝 ETAPA 2: Processando até 2 notícia(s)...
+2025-11-13 08:59:32,191 - INFO - 🔄 Processando: Não Se Engane #01: desmentimos fakes sobre vacinas e ameaça ...
+2025-11-13 08:59:32,191 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 08:59:32,797 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 404 Not Found"
+2025-11-13 08:59:32,798 - ERROR - Erro ao reescrever notícia com IA: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CV5XzDFDf7CM2p7dQtN2r'}
+2025-11-13 08:59:32,798 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 08:59:32,798 - INFO - 🔄 Processando: Congresso aprova R$ 71 bi para o novo Bolsa Família...
+2025-11-13 08:59:32,798 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 08:59:33,363 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 404 Not Found"
+2025-11-13 08:59:33,364 - ERROR - Erro ao reescrever notícia com IA: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CV5XzFNTsMpUDSLa2pyi2'}
+2025-11-13 08:59:33,364 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 08:59:33,364 - INFO - 
+2025-11-13 08:59:33,364 - INFO - ======================================================================
+2025-11-13 08:59:33,364 - INFO - 📊 RESUMO DA EXECUÇÃO
+2025-11-13 08:59:33,364 - INFO - ======================================================================
+2025-11-13 08:59:33,364 - INFO - 📰 Notícias encontradas: 6
+2025-11-13 08:59:33,365 - INFO - 🔄 Notícias processadas: 0
+2025-11-13 08:59:33,365 - INFO - ✅ Notícias publicadas: 0
+2025-11-13 08:59:33,365 - INFO - 
+2025-11-13 08:59:33,365 - INFO - ✨ Bot executado com sucesso!
+2025-11-13 08:59:57,484 - INFO - ======================================================================
+2025-11-13 08:59:57,485 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 08:59:57,485 - INFO - ======================================================================
+2025-11-13 08:59:57,485 - INFO - ⏰ Iniciado em: 13/11/2025 08:59:57
+2025-11-13 08:59:57,485 - INFO - 
+2025-11-13 08:59:57,485 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 08:59:57,485 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 08:59:57,777 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 08:59:59,368 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 09:00:00,055 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:00:00,055 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 09:00:00,732 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:00:00,732 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 09:00:02,075 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:00:02,075 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 09:00:02,755 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:00:02,756 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 09:09:39,380 - INFO - ======================================================================
+2025-11-13 09:09:39,380 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 09:09:39,380 - INFO - ======================================================================
+2025-11-13 09:09:39,380 - INFO - ⏰ Iniciado em: 13/11/2025 09:09:39
+2025-11-13 09:09:39,380 - INFO - 
+2025-11-13 09:09:39,380 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 09:09:39,380 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 09:09:39,685 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 09:09:40,913 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 09:09:41,624 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:09:41,625 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 09:09:42,300 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:09:42,301 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 09:09:43,657 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:09:43,658 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 09:09:44,336 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:09:44,336 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 09:09:51,548 - WARNING - ⚠️  Erro ao parsear feed INMET - Alertas: <unknown>:26:2: mismatched tag
+2025-11-13 09:09:51,549 - INFO - 📡 Buscando feed: Defesa Civil Nacional
+2025-11-13 09:09:52,226 - WARNING - ⚠️  Erro ao parsear feed Defesa Civil Nacional: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:09:52,227 - INFO - 📡 Buscando feed: ANP - Agência Nacional do Petróleo
+2025-11-13 09:09:52,900 - WARNING - ⚠️  Erro ao parsear feed ANP - Agência Nacional do Petróleo: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:09:52,900 - INFO - 📡 Buscando feed: ANTT - Transportes Terrestres
+2025-11-13 09:09:53,593 - WARNING - ⚠️  Erro ao parsear feed ANTT - Transportes Terrestres: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:09:53,593 - INFO - ✅ Total de notícias encontradas: 6
+2025-11-13 09:09:53,593 - INFO - 
+📝 ETAPA 2: Processando até 2 notícia(s)...
+2025-11-13 09:09:53,593 - INFO - 🔄 Processando: Não Se Engane #01: desmentimos fakes sobre vacinas e ameaça ...
+2025-11-13 09:09:53,593 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:09:54,153 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 404 Not Found"
+2025-11-13 09:09:54,154 - ERROR - Erro ao reescrever notícia com IA: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CV5Yn1ihydyMtmUopXNK3'}
+2025-11-13 09:09:54,154 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:09:54,154 - INFO - 🔄 Processando: Congresso aprova R$ 71 bi para o novo Bolsa Família...
+2025-11-13 09:09:54,154 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:09:54,639 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 404 Not Found"
+2025-11-13 09:09:54,648 - ERROR - Erro ao reescrever notícia com IA: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CV5Yn3kVcbi6usXCRjQse'}
+2025-11-13 09:09:54,649 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:09:54,649 - INFO - 
+2025-11-13 09:09:54,649 - INFO - ======================================================================
+2025-11-13 09:09:54,649 - INFO - 📊 RESUMO DA EXECUÇÃO
+2025-11-13 09:09:54,649 - INFO - ======================================================================
+2025-11-13 09:09:54,649 - INFO - 📰 Notícias encontradas: 6
+2025-11-13 09:09:54,649 - INFO - 🔄 Notícias processadas: 0
+2025-11-13 09:09:54,649 - INFO - ✅ Notícias publicadas: 0
+2025-11-13 09:09:54,649 - INFO - 
+2025-11-13 09:09:54,650 - INFO - ✨ Bot executado com sucesso!
+2025-11-13 09:10:20,923 - INFO - ======================================================================
+2025-11-13 09:10:20,924 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 09:10:20,924 - INFO - ======================================================================
+2025-11-13 09:10:20,924 - INFO - ⏰ Iniciado em: 13/11/2025 09:10:20
+2025-11-13 09:10:20,924 - INFO - 
+2025-11-13 09:10:20,924 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 09:10:20,924 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 09:10:21,220 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 09:10:22,546 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 09:10:23,230 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:23,230 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 09:10:23,909 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:23,910 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 09:10:25,255 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:25,255 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 09:10:25,952 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:25,952 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 09:10:31,290 - WARNING - ⚠️  Erro ao parsear feed INMET - Alertas: <unknown>:26:2: mismatched tag
+2025-11-13 09:10:31,290 - INFO - 📡 Buscando feed: Defesa Civil Nacional
+2025-11-13 09:10:31,967 - WARNING - ⚠️  Erro ao parsear feed Defesa Civil Nacional: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:31,967 - INFO - 📡 Buscando feed: ANP - Agência Nacional do Petróleo
+2025-11-13 09:10:32,643 - WARNING - ⚠️  Erro ao parsear feed ANP - Agência Nacional do Petróleo: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:32,643 - INFO - 📡 Buscando feed: ANTT - Transportes Terrestres
+2025-11-13 09:10:33,317 - WARNING - ⚠️  Erro ao parsear feed ANTT - Transportes Terrestres: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:33,317 - INFO - ✅ Total de notícias encontradas: 6
+2025-11-13 09:10:33,318 - INFO - 
+📝 ETAPA 2: Processando até 2 notícia(s)...
+2025-11-13 09:10:33,318 - INFO - 🔄 Processando: Não Se Engane #01: desmentimos fakes sobre vacinas e ameaça ...
+2025-11-13 09:10:33,318 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:10:33,888 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 404 Not Found"
+2025-11-13 09:10:33,889 - ERROR - Erro ao reescrever notícia com IA: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet'}, 'request_id': 'req_011CV5YpwZm7Cym7cuYSj85J'}
+2025-11-13 09:10:33,889 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:10:33,889 - INFO - 🔄 Processando: Congresso aprova R$ 71 bi para o novo Bolsa Família...
+2025-11-13 09:10:33,890 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:10:34,350 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 404 Not Found"
+2025-11-13 09:10:34,350 - ERROR - Erro ao reescrever notícia com IA: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet'}, 'request_id': 'req_011CV5Ypybo45d4xFwGYNWMh'}
+2025-11-13 09:10:34,351 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:10:34,351 - INFO - 
+2025-11-13 09:10:34,351 - INFO - ======================================================================
+2025-11-13 09:10:34,351 - INFO - 📊 RESUMO DA EXECUÇÃO
+2025-11-13 09:10:34,351 - INFO - ======================================================================
+2025-11-13 09:10:34,351 - INFO - 📰 Notícias encontradas: 6
+2025-11-13 09:10:34,351 - INFO - 🔄 Notícias processadas: 0
+2025-11-13 09:10:34,351 - INFO - ✅ Notícias publicadas: 0
+2025-11-13 09:10:34,351 - INFO - 
+2025-11-13 09:10:34,351 - INFO - ✨ Bot executado com sucesso!
+2025-11-13 09:10:48,088 - INFO - ======================================================================
+2025-11-13 09:10:48,088 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 09:10:48,088 - INFO - ======================================================================
+2025-11-13 09:10:48,088 - INFO - ⏰ Iniciado em: 13/11/2025 09:10:48
+2025-11-13 09:10:48,088 - INFO - 
+2025-11-13 09:10:48,088 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 09:10:48,088 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 09:10:48,689 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 09:10:50,026 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 09:10:50,709 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:50,709 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 09:10:51,389 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:51,389 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 09:10:52,732 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:52,733 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 09:10:53,409 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:10:53,409 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 09:11:14,493 - WARNING - ⚠️  Erro ao parsear feed INMET - Alertas: <urlopen error [WinError 10060] Uma tentativa de conexão falhou porque o componente conectado não respondeu
+corretamente após um período de tempo ou a conexão estabelecida falhou
+porque o host conectado não respondeu>
+2025-11-13 09:11:14,493 - INFO - 📡 Buscando feed: Defesa Civil Nacional
+2025-11-13 09:11:15,175 - WARNING - ⚠️  Erro ao parsear feed Defesa Civil Nacional: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:11:15,175 - INFO - 📡 Buscando feed: ANP - Agência Nacional do Petróleo
+2025-11-13 09:11:15,875 - WARNING - ⚠️  Erro ao parsear feed ANP - Agência Nacional do Petróleo: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:11:15,876 - INFO - 📡 Buscando feed: ANTT - Transportes Terrestres
+2025-11-13 09:11:16,555 - WARNING - ⚠️  Erro ao parsear feed ANTT - Transportes Terrestres: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:11:16,555 - INFO - ✅ Total de notícias encontradas: 6
+2025-11-13 09:11:16,555 - INFO - 
+📝 ETAPA 2: Processando até 2 notícia(s)...
+2025-11-13 09:11:16,555 - INFO - 🔄 Processando: Não Se Engane #01: desmentimos fakes sobre vacinas e ameaça ...
+2025-11-13 09:11:16,555 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:11:17,148 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 404 Not Found"
+2025-11-13 09:11:17,151 - ERROR - Erro ao reescrever notícia com IA: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-opus-20240229'}, 'request_id': 'req_011CV5Yt8QD9ztRVLcMQAyQQ'}
+2025-11-13 09:11:17,151 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:11:17,151 - INFO - 🔄 Processando: Congresso aprova R$ 71 bi para o novo Bolsa Família...
+2025-11-13 09:11:17,151 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:11:17,586 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 404 Not Found"
+2025-11-13 09:11:17,587 - ERROR - Erro ao reescrever notícia com IA: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-opus-20240229'}, 'request_id': 'req_011CV5YtAUjKKqSNWcsLdCxM'}
+2025-11-13 09:11:17,587 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:11:17,587 - INFO - 
+2025-11-13 09:11:17,587 - INFO - ======================================================================
+2025-11-13 09:11:17,587 - INFO - 📊 RESUMO DA EXECUÇÃO
+2025-11-13 09:11:17,587 - INFO - ======================================================================
+2025-11-13 09:11:17,587 - INFO - 📰 Notícias encontradas: 6
+2025-11-13 09:11:17,587 - INFO - 🔄 Notícias processadas: 0
+2025-11-13 09:11:17,587 - INFO - ✅ Notícias publicadas: 0
+2025-11-13 09:11:17,588 - INFO - 
+2025-11-13 09:11:17,588 - INFO - ✨ Bot executado com sucesso!
+2025-11-13 09:12:08,740 - INFO - ======================================================================
+2025-11-13 09:12:08,740 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 09:12:08,740 - INFO - ======================================================================
+2025-11-13 09:12:08,740 - INFO - ⏰ Iniciado em: 13/11/2025 09:12:08
+2025-11-13 09:12:08,740 - INFO - 
+2025-11-13 09:12:08,740 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 09:12:08,740 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 09:12:09,025 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 09:12:10,385 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 09:12:11,058 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:12:11,059 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 09:12:11,736 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:12:11,736 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 09:12:13,069 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:12:13,069 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 09:12:13,744 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:12:13,744 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 09:12:25,586 - WARNING - ⚠️  Erro ao parsear feed INMET - Alertas: <unknown>:26:2: mismatched tag
+2025-11-13 09:12:25,587 - INFO - 📡 Buscando feed: Defesa Civil Nacional
+2025-11-13 09:12:26,262 - WARNING - ⚠️  Erro ao parsear feed Defesa Civil Nacional: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:12:26,263 - INFO - 📡 Buscando feed: ANP - Agência Nacional do Petróleo
+2025-11-13 09:12:26,944 - WARNING - ⚠️  Erro ao parsear feed ANP - Agência Nacional do Petróleo: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:12:26,945 - INFO - 📡 Buscando feed: ANTT - Transportes Terrestres
+2025-11-13 09:12:27,624 - WARNING - ⚠️  Erro ao parsear feed ANTT - Transportes Terrestres: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:12:27,624 - INFO - ✅ Total de notícias encontradas: 6
+2025-11-13 09:12:27,625 - INFO - 
+📝 ETAPA 2: Processando até 2 notícia(s)...
+2025-11-13 09:12:27,625 - INFO - 🔄 Processando: Não Se Engane #01: desmentimos fakes sobre vacinas e ameaça ...
+2025-11-13 09:12:27,625 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:12:32,096 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-11-13 09:12:32,107 - ERROR - Erro ao parsear JSON da resposta: Expecting ',' delimiter: line 3 column 37 (char 110)
+2025-11-13 09:12:32,107 - ERROR - Resposta recebida: {
+  "title": "Desvendando Fakes: A Verdade por Trás das Notícias Virais",
+  "summary": "A EBC lança o quadro "Não Se Engane" para desmentir informações falsas que circulam na internet, trazendo os fat
+2025-11-13 09:12:32,108 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:12:32,108 - INFO - 🔄 Processando: Congresso aprova R$ 71 bi para o novo Bolsa Família...
+2025-11-13 09:12:32,108 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:12:35,884 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-11-13 09:12:35,885 - INFO - ✅ Notícia reescrita: Legisladores Aprovam Injeção de R$ 71 Bilhões no Novo Progra...
+2025-11-13 09:12:35,885 - INFO -   🏷️  Categorizando...
+2025-11-13 09:12:38,257 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-11-13 09:12:38,258 - INFO - 🏷️  Categoria classificada: Economia
+2025-11-13 09:12:38,258 - INFO -   🎨 Gerando imagem...
+2025-11-13 09:12:38,543 - INFO - 🎨 Gerando imagem com prompt: Crie uma imagem jornalística profissional para uma notícia sobre: Legisladores A...
+2025-11-13 09:12:53,574 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-11-13 09:12:55,263 - INFO - ✅ Imagem salva: /images/news/legisladores-aprovam-injeção-de-r-71-bilhões-no-no-20251113-091255.png
+2025-11-13 09:12:55,265 - INFO -   ✅ Notícia processada com sucesso!
+2025-11-13 09:12:55,265 - INFO - 
+📤 ETAPA 3: Publicando no site...
+2025-11-13 09:12:55,265 - INFO - 📤 Publicando no site: Legisladores Aprovam Injeção de R$ 71 Bilhões no N...
+2025-11-13 09:12:55,291 - INFO -   ✅ Notícia publicada com sucesso!
+2025-11-13 09:12:55,292 - INFO - 
+2025-11-13 09:12:55,292 - INFO - ======================================================================
+2025-11-13 09:12:55,292 - INFO - 📊 RESUMO DA EXECUÇÃO
+2025-11-13 09:12:55,292 - INFO - ======================================================================
+2025-11-13 09:12:55,292 - INFO - 📰 Notícias encontradas: 6
+2025-11-13 09:12:55,292 - INFO - 🔄 Notícias processadas: 1
+2025-11-13 09:12:55,292 - INFO - ✅ Notícias publicadas: 1
+2025-11-13 09:12:55,292 - INFO - 
+2025-11-13 09:12:55,292 - INFO - ✨ Bot executado com sucesso!
+2025-11-13 09:19:51,533 - INFO - 📋 Carregados 1 slugs processados
+2025-11-13 09:19:51,534 - INFO - ======================================================================
+2025-11-13 09:19:51,534 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 09:19:51,534 - INFO - ======================================================================
+2025-11-13 09:19:51,534 - INFO - ⏰ Iniciado em: 13/11/2025 09:19:51
+2025-11-13 09:19:51,534 - INFO - 
+2025-11-13 09:19:51,534 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 09:19:51,534 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 09:19:52,054 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 09:19:53,392 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 09:19:54,088 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:19:54,088 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 09:19:54,765 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:19:54,765 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 09:19:56,112 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:19:56,112 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 09:19:56,789 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:19:56,789 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 09:26:50,344 - INFO - 📋 Carregados 1 slugs processados
+2025-11-13 09:26:50,345 - INFO - ======================================================================
+2025-11-13 09:26:50,345 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 09:26:50,345 - INFO - ======================================================================
+2025-11-13 09:26:50,345 - INFO - ⏰ Iniciado em: 13/11/2025 09:26:50
+2025-11-13 09:26:50,345 - INFO - 
+2025-11-13 09:26:50,345 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 09:26:50,345 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 09:26:51,725 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 09:26:52,651 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 09:26:53,333 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:26:53,333 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 09:26:54,010 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:26:54,011 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 09:26:55,347 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:26:55,347 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 09:26:56,023 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:26:56,023 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 09:27:17,235 - WARNING - ⚠️  Erro ao parsear feed INMET - Alertas: <unknown>:26:2: mismatched tag
+2025-11-13 09:27:17,235 - INFO - 📡 Buscando feed: Defesa Civil Nacional
+2025-11-13 09:27:17,908 - WARNING - ⚠️  Erro ao parsear feed Defesa Civil Nacional: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:27:17,909 - INFO - 📡 Buscando feed: ANP - Agência Nacional do Petróleo
+2025-11-13 09:27:18,591 - WARNING - ⚠️  Erro ao parsear feed ANP - Agência Nacional do Petróleo: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:27:18,592 - INFO - 📡 Buscando feed: ANTT - Transportes Terrestres
+2025-11-13 09:27:19,270 - WARNING - ⚠️  Erro ao parsear feed ANTT - Transportes Terrestres: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:27:19,270 - INFO - ✅ Total de notícias encontradas: 5
+2025-11-13 09:27:19,271 - INFO - 
+📝 ETAPA 2: Processando até 2 notícia(s)...
+2025-11-13 09:27:19,271 - INFO - 🔄 Processando: Não Se Engane #01: desmentimos fakes sobre vacinas e ameaça ...
+2025-11-13 09:27:19,271 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:27:23,630 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-11-13 09:27:23,641 - ERROR - Erro ao parsear JSON da resposta: Invalid control character at: line 4 column 284 (char 621)
+2025-11-13 09:27:23,641 - ERROR - Resposta recebida: {
+  "title": "Desmistificando Boatos: Checando Fatos sobre Vacinas e Perseguição Religiosa",
+  "summary": "A EBC lançou o quadro 'Não Se Engane' para verificar informações virais e trazer a verdade. N
+2025-11-13 09:27:23,641 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:27:23,641 - INFO - 🔄 Processando: Rompimentos de barragens afetam 4 milhões de pessoas no Bras...
+2025-11-13 09:27:23,641 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:27:27,608 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-11-13 09:27:27,609 - ERROR - Erro ao parsear JSON da resposta: Invalid control character at: line 4 column 324 (char 607)
+2025-11-13 09:27:27,609 - ERROR - Resposta recebida: {
+  "title": "Tragédia Hídrica: Barragens Devastam Vidas no Brasil",
+  "summary": "Estudo revela que mais de 4 milhões de brasileiros foram afetados por rompimentos e construções de barragens nas últi
+2025-11-13 09:27:27,609 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:27:27,609 - INFO - 
+2025-11-13 09:27:27,609 - INFO - ======================================================================
+2025-11-13 09:27:27,609 - INFO - 📊 RESUMO DA EXECUÇÃO
+2025-11-13 09:27:27,609 - INFO - ======================================================================
+2025-11-13 09:27:27,609 - INFO - 📰 Notícias encontradas: 5
+2025-11-13 09:27:27,609 - INFO - 🔄 Notícias processadas: 0
+2025-11-13 09:27:27,609 - INFO - ✅ Notícias publicadas: 0
+2025-11-13 09:27:27,609 - INFO - 
+2025-11-13 09:27:27,609 - INFO - ✨ Bot executado com sucesso!
+2025-11-13 09:32:19,190 - INFO - 📋 Carregados 1 slugs processados
+2025-11-13 09:32:19,190 - INFO - ======================================================================
+2025-11-13 09:32:19,190 - INFO - 🤖 Portal Norte 43 - Bot de Automação de Notícias
+2025-11-13 09:32:19,190 - INFO - ======================================================================
+2025-11-13 09:32:19,190 - INFO - ⏰ Iniciado em: 13/11/2025 09:32:19
+2025-11-13 09:32:19,190 - INFO - 
+2025-11-13 09:32:19,190 - INFO - 📡 ETAPA 1: Buscando feeds RSS...
+2025-11-13 09:32:19,190 - INFO - 📡 Buscando feed: Agência Brasil
+2025-11-13 09:32:21,083 - INFO - 📡 Buscando feed: Gov.br Notícias
+2025-11-13 09:32:22,216 - INFO - 📡 Buscando feed: Gov.br - Educação
+2025-11-13 09:32:22,889 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Educação: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:32:22,889 - INFO - 📡 Buscando feed: Gov.br - Saúde
+2025-11-13 09:32:23,570 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Saúde: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:32:23,570 - INFO - 📡 Buscando feed: Gov.br - Infraestrutura
+2025-11-13 09:32:24,903 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Infraestrutura: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:32:24,904 - INFO - 📡 Buscando feed: Gov.br - Cidades
+2025-11-13 09:32:25,581 - WARNING - ⚠️  Erro ao parsear feed Gov.br - Cidades: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:32:25,582 - INFO - 📡 Buscando feed: INMET - Alertas
+2025-11-13 09:33:58,872 - WARNING - ⚠️  Erro ao parsear feed INMET - Alertas: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)>
+2025-11-13 09:33:58,872 - INFO - 📡 Buscando feed: Defesa Civil Nacional
+2025-11-13 09:33:59,540 - WARNING - ⚠️  Erro ao parsear feed Defesa Civil Nacional: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:33:59,540 - INFO - 📡 Buscando feed: ANP - Agência Nacional do Petróleo
+2025-11-13 09:34:00,221 - WARNING - ⚠️  Erro ao parsear feed ANP - Agência Nacional do Petróleo: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:34:00,222 - INFO - 📡 Buscando feed: ANTT - Transportes Terrestres
+2025-11-13 09:34:00,894 - WARNING - ⚠️  Erro ao parsear feed ANTT - Transportes Terrestres: <unknown>:2:0: not well-formed (invalid token)
+2025-11-13 09:34:00,894 - INFO - ✅ Total de notícias encontradas: 5
+2025-11-13 09:34:00,895 - INFO - 
+📝 ETAPA 2: Processando até 2 notícia(s)...
+2025-11-13 09:34:00,895 - INFO - 🔄 Processando: Não Se Engane #01: desmentimos fakes sobre vacinas e ameaça ...
+2025-11-13 09:34:00,895 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:34:05,676 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-11-13 09:34:05,691 - INFO - ✅ Notícia reescrita: Desvendando Boatos: A Verdade por Trás das Narrativas Engano...
+2025-11-13 09:34:05,691 - INFO -   🏷️  Categorizando...
+2025-11-13 09:34:06,521 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-11-13 09:34:06,523 - INFO - 🏷️  Categoria classificada: Saúde
+2025-11-13 09:34:06,523 - INFO -   🎨 Gerando imagem...
+2025-11-13 09:34:06,805 - INFO - 🎨 Gerando imagem com prompt: Fotografia jornalística profissional e realista sobre: Desvendando Boatos: A Ver...
+2025-11-13 09:34:22,993 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-11-13 09:34:24,743 - INFO - ✅ Imagem salva: /images/news/desvendando-boatos-a-verdade-por-trás-das-narrativ-20251113-093424.png
+2025-11-13 09:34:24,745 - INFO -   ✅ Notícia processada com sucesso!
+2025-11-13 09:34:24,745 - INFO - 
+📤 ETAPA 3: Publicando no site...
+2025-11-13 09:34:24,745 - INFO - 📤 Publicando no site: Desvendando Boatos: A Verdade por Trás das Narrati...
+2025-11-13 09:34:24,793 - INFO -   ✅ Notícia publicada com sucesso!
+2025-11-13 09:34:24,794 - INFO - 🔄 Processando: Rompimentos de barragens afetam 4 milhões de pessoas no Bras...
+2025-11-13 09:34:24,794 - INFO -   ✍️  Reescrevendo com Claude...
+2025-11-13 09:34:33,000 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-11-13 09:34:33,023 - ERROR - Erro ao parsear JSON da resposta: Expecting ',' delimiter: line 1 column 727 (char 726)
+2025-11-13 09:34:33,023 - ERROR - Resposta recebida: { "title": "Barragens Rompidas: Um Rastro de Destruição e Violação de Direitos no Brasil", "summary": "Um estudo da Fiocruz e do MAB revela que mais de 4 milhões de brasileiros foram afetados por romp
+2025-11-13 09:34:33,024 - ERROR -   ❌ Falha ao reescrever notícia
+2025-11-13 09:34:33,024 - INFO - 
+2025-11-13 09:34:33,024 - INFO - ======================================================================
+2025-11-13 09:34:33,024 - INFO - 📊 RESUMO DA EXECUÇÃO
+2025-11-13 09:34:33,024 - INFO - ======================================================================
+2025-11-13 09:34:33,024 - INFO - 📰 Notícias encontradas: 5
+2025-11-13 09:34:33,024 - INFO - 🔄 Notícias processadas: 1
+2025-11-13 09:34:33,024 - INFO - ✅ Notícias publicadas: 1
+2025-11-13 09:34:33,024 - INFO - 
+2025-11-13 09:34:33,024 - INFO - ✨ Bot executado com sucesso!
