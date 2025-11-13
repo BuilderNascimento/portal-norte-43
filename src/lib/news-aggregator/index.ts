@@ -74,7 +74,7 @@ export function getAggregatedCategories() {
 }
 
 /**
- * Busca uma notícia pelo slug (mockadas + RSS)
+ * Busca uma notícia pelo slug (mockadas + RSS + automatizadas)
  * Otimizado: usa cache de RSS e limita busca
  */
 export async function getNewsBySlug(slug: string) {
@@ -85,6 +85,15 @@ export async function getNewsBySlug(slug: string) {
     
     if (mockNews) {
       return mockNews;
+    }
+
+    // Busca nas notícias automatizadas
+    const { loadAutomatedNews } = await import('@/lib/automation/news-storage');
+    const automatedNews = await loadAutomatedNews();
+    const automatedItem = automatedNews.find(news => news.slug === slug);
+    
+    if (automatedItem) {
+      return automatedItem;
     }
 
     // Se não encontrou, busca nos feeds RSS (com cache, então é rápido)
