@@ -34,11 +34,14 @@ export async function loadAutomatedNews(): Promise<NewsItem[]> {
     await ensureStorageDir();
     
     if (!existsSync(STORAGE_FILE)) {
+      console.log('[AutomatedNews] Arquivo não encontrado:', STORAGE_FILE);
       return [];
     }
 
     const fileContent = await readFile(STORAGE_FILE, 'utf-8');
     const storage: AutomatedNewsStorage = JSON.parse(fileContent);
+    
+    console.log(`[AutomatedNews] Carregadas ${storage.news.length} notícias do arquivo`);
     
     // Filtra notícias com mais de 10 dias
     const tenDaysAgo = new Date();
@@ -46,12 +49,17 @@ export async function loadAutomatedNews(): Promise<NewsItem[]> {
     
     const recentNews = storage.news.filter(news => {
       const newsDate = new Date(news.publishedAt);
-      return newsDate >= tenDaysAgo;
+      const isRecent = newsDate >= tenDaysAgo;
+      if (!isRecent) {
+        console.log(`[AutomatedNews] Notícia filtrada (muito antiga): ${news.title} - ${news.publishedAt}`);
+      }
+      return isRecent;
     });
 
+    console.log(`[AutomatedNews] ${recentNews.length} notícias recentes após filtro`);
     return recentNews;
   } catch (error) {
-    console.error('Erro ao carregar notícias automatizadas:', error);
+    console.error('[AutomatedNews] Erro ao carregar notícias automatizadas:', error);
     return [];
   }
 }
