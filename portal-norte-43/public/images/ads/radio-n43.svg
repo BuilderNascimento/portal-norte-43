@@ -1,0 +1,5 @@
+<svg width='600' height='200' viewBox='0 0 600 200' xmlns='http://www.w3.org/2000/svg'>
+  <rect width='600' height='200' rx='32' fill='#1E293B'/>
+  <text x='50%' y='45%' font-size='42' font-family='Inter, Arial, sans-serif' fill='white' text-anchor='middle'>Rádio Portal Norte 43</text>
+  <text x='50%' y='65%' font-size='22' font-family='Inter, Arial, sans-serif' fill='#CBD5F5' text-anchor='middle'>Sintonize 94.3 FM</text>
+</svg>

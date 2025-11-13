@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/automation/process-feeds?key=portal-norte-43-auto-2025",
+      "schedule": "*/30 * * * *"
+    }
+  ]
+}

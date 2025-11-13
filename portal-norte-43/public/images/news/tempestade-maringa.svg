@@ -1,0 +1,13 @@
+<svg width='800' height='450' viewBox='0 0 800 450' xmlns='http://www.w3.org/2000/svg'>
+  <defs>
+    <linearGradient id='gradient' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' stop-color='#1D4ED8'/>
+      <stop offset='100%' stop-color='#1E40AF'/>
+    </linearGradient>
+  </defs>
+  <rect width='800' height='450' fill='url(#gradient)' rx='24'/>
+  <text x='50%' y='45%' dominant-baseline='middle' text-anchor='middle'
+        font-size='52' font-family='Inter, Arial, sans-serif' fill='white'>Tempestade</text>
+  <text x='50%' y='62%' dominant-baseline='middle' text-anchor='middle'
+        font-size='26' font-family='Inter, Arial, sans-serif' fill='#BFDBFE'>Alerta Meteorológico</text>
+</svg>
