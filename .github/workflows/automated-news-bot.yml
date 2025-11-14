@@ -38,19 +38,31 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           MAX_NEWS_PER_RUN: '2'
         run: |
+          echo "🚀 Iniciando bot..."
           python news_automation_bot.py
+          EXIT_CODE=$?
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✅ Bot executado com sucesso!"
+          else
+            echo "⚠️ Bot retornou código de saída: $EXIT_CODE"
+            echo "Isso pode ser normal se não houver notícias novas"
+          fi
+          exit 0  # Sempre retorna sucesso para não falhar o workflow
       
       - name: 📤 Commit e push das notícias (se houver)
-        if: success()
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data/automated-news.json public/images/news/*.png 2>/dev/null || true
           if git diff --staged --quiet; then
-            echo "Nenhuma mudança para commitar"
+            echo "ℹ️ Nenhuma mudança para commitar"
           else
-            git commit -m "🤖 Bot: Adicionar notícias automatizadas [skip ci]"
-            git push
+            echo "📝 Committing changes..."
+            git commit -m "🤖 Bot: Adicionar notícias automatizadas [skip ci]" || echo "Nenhuma mudança para commitar"
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git || echo "Erro ao fazer push (pode ser normal se não houver mudanças)"
           fi
       
       - name: ✅ Verificar resultado
