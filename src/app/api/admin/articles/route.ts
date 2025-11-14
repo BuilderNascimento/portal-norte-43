@@ -1,6 +1,16 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import { getPendingArticles } from "@/lib/supabase/articles";
 
-import { adminKeySchema, getPendingNews, verifyAdminKey } from "@/lib/mock-data";
+const adminKeySchema = z.object({
+  adminKey: z.string().min(8),
+});
+
+// TODO: Implementar verificação real de admin key
+function verifyAdminKey(key: string | null | undefined): boolean {
+  const validKey = process.env.ADMIN_KEY || 'admin-portal-norte-43-2025';
+  return key === validKey;
+}
 
 function unauthorizedResponse() {
   return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
@@ -17,7 +27,7 @@ export async function GET(request: Request) {
     return unauthorizedResponse();
   }
 
-  const pendingNews = await getPendingNews();
+  const pendingNews = await getPendingArticles();
 
   return NextResponse.json(
     {

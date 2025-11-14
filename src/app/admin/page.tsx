@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 import { AdminReviewTable } from "@/components/features/admin/review-table";
-import { getPendingNews } from "@/lib/mock-data";
+import { getPendingArticles } from "@/lib/supabase/articles";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
-  const pendingNews = await getPendingNews();
+  const pendingNews = await getPendingArticles();
 
   return (
     <div className="flex flex-col gap-8">

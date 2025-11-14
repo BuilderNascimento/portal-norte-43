@@ -7,7 +7,7 @@ import { NewsFeed } from "@/components/features/news/news-feed";
 import { QuickSubmitForm } from "@/components/features/news/quick-submit-form";
 import { EmergencyContacts } from "@/components/features/info/emergency-contacts";
 import { NewsletterForm } from "@/components/features/newsletter/newsletter-form";
-import { getAdsByPosition } from "@/lib/mock-data";
+import { getAdsByPosition } from "@/lib/supabase/ads";
 import {
   getAggregatedCategories,
   getAggregatedCities,

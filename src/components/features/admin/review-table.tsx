@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import type { NewsItem } from "@/lib/mock-data";
+import type { NewsItem } from "@/lib/supabase/types";
 import { formatDateTimeBR } from "@/lib/utils/date";
 
 interface AdminReviewTableProps {

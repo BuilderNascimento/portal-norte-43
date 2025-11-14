@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 
-import { newsFilterSchema } from "@/lib/mock-data";
 import { getAggregatedNews } from "@/lib/news-aggregator";
 import { toISOStringBR } from "@/lib/utils/date";
+import { z } from "zod";
+
+const newsFilterSchema = z.object({
+  city: z.string().optional(),
+  category: z.string().optional(),
+});
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
