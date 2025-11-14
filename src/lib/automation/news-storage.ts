@@ -31,36 +31,59 @@ async function ensureStorageDir(): Promise<void> {
  */
 export async function loadAutomatedNews(): Promise<NewsItem[]> {
   try {
+    // Tenta carregar do arquivo JSON primeiro
     await ensureStorageDir();
     
-    if (!existsSync(STORAGE_FILE)) {
-      console.log('[AutomatedNews] Arquivo não encontrado:', STORAGE_FILE);
-      return [];
-    }
+    if (existsSync(STORAGE_FILE)) {
+      try {
+        const fileContent = await readFile(STORAGE_FILE, 'utf-8');
+        const storage: AutomatedNewsStorage = JSON.parse(fileContent);
+        
+        console.log(`[AutomatedNews] Carregadas ${storage.news.length} notícias do arquivo`);
+        
+        // Filtra notícias com mais de 10 dias
+        const tenDaysAgo = new Date();
+        tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+        tenDaysAgo.setHours(0, 0, 0, 0); // Início do dia
+        
+        const recentNews = storage.news.filter(news => {
+          const newsDate = new Date(news.publishedAt);
+          const isRecent = newsDate >= tenDaysAgo;
+          if (!isRecent) {
+            console.log(`[AutomatedNews] Notícia filtrada (muito antiga): ${news.title} - ${news.publishedAt} (limite: ${tenDaysAgo.toISOString()})`);
+          } else {
+            console.log(`[AutomatedNews] Notícia aceita: ${news.title} - ${news.publishedAt}`);
+          }
+          return isRecent;
+        });
 
-    const fileContent = await readFile(STORAGE_FILE, 'utf-8');
-    const storage: AutomatedNewsStorage = JSON.parse(fileContent);
-    
-    console.log(`[AutomatedNews] Carregadas ${storage.news.length} notícias do arquivo`);
-    
-    // Filtra notícias com mais de 10 dias
-    const tenDaysAgo = new Date();
-    tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
-    tenDaysAgo.setHours(0, 0, 0, 0); // Início do dia
-    
-    const recentNews = storage.news.filter(news => {
-      const newsDate = new Date(news.publishedAt);
-      const isRecent = newsDate >= tenDaysAgo;
-      if (!isRecent) {
-        console.log(`[AutomatedNews] Notícia filtrada (muito antiga): ${news.title} - ${news.publishedAt} (limite: ${tenDaysAgo.toISOString()})`);
-      } else {
-        console.log(`[AutomatedNews] Notícia aceita: ${news.title} - ${news.publishedAt}`);
+        console.log(`[AutomatedNews] ${recentNews.length} notícias recentes após filtro`);
+        if (recentNews.length > 0) {
+          return recentNews;
+        }
+      } catch (fileError) {
+        console.warn('[AutomatedNews] Erro ao ler arquivo, usando fallback:', fileError);
       }
-      return isRecent;
-    });
-
-    console.log(`[AutomatedNews] ${recentNews.length} notícias recentes após filtro`);
-    return recentNews;
+    } else {
+      console.log('[AutomatedNews] Arquivo não encontrado, usando fallback do mock-data');
+    }
+    
+    // Fallback: retorna notícias do mock-data que foram adicionadas pelo bot
+    // Isso garante que as notícias apareçam mesmo se o arquivo não estiver disponível no Vercel
+    const { getPublishedNews } = await import('@/lib/mock-data');
+    const mockNews = await getPublishedNews();
+    const automatedFromMock = mockNews.filter(news => 
+      news.source?.includes('Reescrito por IA') || 
+      news.slug === 'nao-se-engane-01-desmentimos-fakes-sobre-vacinas-e-ameaca-a-cristaos-2023-08-28' ||
+      news.slug === 'congresso-aprova-r-71-bi-para-o-novo-bolsa-familia-2023-04-26'
+    );
+    
+    if (automatedFromMock.length > 0) {
+      console.log(`[AutomatedNews] Usando ${automatedFromMock.length} notícias do mock-data como fallback`);
+      return automatedFromMock;
+    }
+    
+    return [];
   } catch (error) {
     console.error('[AutomatedNews] Erro ao carregar notícias automatizadas:', error);
     return [];
