@@ -33,12 +33,18 @@ function unauthorizedResponse() {
 
 export async function POST(request: Request) {
   try {
+    console.log('[PublishNews] Recebida requisição POST');
+    
     // Verifica autenticação
     const authHeader = request.headers.get('authorization');
     const providedKey = authHeader?.replace('Bearer ', '') || 
                        new URL(request.url).searchParams.get('key');
 
+    console.log('[PublishNews] API Key recebida:', providedKey ? 'SIM' : 'NÃO');
+    console.log('[PublishNews] API Key esperada:', API_KEY);
+
     if (providedKey !== API_KEY) {
+      console.log('[PublishNews] Erro: API Key inválida');
       return unauthorizedResponse();
     }
 
@@ -74,9 +80,12 @@ export async function POST(request: Request) {
     };
 
     // Adiciona ao armazenamento
+    console.log('[PublishNews] Adicionando notícia:', newsItem.title);
     const addedCount = await addAutomatedNews([newsItem]);
+    console.log('[PublishNews] Notícias adicionadas:', addedCount);
 
     if (addedCount > 0) {
+      console.log('[PublishNews] ✅ Notícia publicada com sucesso:', newsItem.slug);
       return NextResponse.json(
         {
           success: true,
@@ -91,6 +100,7 @@ export async function POST(request: Request) {
       );
     } else {
       // Notícia já existe (duplicada)
+      console.log('[PublishNews] ⚠️ Notícia já existe (duplicada):', newsItem.slug);
       return NextResponse.json(
         {
           success: false,
