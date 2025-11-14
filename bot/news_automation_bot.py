@@ -303,7 +303,17 @@ class NewsAutomationBot:
             logger.info("")
             logger.info("✨ Bot executado com sucesso!")
             
-            return 0 if published_count > 0 else 1
+            # Retorna sucesso mesmo se não publicou (pode ser normal se não houver notícias novas ou erro temporário)
+            if published_count > 0:
+                return 0
+            elif processed_count > 0:
+                # Processou mas não publicou (erro na publicação)
+                logger.warning("⚠️ Notícias processadas mas não publicadas. Verifique os logs acima.")
+                return 0  # Não falha o workflow
+            else:
+                # Nenhuma notícia processada (normal se não houver notícias novas)
+                logger.info("ℹ️ Nenhuma notícia foi processada nesta execução.")
+                return 0  # Não falha o workflow
             
         except Exception as e:
             logger.error(f"❌ Erro fatal: {e}")

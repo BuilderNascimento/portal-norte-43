@@ -5,6 +5,7 @@ Módulo de reescrita de notícias usando Claude AI (Anthropic)
 import os
 import sys
 import logging
+import time
 from typing import Dict, Optional
 
 # Adiciona o diretório do bot ao path
@@ -77,18 +78,40 @@ IMPORTANTE: Retorne APENAS um JSON válido no seguinte formato:
 
 Não inclua nenhum texto antes ou depois do JSON."""
         
-        # Chama Claude
-        message = client.messages.create(
-            model=Config.CLAUDE_MODEL,
-            max_tokens=4000,
-            temperature=0.7,
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ]
-        )
+        # Chama Claude com retry em caso de erro de conexão
+        max_retries = 3
+        retry_delay = 2  # segundos
+        
+        for attempt in range(max_retries):
+            try:
+                message = client.messages.create(
+                    model=Config.CLAUDE_MODEL,
+                    max_tokens=4000,
+                    temperature=0.7,
+                    timeout=60.0,  # Timeout de 60 segundos
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ]
+                )
+                break  # Sucesso, sai do loop
+                
+            except Exception as e:
+                error_msg = str(e).lower()
+                is_connection_error = any(keyword in error_msg for keyword in [
+                    'connection', 'timeout', 'network', 'connect', 'unreachable'
+                ])
+                
+                if is_connection_error and attempt < max_retries - 1:
+                    wait_time = retry_delay * (2 ** attempt)  # Backoff exponencial
+                    logger.warning(f"Erro de conexão (tentativa {attempt + 1}/{max_retries}). Aguardando {wait_time}s antes de tentar novamente...")
+                    time.sleep(wait_time)
+                    continue
+                else:
+                    # Última tentativa ou erro não é de conexão
+                    raise
         
         # Extrai resposta
         response_text = message.content[0].text.strip()
