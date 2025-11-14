@@ -15,8 +15,11 @@ import {
 } from "@/lib/news-aggregator";
 import { formatDateOnlyBR, formatDateShortBR } from "@/lib/utils/date";
 
-// ISR: Revalida a cada 30 segundos - para garantir que novas notícias apareçam rapidamente
-export const revalidate = 30;
+// ISR: Revalida a cada 10 segundos - para garantir que novas notícias apareçam rapidamente
+export const revalidate = 10;
+
+// Força revalidação dinâmica
+export const dynamic = 'force-dynamic';
 
 interface HomeProps {
   searchParams: Promise<{ category?: string; city?: string }>;
@@ -35,6 +38,17 @@ export default async function Home({ searchParams }: HomeProps) {
     Promise.resolve(getAggregatedCategories()),
   ]);
 
+  // LOGS PARA DEBUG - REMOVER DEPOIS
+  console.log('=== [PAGE] DEBUG NOTÍCIAS ===');
+  console.log(`Total de notícias: ${news.length}`);
+  if (news.length > 0) {
+    console.log('Primeiras 5 notícias:');
+    news.slice(0, 5).forEach((n, i) => {
+      console.log(`${i + 1}. ${n.title} (${n.publishedAt}) - ${n.category} - ${n.city}`);
+    });
+  }
+  console.log('============================');
+
   // Se há filtro ativo, mostra mensagem se não houver notícias
   const hasActiveFilter = filters.category || filters.city;
   const filteredCategoryName = filters.category || '';
@@ -43,6 +57,9 @@ export default async function Home({ searchParams }: HomeProps) {
   const featuredNews = news.slice(0, 1);
   const secondaryNews = news.slice(1, 4);
   const remainingNews = news.slice(4);
+  
+  // LOGS ADICIONAIS
+  console.log(`[PAGE] Featured: ${featuredNews.length}, Secondary: ${secondaryNews.length}, Remaining: ${remainingNews.length}`);
 
   // Apenas banner do topo - removendo outros anúncios por enquanto
   const topAds = getAdsByPosition("top");
