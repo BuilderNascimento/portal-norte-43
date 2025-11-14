@@ -37,6 +37,34 @@ export interface AdBanner {
 const NEWS_STATUSES: NewsStatus[] = ['draft', 'pending', 'approved'];
 
 export const mockNews: NewsItem[] = [
+  // Notícias automatizadas (adicionadas pelo bot) - NO TOPO para aparecerem primeiro
+  {
+    id: 1763022864788.8801,
+    slug: 'nao-se-engane-01-desmentimos-fakes-sobre-vacinas-e-ameaca-a-cristaos-2023-08-28',
+    title: 'Desvendando Boatos: A Verdade por Trás das Narrativas Enganosas',
+    summary: "A EBC lança o quadro 'Não Se Engane' para combater a desinformação. Neste episódio, são desmistificadas duas notícias falsas: sobre a vacinação da Pfizer e uma suposta perseguição a cristãos na Índia.",
+    city: 'Brasil',
+    category: 'Saúde',
+    status: 'approved',
+    publishedAt: '2025-11-14T14:00:00-03:00',
+    source: 'Agência Brasil (Reescrito por IA)',
+    image: '/images/news/desvendando-boatos-a-verdade-por-trás-das-narrativ-20251113-093424.png',
+    content: "A EBC, em sua missão de fornecer informações precisas e confiáveis, apresenta o quadro 'Não Se Engane', um esforço para desvendar a verdade por trás de narrativas enganosas que circulam na internet. Neste primeiro episódio, o jornalista Edgard Matsuki, da Agência Brasil, aborda duas informações falsas que têm ganhado tração nas redes sociais. A primeira diz respeito a um suposto alerta da Anvisa sobre a vacina da Pfizer contra a COVID-19. No entanto, a agência não emitiu nenhuma nota sobre esse assunto. A segunda informação falsa trata de uma suposta execução em massa de cristãos na Índia. Essa corrente, que circula desde pelo menos 2010, utiliza um vídeo gravado na Síria para espalhar essa alegação infundada. Através da checagem de fatos e da apresentação de informações precisas, o 'Não Se Engane' busca combater a desinformação e garantir que o público tenha acesso a conteúdo confiável. Os espectadores podem participar enviando sugestões de temas a serem verificados pelas redes sociais da EBC ou pelo e-mail naoseengane@ebc.com.br. O quadro 'Não Se Engane' vai ao ar todas as sextas-feiras no telejornal Repórter Brasil, da TV Brasil, e será publicado toda segunda-feira na Radioagência Nacional, reafirmando o compromisso da EBC com a transparência e a disseminação de informações verídicas.",
+  },
+  {
+    id: 1763021575287.346,
+    slug: 'congresso-aprova-r-71-bi-para-o-novo-bolsa-familia-2023-04-26',
+    title: 'Legisladores Aprovam Injeção de R$ 71 Bilhões no Novo Programa Bolsa Família',
+    summary: 'O Congresso Nacional aprovou a destinação de R$ 71 bilhões para o pagamento do novo Bolsa Família. Também foi aprovado um reajuste de 9% para os servidores públicos federais, o primeiro desde 2016.',
+    city: 'Brasil',
+    category: 'Economia',
+    status: 'approved',
+    publishedAt: '2025-11-14T13:00:00-03:00',
+    source: 'Agência Brasil (Reescrito por IA)',
+    image: '/images/news/legisladores-aprovam-injeção-de-r-71-bilhões-no-no-20251113-091255.png',
+    content: 'O Congresso Nacional deu luz verde a uma proposta do governo federal que destina R$ 71 bilhões para o novo programa Bolsa Família. A medida vem do saldo do extinto Auxílio Brasil e será repassada ao Ministério do Desenvolvimento e Assistência Social.\n\nSegundo a deputada Dandara, do PT de Minas Gerais, o novo Bolsa Família contará com mecanismos de controle e acompanhamento pela sociedade. O programa prevê um pagamento mínimo de R$ 600 por beneficiário, podendo ter um acréscimo de R$ 150 por filho de até 6 anos.\n\nNa mesma sessão, parlamentares também aprovaram uma outra proposta do Executivo que concede um reajuste de 9% aos servidores públicos federais a partir de maio deste ano. Esse é o primeiro acordo de reajuste com os funcionários do governo desde 2016 e terá um impacto de mais de R$ 11 bilhões nas contas do governo.\n\nOs dois projetos aprovados pelo Congresso agora seguem para a sanção do presidente Luiz Inácio Lula da Silva.',
+  },
+  // Notícias originais
   {
     id: 107,
     slug: 'ministerio-agricultura-alerta-azeites-oliva-fraudados-improprios-consumo-12-11-2025',
@@ -248,33 +276,6 @@ Equipes do SAMU e da Defesa Civil foram acionadas para o atendimento. O homem ap
 
 Ele foi encaminhado inicialmente ao Pronto-Socorro de Andirá e, posteriormente, transferido pelo SAMU para a cidade de Bandeirantes, onde permanece em observação e deve passar por exames complementares.`,
   },
-  // Notícias automatizadas (adicionadas pelo bot)
-  {
-    id: 1763022864788.8801,
-    slug: 'nao-se-engane-01-desmentimos-fakes-sobre-vacinas-e-ameaca-a-cristaos-2023-08-28',
-    title: 'Desvendando Boatos: A Verdade por Trás das Narrativas Enganosas',
-    summary: "A EBC lança o quadro 'Não Se Engane' para combater a desinformação. Neste episódio, são desmistificadas duas notícias falsas: sobre a vacinação da Pfizer e uma suposta perseguição a cristãos na Índia.",
-    city: 'Brasil',
-    category: 'Saúde',
-    status: 'approved',
-    publishedAt: '2025-11-14T10:00:00-03:00',
-    source: 'Agência Brasil (Reescrito por IA)',
-    image: '/images/news/desvendando-boatos-a-verdade-por-trás-das-narrativ-20251113-093424.png',
-    content: "A EBC, em sua missão de fornecer informações precisas e confiáveis, apresenta o quadro 'Não Se Engane', um esforço para desvendar a verdade por trás de narrativas enganosas que circulam na internet. Neste primeiro episódio, o jornalista Edgard Matsuki, da Agência Brasil, aborda duas informações falsas que têm ganhado tração nas redes sociais. A primeira diz respeito a um suposto alerta da Anvisa sobre a vacina da Pfizer contra a COVID-19. No entanto, a agência não emitiu nenhuma nota sobre esse assunto. A segunda informação falsa trata de uma suposta execução em massa de cristãos na Índia. Essa corrente, que circula desde pelo menos 2010, utiliza um vídeo gravado na Síria para espalhar essa alegação infundada. Através da checagem de fatos e da apresentação de informações precisas, o 'Não Se Engane' busca combater a desinformação e garantir que o público tenha acesso a conteúdo confiável. Os espectadores podem participar enviando sugestões de temas a serem verificados pelas redes sociais da EBC ou pelo e-mail naoseengane@ebc.com.br. O quadro 'Não Se Engane' vai ao ar todas as sextas-feiras no telejornal Repórter Brasil, da TV Brasil, e será publicado toda segunda-feira na Radioagência Nacional, reafirmando o compromisso da EBC com a transparência e a disseminação de informações verídicas.",
-  },
-  {
-    id: 1763021575287.346,
-    slug: 'congresso-aprova-r-71-bi-para-o-novo-bolsa-familia-2023-04-26',
-    title: 'Legisladores Aprovam Injeção de R$ 71 Bilhões no Novo Programa Bolsa Família',
-    summary: 'O Congresso Nacional aprovou a destinação de R$ 71 bilhões para o pagamento do novo Bolsa Família. Também foi aprovado um reajuste de 9% para os servidores públicos federais, o primeiro desde 2016.',
-    city: 'Brasil',
-    category: 'Economia',
-    status: 'approved',
-    publishedAt: '2025-11-14T09:00:00-03:00',
-    source: 'Agência Brasil (Reescrito por IA)',
-    image: '/images/news/legisladores-aprovam-injeção-de-r-71-bilhões-no-no-20251113-091255.png',
-    content: 'O Congresso Nacional deu luz verde a uma proposta do governo federal que destina R$ 71 bilhões para o novo programa Bolsa Família. A medida vem do saldo do extinto Auxílio Brasil e será repassada ao Ministério do Desenvolvimento e Assistência Social.\n\nSegundo a deputada Dandara, do PT de Minas Gerais, o novo Bolsa Família contará com mecanismos de controle e acompanhamento pela sociedade. O programa prevê um pagamento mínimo de R$ 600 por beneficiário, podendo ter um acréscimo de R$ 150 por filho de até 6 anos.\n\nNa mesma sessão, parlamentares também aprovaram uma outra proposta do Executivo que concede um reajuste de 9% aos servidores públicos federais a partir de maio deste ano. Esse é o primeiro acordo de reajuste com os funcionários do governo desde 2016 e terá um impacto de mais de R$ 11 bilhões nas contas do governo.\n\nOs dois projetos aprovados pelo Congresso agora seguem para a sanção do presidente Luiz Inácio Lula da Silva.',
-  },
 ];
 
 export const mockUsers: User[] = [
@@ -345,7 +346,8 @@ export const simulateDelay = (ms: number = 400) =>
 export async function getPublishedNews(filters?: z.infer<typeof newsFilterSchema>) {
   const safeFilters = newsFilterSchema.parse(filters ?? {});
   await simulateDelay();
-  return mockNews.filter(news => {
+  
+  const filtered = mockNews.filter(news => {
     if (news.status !== 'approved') {
       return false;
     }
@@ -355,6 +357,20 @@ export async function getPublishedNews(filters?: z.infer<typeof newsFilterSchema
 
     return matchesCity && matchesCategory;
   });
+  
+  // Ordena por data (mais recente primeiro) para garantir que notícias automatizadas apareçam no topo
+  const sorted = filtered.sort((a, b) => {
+    const dateA = new Date(a.publishedAt).getTime();
+    const dateB = new Date(b.publishedAt).getTime();
+    return dateB - dateA; // Mais recente primeiro
+  });
+  
+  console.log(`[getPublishedNews] Retornando ${sorted.length} notícias aprovadas`);
+  if (sorted.length > 0) {
+    console.log(`[getPublishedNews] Primeira notícia: ${sorted[0].title} (${sorted[0].publishedAt})`);
+  }
+  
+  return sorted;
 }
 
 export async function getPendingNews() {
