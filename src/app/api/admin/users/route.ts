@@ -4,7 +4,7 @@
 
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/client';
-import { getCurrentUser } from '@/lib/auth/supabase-auth';
+import { getServerUser } from '@/lib/auth/server-auth';
 import { z } from 'zod';
 
 const registerSchema = z.object({
@@ -23,9 +23,8 @@ const registerSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    // Verificar autenticação (será feito via middleware no futuro)
-    // Por enquanto, verificar manualmente
-    const currentUser = await getCurrentUser();
+    // Verificar autenticação
+    const currentUser = await getServerUser();
     
     if (!currentUser?.author || currentUser.author.role !== 'admin') {
       return NextResponse.json(
@@ -129,7 +128,7 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    const currentUser = await getCurrentUser();
+    const currentUser = await getServerUser();
     
     if (!currentUser?.author || currentUser.author.role !== 'admin') {
       return NextResponse.json(
