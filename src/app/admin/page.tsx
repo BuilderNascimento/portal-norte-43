@@ -3,12 +3,12 @@ import { redirect } from "next/navigation";
 
 import { AdminReviewTable } from "@/components/features/admin/review-table";
 import { getPendingArticles } from "@/lib/supabase/articles";
-import { getCurrentUser } from "@/lib/auth/supabase-auth";
+import { getServerUser } from "@/lib/auth/server-auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
-  const currentUser = await getCurrentUser();
+  const currentUser = await getServerUser();
   
   if (!currentUser?.author) {
     redirect('/admin/login');
