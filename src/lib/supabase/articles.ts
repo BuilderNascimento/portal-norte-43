@@ -94,10 +94,10 @@ export async function getPublishedArticles(filters?: {
     }
 
     // Converter para formato NewsItem
-    return data.map((item: any) => {
-      const categoryName = item.categories?.name || 'Geral';
-      const cityName = item.cities?.name || 'Brasil';
-      return articleToNewsItem(item, categoryName, cityName);
+    return (data || []).map((item: any) => {
+      const categoryName = (item.categories as any)?.name || 'Geral';
+      const cityName = (item.cities as any)?.name || 'Brasil';
+      return articleToNewsItem(item as Article, categoryName, cityName);
     });
   } catch (error) {
     console.error('[Supabase] Erro ao buscar artigos:', error);
@@ -184,10 +184,10 @@ export async function getRelatedArticles(
       return [];
     }
 
-    return data.map((item: any) => {
-      const categoryName = item.categories?.name || 'Geral';
-      const cityName = item.cities?.name || 'Brasil';
-      return articleToNewsItem(item, categoryName, cityName);
+    return (data || []).map((item: any) => {
+      const categoryName = (item.categories as any)?.name || 'Geral';
+      const cityName = (item.cities as any)?.name || 'Brasil';
+      return articleToNewsItem(item as Article, categoryName, cityName);
     });
   } catch (error) {
     console.error('[Supabase] Erro ao buscar artigos relacionados:', error);
@@ -219,10 +219,10 @@ export async function getPendingArticles(): Promise<NewsItem[]> {
       return [];
     }
 
-    return data.map((item: any) => {
-      const categoryName = item.categories?.name || 'Geral';
-      const cityName = item.cities?.name || 'Brasil';
-      return articleToNewsItem(item, categoryName, cityName);
+    return (data || []).map((item: any) => {
+      const categoryName = (item.categories as any)?.name || 'Geral';
+      const cityName = (item.cities as any)?.name || 'Brasil';
+      return articleToNewsItem(item as Article, categoryName, cityName);
     });
   } catch (error) {
     console.error('[Supabase] Erro ao buscar artigos pendentes:', error);
