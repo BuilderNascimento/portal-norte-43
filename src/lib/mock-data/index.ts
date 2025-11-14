@@ -347,16 +347,44 @@ export async function getPublishedNews(filters?: z.infer<typeof newsFilterSchema
   const safeFilters = newsFilterSchema.parse(filters ?? {});
   await simulateDelay();
   
+  // LOG: Verificar se as notícias automatizadas estão no array
+  const automatedInArray = mockNews.filter(n => 
+    n.slug === 'nao-se-engane-01-desmentimos-fakes-sobre-vacinas-e-ameaca-a-cristaos-2023-08-28' ||
+    n.slug === 'congresso-aprova-r-71-bi-para-o-novo-bolsa-familia-2023-04-26'
+  );
+  console.log(`[getPublishedNews] Notícias automatizadas no array: ${automatedInArray.length}`);
+  automatedInArray.forEach(n => {
+    console.log(`  - "${n.title}" - status: ${n.status} - data: ${n.publishedAt}`);
+  });
+  
   const filtered = mockNews.filter(news => {
     if (news.status !== 'approved') {
+      if (news.slug === 'nao-se-engane-01-desmentimos-fakes-sobre-vacinas-e-ameaca-a-cristaos-2023-08-28' ||
+          news.slug === 'congresso-aprova-r-71-bi-para-o-novo-bolsa-familia-2023-04-26') {
+        console.log(`[getPublishedNews] ⚠️ Notícia automatizada REJEITADA por status: ${news.title} - status: ${news.status}`);
+      }
       return false;
     }
 
     const matchesCity = safeFilters.city ? news.city === safeFilters.city : true;
     const matchesCategory = safeFilters.category ? news.category === safeFilters.category : true;
 
-    return matchesCity && matchesCategory;
+    const passes = matchesCity && matchesCategory;
+    
+    if (!passes && (news.slug === 'nao-se-engane-01-desmentimos-fakes-sobre-vacinas-e-ameaca-a-cristaos-2023-08-28' ||
+                     news.slug === 'congresso-aprova-r-71-bi-para-o-novo-bolsa-familia-2023-04-26')) {
+      console.log(`[getPublishedNews] ⚠️ Notícia automatizada REJEITADA por filtro: ${news.title} - city: ${news.city} (filtro: ${safeFilters.city}), category: ${news.category} (filtro: ${safeFilters.category})`);
+    }
+    
+    return passes;
   });
+  
+  // LOG: Verificar se passaram no filtro
+  const automatedFiltered = filtered.filter(n => 
+    n.slug === 'nao-se-engane-01-desmentimos-fakes-sobre-vacinas-e-ameaca-a-cristaos-2023-08-28' ||
+    n.slug === 'congresso-aprova-r-71-bi-para-o-novo-bolsa-familia-2023-04-26'
+  );
+  console.log(`[getPublishedNews] Notícias automatizadas após filtro: ${automatedFiltered.length}`);
   
   // Ordena por data (mais recente primeiro) para garantir que notícias automatizadas apareçam no topo
   const sorted = filtered.sort((a, b) => {
@@ -365,9 +393,12 @@ export async function getPublishedNews(filters?: z.infer<typeof newsFilterSchema
     return dateB - dateA; // Mais recente primeiro
   });
   
-  console.log(`[getPublishedNews] Retornando ${sorted.length} notícias aprovadas`);
+  console.log(`[getPublishedNews] ✅ Retornando ${sorted.length} notícias aprovadas`);
   if (sorted.length > 0) {
-    console.log(`[getPublishedNews] Primeira notícia: ${sorted[0].title} (${sorted[0].publishedAt})`);
+    console.log(`[getPublishedNews] Primeira notícia: ${sorted[0].title.substring(0, 60)}... (${sorted[0].publishedAt})`);
+    if (sorted.length >= 2) {
+      console.log(`[getPublishedNews] Segunda notícia: ${sorted[1].title.substring(0, 60)}... (${sorted[1].publishedAt})`);
+    }
   }
   
   return sorted;
