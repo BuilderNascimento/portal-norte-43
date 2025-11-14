@@ -35,6 +35,7 @@ class Config:
     MIN_CONTENT_LENGTH = 200  # Tamanho mínimo do conteúdo
     
     # Feeds RSS configurados
+    # Apenas feeds que estão funcionando corretamente (testados)
     RSS_FEEDS: List[Dict[str, str]] = [
         {
             'name': 'Agência Brasil',
@@ -46,46 +47,12 @@ class Config:
             'url': 'https://www.gov.br/pt-br/noticias/@@rss.xml',
             'category': 'Governo'
         },
-        {
-            'name': 'Gov.br - Educação',
-            'url': 'https://www.gov.br/mec/pt-br/noticias/@@rss.xml',
-            'category': 'Educação'
-        },
-        {
-            'name': 'Gov.br - Saúde',
-            'url': 'https://www.gov.br/saude/pt-br/noticias/@@rss.xml',
-            'category': 'Saúde'
-        },
-        {
-            'name': 'Gov.br - Infraestrutura',
-            'url': 'https://www.gov.br/infraestrutura/pt-br/noticias/@@rss.xml',
-            'category': 'Infraestrutura'
-        },
-        {
-            'name': 'Gov.br - Cidades',
-            'url': 'https://www.gov.br/cidades/pt-br/noticias/@@rss.xml',
-            'category': 'Cidades'
-        },
-        {
-            'name': 'INMET - Alertas',
-            'url': 'https://portal.inmet.gov.br/rss/avisos',
-            'category': 'Geral'
-        },
-        {
-            'name': 'Defesa Civil Nacional',
-            'url': 'https://www.gov.br/defesacivil/pt-br/noticias/@@rss.xml',
-            'category': 'Geral'
-        },
-        {
-            'name': 'ANP - Agência Nacional do Petróleo',
-            'url': 'https://www.gov.br/anp/pt-br/centrais-de-conteudo/noticias/@@rss.xml',
-            'category': 'Economia'
-        },
-        {
-            'name': 'ANTT - Transportes Terrestres',
-            'url': 'https://www.gov.br/antt/pt-br/noticias/@@rss.xml',
-            'category': 'Trânsito'
-        },
+        # NOTA: Outros feeds do gov.br estão com problemas de XML malformado
+        # Foram removidos temporariamente até que sejam corrigidos
+        # Feeds testados e com erro:
+        # - Gov.br - Educação, Saúde, Infraestrutura, Cidades: XML malformado
+        # - INMET - Alertas: XML malformado
+        # - Defesa Civil, ANP, ANTT: XML malformado
     ]
     
     # Categorias disponíveis no site
