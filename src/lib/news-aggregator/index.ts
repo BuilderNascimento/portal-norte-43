@@ -41,10 +41,11 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
       const newsDate = new Date(news.publishedAt);
       const isRecent = newsDate >= tenDaysAgo;
       if (isRecent) {
+        // FORÇA adicionar mesmo se já existir (mockNews tem prioridade)
         allNewsMap.set(news.slug, news);
-        console.log(`[NewsAggregator] Mock adicionada: ${news.title} (${news.slug})`);
+        console.log(`[NewsAggregator] ✅ Mock adicionada: ${news.title.substring(0, 50)}... (${news.slug})`);
       } else {
-        console.log(`[NewsAggregator] Mock filtrada (muito antiga): ${news.title} - ${news.publishedAt}`);
+        console.log(`[NewsAggregator] ❌ Mock filtrada (muito antiga): ${news.title.substring(0, 50)}... - ${news.publishedAt} (limite: ${tenDaysAgo.toISOString()})`);
       }
     });
     
@@ -85,6 +86,12 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
     const allNews: NewsItem[] = Array.from(allNewsMap.values()).sort(
       (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
+    
+    // LOG FINAL - PRIMEIRAS 5 NOTÍCIAS APÓS ORDENAÇÃO
+    console.log(`[NewsAggregator] 📊 Primeiras 5 notícias após ordenação:`);
+    allNews.slice(0, 5).forEach((n, i) => {
+      console.log(`  ${i + 1}. "${n.title.substring(0, 60)}..." - ${n.category} - ${n.publishedAt}`);
+    });
 
     // Aplica filtros se necessário
     let filteredNews = allNews;
