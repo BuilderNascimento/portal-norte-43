@@ -46,12 +46,15 @@ export async function loadAutomatedNews(): Promise<NewsItem[]> {
     // Filtra notícias com mais de 10 dias
     const tenDaysAgo = new Date();
     tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+    tenDaysAgo.setHours(0, 0, 0, 0); // Início do dia
     
     const recentNews = storage.news.filter(news => {
       const newsDate = new Date(news.publishedAt);
       const isRecent = newsDate >= tenDaysAgo;
       if (!isRecent) {
-        console.log(`[AutomatedNews] Notícia filtrada (muito antiga): ${news.title} - ${news.publishedAt}`);
+        console.log(`[AutomatedNews] Notícia filtrada (muito antiga): ${news.title} - ${news.publishedAt} (limite: ${tenDaysAgo.toISOString()})`);
+      } else {
+        console.log(`[AutomatedNews] Notícia aceita: ${news.title} - ${news.publishedAt}`);
       }
       return isRecent;
     });
