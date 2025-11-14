@@ -17,9 +17,19 @@ if (!supabaseUrl || !supabaseAnonKey) {
 // Cliente público (para leitura)
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {
-    persistSession: false, // Não precisamos de sessão para leitura pública
+    persistSession: true, // Agora precisamos de sessão para autenticação
+    autoRefreshToken: true,
   },
 });
+
+// Cliente para uso no servidor (com cookies)
+export function createServerClient() {
+  return createClient<Database>(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: false,
+    },
+  });
+}
 
 // Cliente com service_role (apenas para server-side, com bypass de RLS)
 // Usado para operações administrativas e integração com n8n

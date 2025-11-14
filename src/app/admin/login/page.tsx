@@ -1,61 +1,98 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+'use client';
 
-import { AdminLoginForm, type LoginState } from "@/components/features/admin/login-form";
-import { authenticateUser, loginSchema } from "@/lib/mock-data";
-
-const initialState: LoginState = { status: "idle" };
-
-async function loginAction(_: LoginState, formData: FormData): Promise<LoginState> {
-  "use server";
-
-  const email = formData.get("email");
-  const password = formData.get("password");
-
-  const parsed = loginSchema.safeParse({
-    email,
-    password,
-  });
-
-  if (!parsed.success) {
-    return { status: "error", message: "Informe credenciais válidas." };
-  }
-
-  const user = await authenticateUser(parsed.data.email, parsed.data.password);
-
-  if (!user || user.role !== "admin") {
-    return { status: "error", message: "Credenciais inválidas ou usuário sem permissão." };
-  }
-
-  const cookieStore = await cookies();
-  cookieStore.set("pn43_admin", "1", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 60,
-  });
-
-  redirect("/admin");
-}
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { login } from '@/lib/auth/supabase-auth';
 
 export default function AdminLoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      await login({ email, password });
+      router.push('/admin');
+      router.refresh();
+    } catch (err: any) {
+      setError(err.message || 'Erro ao fazer login');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="mx-auto flex w-full max-w-lg flex-col gap-8 rounded-3xl border border-slate-200 bg-white p-8 shadow-lg">
-      <div className="space-y-3 text-center">
-        <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-          Área restrita
-        </span>
-        <h1 className="text-3xl font-bold text-slate-900">Acesso ao painel Portal Norte 43</h1>
-        <p className="text-sm text-slate-600">
-          Informe suas credenciais corporativas. Para acesso automático via n8n, utilize as APIs com o header <code>x-admin-key</code>.
-        </p>
-      </div>
-      <AdminLoginForm action={loginAction} initialState={initialState} />
-      <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-500">
-        Dica mock: admin <code>ana.souza@portaln43.com</code> / senha <code>admin123</code>
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+      <div className="w-full max-w-md">
+        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-lg">
+          <div className="mb-6 text-center">
+            <h1 className="text-2xl font-bold text-slate-900">Portal Norte 43</h1>
+            <p className="mt-2 text-sm text-slate-600">Painel Editorial</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+                {error}
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900 focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-600"
+                placeholder="seu@email.com"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">
+                Senha
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900 focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-600"
+                placeholder="••••••••"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-lg bg-red-600 px-4 py-2 font-semibold text-white transition hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Entrando...' : 'Entrar'}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <Link
+              href="/"
+              className="text-sm text-slate-600 hover:text-slate-900 transition"
+            >
+              ← Voltar para o site
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-

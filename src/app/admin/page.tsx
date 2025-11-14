@@ -1,25 +1,42 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { AdminReviewTable } from "@/components/features/admin/review-table";
 import { getPendingArticles } from "@/lib/supabase/articles";
+import { getCurrentUser } from "@/lib/auth/supabase-auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
+  const currentUser = await getCurrentUser();
+  
+  if (!currentUser?.author) {
+    redirect('/admin/login');
+  }
+
   const pendingNews = await getPendingArticles();
 
   return (
     <div className="flex flex-col gap-8">
       <div className="rounded-3xl bg-slate-900 p-8 text-white shadow-xl">
         <div className="flex flex-col gap-2">
-          <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
-            Painel Editorial
-          </span>
-          <h1 className="text-3xl font-bold md:text-4xl">Revisão de matérias pendentes</h1>
-          <p className="max-w-2xl text-sm text-slate-200 md:text-base">
-            Aprove e publique os conteúdos enviados via automação ou por colaboradores em campo.
-            Utilize o botão &quot;Editar&quot; para ajustar títulos, categorias e imagens antes da publicação.
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                Painel Editorial
+              </span>
+              <h1 className="text-3xl font-bold md:text-4xl">Revisão de matérias pendentes</h1>
+              <p className="max-w-2xl text-sm text-slate-200 md:text-base">
+                Aprove e publique os conteúdos enviados via automação ou por colaboradores em campo.
+                Utilize o botão &quot;Editar&quot; para ajustar títulos, categorias e imagens antes da publicação.
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-slate-300">Logado como</p>
+              <p className="font-semibold">{currentUser.author.name}</p>
+              <p className="text-xs text-slate-400">{currentUser.author.role === 'admin' ? 'Administrador' : 'Colaborador'}</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -59,12 +76,22 @@ export default async function AdminDashboardPage() {
               Faça a curadoria do conteúdo antes da publicação automática.
             </p>
           </div>
-          <Link
-            href="/admin/login"
-            className="inline-flex items-center rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-900 hover:text-slate-900"
-          >
-            Alternar conta
-          </Link>
+          <div className="flex gap-2">
+            {currentUser.author.permissions.can_manage_users && (
+              <Link
+                href="/admin/users"
+                className="inline-flex items-center rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-900 hover:text-slate-900"
+              >
+                Gerenciar Usuários
+              </Link>
+            )}
+            <Link
+              href="/admin/login"
+              className="inline-flex items-center rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-900 hover:text-slate-900"
+            >
+              Sair
+            </Link>
+          </div>
         </div>
         <AdminReviewTable items={pendingNews} />
       </section>
