@@ -21,8 +21,16 @@ export interface AutomatedNewsStorage {
  * Garante que o diretório de dados existe
  */
 async function ensureStorageDir(): Promise<void> {
-  if (!existsSync(STORAGE_DIR)) {
-    await mkdir(STORAGE_DIR, { recursive: true });
+  try {
+    if (!existsSync(STORAGE_DIR)) {
+      await mkdir(STORAGE_DIR, { recursive: true });
+    }
+  } catch (error: any) {
+    // No Vercel, o sistema de arquivos é read-only em runtime (exceto /tmp)
+    // Ignora erro de criação de diretório - não é crítico se o arquivo já existe
+    if (error.code !== 'EEXIST') {
+      console.warn('[AutomatedNews] Não foi possível criar diretório (normal no Vercel):', error.message);
+    }
   }
 }
 
