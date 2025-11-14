@@ -16,6 +16,14 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
     ]);
 
     console.log(`[NewsAggregator] Mock: ${mockNews.length}, RSS: ${rssNews.length}, Automated: ${automatedNews.length}`);
+    
+    // LOG DETALHADO DAS PRIMEIRAS NOTÍCIAS MOCK
+    if (mockNews.length > 0) {
+      console.log(`[NewsAggregator] Primeiras 3 notícias MOCK:`);
+      mockNews.slice(0, 3).forEach((n, i) => {
+        console.log(`  ${i + 1}. "${n.title}" - ${n.category} - ${n.city} - ${n.publishedAt}`);
+      });
+    }
 
     // Calcula a data de 10 dias atrás (timezone de São Paulo - UTC-3)
     const now = new Date();
