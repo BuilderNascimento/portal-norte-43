@@ -15,8 +15,8 @@ import {
 } from "@/lib/news-aggregator";
 import { formatDateOnlyBR, formatDateShortBR } from "@/lib/utils/date";
 
-// ISR: Revalida a cada 5 minutos (300 segundos) - melhor performance
-export const revalidate = 300;
+// ISR: Revalida a cada 1 minuto (60 segundos) - para garantir que novas notícias apareçam rapidamente
+export const revalidate = 60;
 
 interface HomeProps {
   searchParams: Promise<{ category?: string; city?: string }>;

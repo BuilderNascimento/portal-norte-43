@@ -25,19 +25,50 @@ export async function getAggregatedNews(filters?: { city?: string; category?: st
 
     // Combina todas as fontes e filtra notícias com menos de 10 dias
     // Remove duplicatas baseado no slug
+    // IMPORTANTE: Prioriza mockNews sobre outras fontes para evitar duplicatas
     const allNewsMap = new Map<string, NewsItem>();
     
-    [...mockNews, ...rssNews, ...automatedNews].forEach(news => {
+    // Primeiro adiciona mockNews (prioridade)
+    mockNews.forEach(news => {
+      const newsDate = new Date(news.publishedAt);
+      const isRecent = newsDate >= tenDaysAgo;
+      if (isRecent) {
+        allNewsMap.set(news.slug, news);
+        console.log(`[NewsAggregator] Mock adicionada: ${news.title} (${news.slug})`);
+      } else {
+        console.log(`[NewsAggregator] Mock filtrada (muito antiga): ${news.title} - ${news.publishedAt}`);
+      }
+    });
+    
+    // Depois adiciona RSS (se não for duplicata)
+    rssNews.forEach(news => {
       const newsDate = new Date(news.publishedAt);
       const isRecent = newsDate >= tenDaysAgo;
       const isDuplicate = allNewsMap.has(news.slug);
       
       if (isRecent && !isDuplicate) {
         allNewsMap.set(news.slug, news);
+        console.log(`[NewsAggregator] RSS adicionada: ${news.title} (${news.slug})`);
       } else if (!isRecent) {
-        console.log(`[NewsAggregator] Notícia filtrada (muito antiga): ${news.title} - ${news.publishedAt}`);
+        console.log(`[NewsAggregator] RSS filtrada (muito antiga): ${news.title} - ${news.publishedAt}`);
       } else if (isDuplicate) {
-        console.log(`[NewsAggregator] Notícia duplicada ignorada: ${news.title} (slug: ${news.slug})`);
+        console.log(`[NewsAggregator] RSS duplicada ignorada: ${news.title} (slug: ${news.slug})`);
+      }
+    });
+    
+    // Por último adiciona automatedNews (se não for duplicata)
+    automatedNews.forEach(news => {
+      const newsDate = new Date(news.publishedAt);
+      const isRecent = newsDate >= tenDaysAgo;
+      const isDuplicate = allNewsMap.has(news.slug);
+      
+      if (isRecent && !isDuplicate) {
+        allNewsMap.set(news.slug, news);
+        console.log(`[NewsAggregator] Automated adicionada: ${news.title} (${news.slug})`);
+      } else if (!isRecent) {
+        console.log(`[NewsAggregator] Automated filtrada (muito antiga): ${news.title} - ${news.publishedAt}`);
+      } else if (isDuplicate) {
+        console.log(`[NewsAggregator] Automated duplicada ignorada: ${news.title} (slug: ${news.slug})`);
       }
     });
     
@@ -145,4 +176,3 @@ export async function getRelatedNews(currentSlug: string, category?: string, cit
     return [];
   }
 }
-
