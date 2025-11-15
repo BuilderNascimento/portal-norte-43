@@ -17,17 +17,29 @@ export default function AdminLoginPage() {
     setError('');
     setLoading(true);
 
+    // LOG FORÇADO PARA DEBUG
+    console.log('🔍 [LOGIN PAGE] ========== INÍCIO DO SUBMIT ==========');
+    console.log('🔍 [LOGIN PAGE] Email digitado:', email);
+    console.log('🔍 [LOGIN PAGE] Senha digitada:', password ? '***' : '(vazia)');
+    console.log('🔍 [LOGIN PAGE] Versão do código: 2025-01-XX-DEBUG-V2');
+
     try {
+      console.log('🔍 [LOGIN PAGE] Chamando função login()...');
       const result = await login({ email, password });
-      console.log('[Login] Login bem-sucedido:', result);
+      console.log('✅ [LOGIN PAGE] Login bem-sucedido:', result);
       
       // Aguardar um pouco para garantir que a sessão está salva
       await new Promise(resolve => setTimeout(resolve, 500));
       
+      console.log('🔍 [LOGIN PAGE] Redirecionando para /admin...');
       router.push('/admin');
       router.refresh();
     } catch (err: any) {
-      console.error('[Login] Erro no login:', err);
+      console.error('❌ [LOGIN PAGE] Erro capturado no catch:', err);
+      console.error('❌ [LOGIN PAGE] Tipo do erro:', err?.constructor?.name);
+      console.error('❌ [LOGIN PAGE] Mensagem:', err?.message);
+      console.error('❌ [LOGIN PAGE] Stack:', err?.stack);
+      
       const errorMessage = err.message || 'Erro ao fazer login';
       setError(errorMessage);
       
@@ -41,6 +53,7 @@ export default function AdminLoginPage() {
       }
     } finally {
       setLoading(false);
+      console.log('🔍 [LOGIN PAGE] ========== FIM DO SUBMIT ==========');
     }
   };
 
