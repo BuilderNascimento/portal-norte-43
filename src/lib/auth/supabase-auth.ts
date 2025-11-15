@@ -46,7 +46,11 @@ export async function login(credentials: LoginCredentials) {
     
     if (!author) {
       console.error('[Auth] Autor não encontrado para user ID:', data.user.id);
-      throw new Error('Autor não encontrado. Verifique se o usuário está configurado corretamente.');
+      console.error('[Auth] Email do usuário:', data.user.email);
+      console.error('[Auth] Verifique se existe um registro na tabela authors com:');
+      console.error('[Auth]   - auth_user_id =', data.user.id);
+      console.error('[Auth]   - OU email =', data.user.email);
+      throw new Error('Autor não encontrado ou sem permissão. Verifique se o usuário está configurado corretamente no banco de dados.');
     }
 
     if (!author.is_active) {
@@ -120,17 +124,45 @@ export async function getCurrentUser() {
  */
 export async function getAuthorByAuthUserId(authUserId: string): Promise<Author | null> {
   try {
-    const { data, error } = await supabase
+    // Primeiro, tentar buscar por auth_user_id
+    let { data, error } = await supabase
       .from('authors')
       .select('*')
       .eq('auth_user_id', authUserId)
-      .eq('is_active', true)
       .single();
+
+    // Se não encontrar por auth_user_id, tentar buscar por email do usuário
+    if (error && error.code === 'PGRST116') {
+      console.warn('[Auth] Autor não encontrado por auth_user_id, tentando buscar por email...');
+      
+      // Buscar email do usuário no auth.users
+      const { data: userData } = await supabase.auth.getUser();
+      if (userData?.user?.email) {
+        const { data: authorData, error: authorError } = await supabase
+          .from('authors')
+          .select('*')
+          .eq('email', userData.user.email)
+          .single();
+        
+        if (!authorError && authorData) {
+          // Se encontrou por email, atualizar auth_user_id
+          console.log('[Auth] Autor encontrado por email, atualizando auth_user_id...');
+          await supabase
+            .from('authors')
+            .update({ auth_user_id: authUserId, is_active: true })
+            .eq('id', authorData.id);
+          
+          data = { ...authorData, auth_user_id: authUserId, is_active: true };
+          error = null;
+        }
+      }
+    }
 
     if (error) {
       if (error.code === 'PGRST116') {
         // Não encontrado
-        console.warn('[Auth] Autor não encontrado para auth_user_id:', authUserId);
+        console.error('[Auth] Autor não encontrado para auth_user_id:', authUserId);
+        console.error('[Auth] Erro completo:', error);
         return null;
       }
       console.error('[Auth] Erro ao buscar autor:', error);
@@ -138,6 +170,13 @@ export async function getAuthorByAuthUserId(authUserId: string): Promise<Author 
     }
 
     if (!data) {
+      console.error('[Auth] Dados do autor não retornados');
+      return null;
+    }
+
+    // Verificar se está ativo
+    if (data.is_active === false) {
+      console.error('[Auth] Autor está inativo');
       return null;
     }
 
