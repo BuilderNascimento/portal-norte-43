@@ -22,43 +22,102 @@ export interface RegisterData {
  */
 export async function login(credentials: LoginCredentials) {
   try {
-    console.log('[Auth] Tentando fazer login com:', credentials.email);
+    console.log('[Auth] ========== INÍCIO DO LOGIN ==========');
+    console.log('[Auth] Email:', credentials.email);
+    console.log('[Auth] Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 30) + '...');
+    console.log('[Auth] Supabase Key configurado:', !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
     
+    // PASSO 1: Tentar fazer login no Supabase Auth
+    console.log('[Auth] PASSO 1: Tentando autenticar no Supabase Auth...');
     const { data, error } = await supabase.auth.signInWithPassword({
       email: credentials.email,
       password: credentials.password,
     });
 
     if (error) {
-      console.error('[Auth] Erro no login:', error);
-      throw new Error(error.message);
+      console.error('[Auth] ❌ ERRO no Supabase Auth:', error);
+      console.error('[Auth] Código do erro:', error.code);
+      console.error('[Auth] Mensagem:', error.message);
+      console.error('[Auth] Status:', error.status);
+      throw new Error(error.message || 'Erro ao fazer login');
     }
 
     if (!data.user) {
-      console.error('[Auth] Usuário não retornado');
+      console.error('[Auth] ❌ Usuário não retornado pelo Supabase Auth');
       throw new Error('Usuário não encontrado');
     }
 
-    console.log('[Auth] Login bem-sucedido, user ID:', data.user.id);
+    console.log('[Auth] ✅ Login no Supabase Auth bem-sucedido!');
+    console.log('[Auth] User ID:', data.user.id);
+    console.log('[Auth] Email:', data.user.email);
+    console.log('[Auth] Email confirmado:', !!data.user.email_confirmed_at);
 
-    // Buscar dados do autor
+    // PASSO 2: Buscar dados do autor
+    console.log('[Auth] PASSO 2: Buscando autor na tabela authors...');
+    console.log('[Auth] Buscando por auth_user_id:', data.user.id);
+    
     const author = await getAuthorByAuthUserId(data.user.id);
     
     if (!author) {
-      console.error('[Auth] Autor não encontrado para user ID:', data.user.id);
-      console.error('[Auth] Email do usuário:', data.user.email);
-      console.error('[Auth] Verifique se existe um registro na tabela authors com:');
-      console.error('[Auth]   - auth_user_id =', data.user.id);
-      console.error('[Auth]   - OU email =', data.user.email);
-      throw new Error('Autor não encontrado ou sem permissão. Verifique se o usuário está configurado corretamente no banco de dados.');
+      console.error('[Auth] ❌ Autor não encontrado!');
+      console.error('[Auth] Tentando buscar por email como fallback...');
+      
+      // FALLBACK: Tentar buscar por email
+      const { data: authorByEmail, error: emailError } = await supabase
+        .from('authors')
+        .select('*')
+        .eq('email', data.user.email)
+        .single();
+      
+      if (emailError) {
+        console.error('[Auth] ❌ Erro ao buscar por email:', emailError);
+      } else if (authorByEmail) {
+        console.log('[Auth] ✅ Autor encontrado por email!');
+        console.log('[Auth] Autor encontrado:', authorByEmail);
+        console.log('[Auth] auth_user_id atual:', authorByEmail.auth_user_id);
+        console.log('[Auth] is_active:', authorByEmail.is_active);
+        
+        // Tentar atualizar auth_user_id
+        console.log('[Auth] Tentando atualizar auth_user_id...');
+        const { error: updateError } = await supabase
+          .from('authors')
+          .update({ auth_user_id: data.user.id, is_active: true })
+          .eq('id', authorByEmail.id);
+        
+        if (updateError) {
+          console.error('[Auth] ❌ Erro ao atualizar auth_user_id:', updateError);
+        } else {
+          console.log('[Auth] ✅ auth_user_id atualizado! Tentando buscar novamente...');
+          const authorRetry = await getAuthorByAuthUserId(data.user.id);
+          if (authorRetry) {
+            console.log('[Auth] ✅ Autor encontrado após atualização!');
+            return {
+              user: data.user,
+              author: authorRetry,
+              session: data.session,
+            };
+          }
+        }
+      }
+      
+      console.error('[Auth] ❌ FALHA TOTAL: Autor não encontrado nem por auth_user_id nem por email');
+      console.error('[Auth] User ID:', data.user.id);
+      console.error('[Auth] Email:', data.user.email);
+      throw new Error('Credenciais inválidas ou usuário sem permissão.');
     }
 
+    console.log('[Auth] ✅ Autor encontrado!');
+    console.log('[Auth] Autor ID:', author.id);
+    console.log('[Auth] Autor email:', author.email);
+    console.log('[Auth] Autor role:', author.role);
+    console.log('[Auth] Autor is_active:', author.is_active);
+
     if (!author.is_active) {
-      console.error('[Auth] Autor está inativo');
+      console.error('[Auth] ❌ Autor está inativo');
       throw new Error('Sua conta está inativa. Entre em contato com o administrador.');
     }
 
-    console.log('[Auth] Autor encontrado:', author.email, 'Role:', author.role);
+    console.log('[Auth] ========== LOGIN BEM-SUCEDIDO ==========');
     
     return {
       user: data.user,
@@ -66,7 +125,10 @@ export async function login(credentials: LoginCredentials) {
       session: data.session,
     };
   } catch (error: any) {
-    console.error('[Auth] Erro completo no login:', error);
+    console.error('[Auth] ========== ERRO NO LOGIN ==========');
+    console.error('[Auth] Erro completo:', error);
+    console.error('[Auth] Tipo do erro:', error?.constructor?.name);
+    console.error('[Auth] Stack:', error?.stack);
     throw error;
   }
 }
