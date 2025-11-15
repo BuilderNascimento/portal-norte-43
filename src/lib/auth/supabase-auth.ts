@@ -21,27 +21,50 @@ export interface RegisterData {
  * Faz login do usuário
  */
 export async function login(credentials: LoginCredentials) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: credentials.email,
-    password: credentials.password,
-  });
+  try {
+    console.log('[Auth] Tentando fazer login com:', credentials.email);
+    
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: credentials.email,
+      password: credentials.password,
+    });
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      console.error('[Auth] Erro no login:', error);
+      throw new Error(error.message);
+    }
+
+    if (!data.user) {
+      console.error('[Auth] Usuário não retornado');
+      throw new Error('Usuário não encontrado');
+    }
+
+    console.log('[Auth] Login bem-sucedido, user ID:', data.user.id);
+
+    // Buscar dados do autor
+    const author = await getAuthorByAuthUserId(data.user.id);
+    
+    if (!author) {
+      console.error('[Auth] Autor não encontrado para user ID:', data.user.id);
+      throw new Error('Autor não encontrado. Verifique se o usuário está configurado corretamente.');
+    }
+
+    if (!author.is_active) {
+      console.error('[Auth] Autor está inativo');
+      throw new Error('Sua conta está inativa. Entre em contato com o administrador.');
+    }
+
+    console.log('[Auth] Autor encontrado:', author.email, 'Role:', author.role);
+    
+    return {
+      user: data.user,
+      author,
+      session: data.session,
+    };
+  } catch (error: any) {
+    console.error('[Auth] Erro completo no login:', error);
+    throw error;
   }
-
-  if (!data.user) {
-    throw new Error('Usuário não encontrado');
-  }
-
-  // Buscar dados do autor
-  const author = await getAuthorByAuthUserId(data.user.id);
-  
-  return {
-    user: data.user,
-    author,
-    session: data.session,
-  };
 }
 
 /**
@@ -55,94 +78,94 @@ export async function logout() {
 }
 
 /**
- * Registra novo usuário (apenas admins)
+ * Registra novo usuário (apenas admins via API)
+ * Nota: Esta função deve ser chamada do servidor usando supabaseAdmin
  */
 export async function registerUser(data: RegisterData) {
-  // Criar usuário no Supabase Auth
-  const { data: authData, error: authError } = await supabase.auth.admin.createUser({
-    email: data.email,
-    password: data.password,
-    email_confirm: true, // Auto-confirmar email
-    user_metadata: {
-      name: data.name,
-      role: data.role || 'collaborator',
-    },
-  });
-
-  if (authError) {
-    throw new Error(authError.message);
-  }
-
-  if (!authData.user) {
-    throw new Error('Erro ao criar usuário');
-  }
-
-  // O trigger handle_new_user() criará o autor automaticamente
-  // Aguardar um pouco e buscar o autor criado
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
-  const author = await getAuthorByAuthUserId(authData.user.id);
-  
-  return {
-    user: authData.user,
-    author,
-  };
+  // Esta função será implementada no endpoint da API
+  // pois precisa usar service_role para criar usuários
+  throw new Error('Use o endpoint /api/admin/users para criar usuários');
 }
 
 /**
  * Obtém usuário atual
  */
 export async function getCurrentUser() {
-  const { data: { user }, error } = await supabase.auth.getUser();
-  
-  if (error || !user) {
+  try {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    
+    if (error) {
+      console.error('[Auth] Erro ao obter usuário:', error);
+      return null;
+    }
+    
+    if (!user) {
+      return null;
+    }
+
+    const author = await getAuthorByAuthUserId(user.id);
+    
+    return {
+      user,
+      author,
+    };
+  } catch (error) {
+    console.error('[Auth] Erro ao obter usuário atual:', error);
     return null;
   }
-
-  const author = await getAuthorByAuthUserId(user.id);
-  
-  return {
-    user,
-    author,
-  };
 }
 
 /**
  * Busca autor por auth_user_id
  */
 export async function getAuthorByAuthUserId(authUserId: string): Promise<Author | null> {
-  const { data, error } = await supabase
-    .from('authors')
-    .select('*')
-    .eq('auth_user_id', authUserId)
-    .eq('is_active', true)
-    .single();
+  try {
+    const { data, error } = await supabase
+      .from('authors')
+      .select('*')
+      .eq('auth_user_id', authUserId)
+      .eq('is_active', true)
+      .single();
 
-  if (error || !data) {
-    return null;
-  }
+    if (error) {
+      if (error.code === 'PGRST116') {
+        // Não encontrado
+        console.warn('[Auth] Autor não encontrado para auth_user_id:', authUserId);
+        return null;
+      }
+      console.error('[Auth] Erro ao buscar autor:', error);
+      return null;
+    }
 
-  return {
-    id: data.id,
-    name: data.name,
-    email: data.email,
-    role: data.role,
-    auth_user_id: data.auth_user_id,
-    permissions: {
-      can_create: data.can_create ?? true,
-      can_edit: data.can_edit ?? true,
-      can_delete: data.can_delete ?? false,
-      can_review: data.can_review ?? false,
-      can_manage_users: data.can_manage_users ?? false,
+    if (!data) {
+      return null;
+    }
+
+    return {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      role: data.role,
+      auth_user_id: data.auth_user_id,
+      permissions: {
+        can_create: data.can_create ?? true,
+        can_edit: data.can_edit ?? true,
+        can_delete: data.can_delete ?? false,
+        can_review: data.can_review ?? false,
+        can_manage_users: data.can_manage_users ?? false,
+        allowed_categories: data.allowed_categories || [],
+        allowed_cities: data.allowed_cities || [],
+      },
       allowed_categories: data.allowed_categories || [],
       allowed_cities: data.allowed_cities || [],
-    },
-    allowed_categories: data.allowed_categories || [],
-    allowed_cities: data.allowed_cities || [],
-    is_active: data.is_active ?? true,
-    created_at: data.created_at,
-    updated_at: data.updated_at,
-  };
+      is_active: data.is_active ?? true,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+    };
+  } catch (error) {
+    console.error('[Auth] Erro ao buscar autor:', error);
+    return null;
+  }
 }
 
 /**
@@ -207,4 +230,3 @@ export function canAccessCity(author: Author | null, city: string): boolean {
   // Verificar se cidade está na lista permitida
   return author.allowed_cities.includes(city);
 }
-

@@ -18,11 +18,27 @@ export default function AdminLoginPage() {
     setLoading(true);
 
     try {
-      await login({ email, password });
+      const result = await login({ email, password });
+      console.log('[Login] Login bem-sucedido:', result);
+      
+      // Aguardar um pouco para garantir que a sessão está salva
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
       router.push('/admin');
       router.refresh();
     } catch (err: any) {
-      setError(err.message || 'Erro ao fazer login');
+      console.error('[Login] Erro no login:', err);
+      const errorMessage = err.message || 'Erro ao fazer login';
+      setError(errorMessage);
+      
+      // Mensagens mais amigáveis
+      if (errorMessage.includes('Invalid login credentials') || errorMessage.includes('Invalid')) {
+        setError('Email ou senha incorretos. Verifique suas credenciais.');
+      } else if (errorMessage.includes('not found') || errorMessage.includes('não encontrado')) {
+        setError('Usuário não encontrado. Verifique se o email está correto.');
+      } else {
+        setError(errorMessage);
+      }
     } finally {
       setLoading(false);
     }
