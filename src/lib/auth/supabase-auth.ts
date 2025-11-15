@@ -186,6 +186,8 @@ export async function getCurrentUser() {
  */
 export async function getAuthorByAuthUserId(authUserId: string): Promise<Author | null> {
   try {
+    console.log('[Auth] getAuthorByAuthUserId - Buscando autor para auth_user_id:', authUserId);
+    
     // Primeiro, tentar buscar por auth_user_id
     let { data, error } = await supabase
       .from('authors')
@@ -193,12 +195,18 @@ export async function getAuthorByAuthUserId(authUserId: string): Promise<Author 
       .eq('auth_user_id', authUserId)
       .single();
 
+    console.log('[Auth] Query por auth_user_id - data:', data ? 'encontrado' : 'não encontrado');
+    console.log('[Auth] Query por auth_user_id - error:', error);
+
     // Se não encontrar por auth_user_id, tentar buscar por email do usuário
     if (error && error.code === 'PGRST116') {
       console.warn('[Auth] Autor não encontrado por auth_user_id, tentando buscar por email...');
       
       // Buscar email do usuário no auth.users
-      const { data: userData } = await supabase.auth.getUser();
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      console.log('[Auth] getUser - userData:', userData?.user?.email);
+      console.log('[Auth] getUser - userError:', userError);
+      
       if (userData?.user?.email) {
         const { data: authorData, error: authorError } = await supabase
           .from('authors')
@@ -206,16 +214,23 @@ export async function getAuthorByAuthUserId(authUserId: string): Promise<Author 
           .eq('email', userData.user.email)
           .single();
         
+        console.log('[Auth] Query por email - authorData:', authorData ? 'encontrado' : 'não encontrado');
+        console.log('[Auth] Query por email - authorError:', authorError);
+        
         if (!authorError && authorData) {
           // Se encontrou por email, atualizar auth_user_id
           console.log('[Auth] Autor encontrado por email, atualizando auth_user_id...');
-          await supabase
+          const { error: updateError } = await supabase
             .from('authors')
             .update({ auth_user_id: authUserId, is_active: true })
             .eq('id', authorData.id);
           
-          data = { ...authorData, auth_user_id: authUserId, is_active: true };
-          error = null;
+          console.log('[Auth] Update auth_user_id - error:', updateError);
+          
+          if (!updateError) {
+            data = { ...authorData, auth_user_id: authUserId, is_active: true };
+            error = null;
+          }
         }
       }
     }
@@ -223,22 +238,26 @@ export async function getAuthorByAuthUserId(authUserId: string): Promise<Author 
     if (error) {
       if (error.code === 'PGRST116') {
         // Não encontrado
-        console.error('[Auth] Autor não encontrado para auth_user_id:', authUserId);
-        console.error('[Auth] Erro completo:', error);
+        console.error('[Auth] ❌ Autor não encontrado para auth_user_id:', authUserId);
+        console.error('[Auth] ❌ Erro completo:', error);
         return null;
       }
-      console.error('[Auth] Erro ao buscar autor:', error);
+      console.error('[Auth] ❌ Erro ao buscar autor:', error);
+      console.error('[Auth] ❌ Código do erro:', error.code);
+      console.error('[Auth] ❌ Mensagem do erro:', error.message);
       return null;
     }
 
     if (!data) {
-      console.error('[Auth] Dados do autor não retornados');
+      console.error('[Auth] ❌ Dados do autor não retornados');
       return null;
     }
 
+    console.log('[Auth] ✅ Autor encontrado! ID:', data.id, 'Email:', data.email, 'is_active:', data.is_active);
+
     // Verificar se está ativo
     if (data.is_active === false) {
-      console.error('[Auth] Autor está inativo');
+      console.error('[Auth] ❌ Autor está inativo');
       return null;
     }
 
