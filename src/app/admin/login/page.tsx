@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { login } from '@/lib/auth/supabase-auth';
@@ -12,14 +12,28 @@ export default function AdminLoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // LOG FORÇADO AO CARREGAR A PÁGINA
+  useEffect(() => {
+    console.log('🚀🚀🚀 PÁGINA DE LOGIN CARREGADA - VERSÃO DEBUG 2025-01-XX 🚀🚀🚀');
+    console.log('🚀 Verificando se o código novo está rodando...');
+    console.log('🚀 Se você vê esta mensagem, o código novo está rodando!');
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
+    // LOG FORÇADO NO INÍCIO DO SUBMIT
+    console.log('🚀🚀🚀 SUBMIT DO FORMULÁRIO - INÍCIO 🚀🚀🚀');
+    console.log('🚀 Email digitado:', email);
+    console.log('🚀 Senha digitada:', password ? '***' : '(vazia)');
+    console.log('🚀 Versão do código: DEBUG-2025-01-XX-V3');
+
     try {
+      console.log('🚀 Chamando função login()...');
       const result = await login({ email, password });
-      console.log('[Login] Login bem-sucedido:', result);
+      console.log('✅ [Login] Login bem-sucedido:', result);
       
       // Aguardar um pouco para garantir que a sessão está salva
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -27,7 +41,12 @@ export default function AdminLoginPage() {
       router.push('/admin');
       router.refresh();
     } catch (err: any) {
-      console.error('[Login] Erro no login:', err);
+      console.error('❌❌❌ ERRO CAPTURADO NO CATCH ❌❌❌');
+      console.error('❌ Erro completo:', err);
+      console.error('❌ Tipo:', err?.constructor?.name);
+      console.error('❌ Mensagem:', err?.message);
+      console.error('❌ Stack:', err?.stack);
+      
       const errorMessage = err.message || 'Erro ao fazer login';
       setError(errorMessage);
       
